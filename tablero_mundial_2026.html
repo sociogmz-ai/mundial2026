@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablero Mundial 2026 — Análisis, Probabilidades y Simulador</title>
+<style>
+  :root{
+    --bg:#0a1628; --bg2:#0f2038; --card:#13263f; --card2:#1a3050;
+    --gold:#e8c258; --txt:#e9eef5; --mut:#8aa0b8; --green:#3ecf8e; --red:#ef6a6a; --amber:#f0b35a;
+    --line:#23405f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.45}
+  header{background:linear-gradient(135deg,#0d1f38 0%,#173763 60%,#0d1f38 100%);padding:24px 20px 14px;text-align:center;border-bottom:2px solid var(--gold)}
+  header h1{font-size:1.6rem;letter-spacing:.5px}
+  header h1 span{color:var(--gold)}
+  header p{color:var(--mut);font-size:.82rem;margin-top:5px}
+  .hero{background:#0c1d33;border-bottom:1px solid var(--line);padding:12px 14px}
+  .hero h2{text-align:center;font-size:.74rem;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:9px}
+  .chips{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 14px;text-align:center;min-width:108px;cursor:pointer;transition:.2s}
+  .chip:hover{border-color:var(--gold)}
+  .chip .pc{color:var(--gold);font-weight:800;font-size:1.05rem}
+  .chip .nm{font-size:.78rem;margin-top:1px}
+  .chip.c1{border-color:var(--gold);box-shadow:0 0 12px rgba(232,194,88,.25)}
+  .layout{display:flex;align-items:flex-start;max-width:1440px;margin:0 auto}
+  .tabs{display:flex;flex-direction:column;gap:8px;background:linear-gradient(180deg,#0f2038 0%,#0c1a2e 100%);padding:20px 14px;position:sticky;top:0;z-index:10;min-width:225px;border-right:1px solid var(--line);border-radius:0 0 14px 0}
+  .tabs::before{content:'MENÚ';color:var(--mut);font-size:.64rem;letter-spacing:2px;padding:0 8px 6px;border-bottom:1px solid var(--line);margin-bottom:4px}
+  .tab{background:transparent;color:var(--mut);border:1px solid transparent;border-radius:10px;padding:11px 14px;cursor:pointer;font-size:.9rem;transition:.2s;text-align:left;display:flex;align-items:center;gap:10px;width:100%}
+  .tab:hover{background:#16304f;color:var(--txt);border-color:var(--line)}
+  .tab.active{background:linear-gradient(135deg,var(--gold),#f5d97e);color:#10243d;font-weight:700;box-shadow:0 2px 10px rgba(232,194,88,.3)}
+  main{flex:1;min-width:0;padding:22px 24px 60px}
+  .flg{height:.95em;vertical-align:-.08em;border-radius:2px;box-shadow:0 0 2px rgba(0,0,0,.6)}
+  @media(max-width:860px){
+    .layout{flex-direction:column}
+    .tabs{flex-direction:row;overflow-x:auto;width:100%;min-width:0;padding:10px;border-right:none;border-bottom:1px solid var(--line);border-radius:0}
+    .tabs::before{display:none}
+    .tab{white-space:nowrap;width:auto;padding:8px 14px}
+    main{padding:18px 12px 50px;width:100%}
+  }
+  .view{display:none}.view.active{display:block}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+  .gcard{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .gcard h3{background:var(--card2);padding:9px 14px;font-size:.95rem;color:var(--gold);letter-spacing:.5px}
+  table{width:100%;border-collapse:collapse;font-size:.82rem}
+  th{color:var(--mut);font-weight:600;padding:6px 4px;border-bottom:1px solid var(--line);font-size:.72rem}
+  td{padding:7px 4px;border-bottom:1px solid rgba(35,64,95,.45);text-align:center}
+  td.eq{text-align:left;padding-left:12px;white-space:nowrap}
+  td.pts{color:var(--gold);font-weight:700}
+  td.proy{color:var(--green);font-weight:600}
+  tr.q1 td:first-child{border-left:3px solid var(--green)}
+  tr.q3 td:first-child{border-left:3px solid var(--amber)}
+  tr.q4 td:first-child{border-left:3px solid transparent}
+  .leyenda{color:var(--mut);font-size:.78rem;margin:14px 2px}
+  .leyenda b{color:var(--green)} .leyenda i{color:var(--amber);font-style:normal}
+  .mcard{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:18px;overflow:hidden}
+  .mtop{display:flex;justify-content:space-between;align-items:center;background:var(--card2);padding:8px 16px;font-size:.78rem;color:var(--mut);flex-wrap:wrap;gap:6px}
+  .mtop .grp{color:var(--gold);font-weight:700}
+  .mmain{display:flex;align-items:center;justify-content:center;gap:18px;padding:16px 10px 6px;font-size:1.15rem;font-weight:700;flex-wrap:wrap;text-align:center}
+  .mmain .score{color:var(--gold);font-size:.95rem;background:#0c1c30;border:1px solid var(--line);border-radius:8px;padding:4px 10px}
+  .probbar{display:flex;height:26px;border-radius:7px;overflow:hidden;margin:10px 16px;font-size:.74rem;font-weight:700;color:#0e2138}
+  .pl{background:var(--green);display:flex;align-items:center;justify-content:center}
+  .pe{background:#b9c6d6;display:flex;align-items:center;justify-content:center}
+  .pv{background:var(--red);display:flex;align-items:center;justify-content:center}
+  .factores{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;padding:8px 16px}
+  .factor{background:#0c1c30;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.76rem}
+  .factor b{display:block;color:var(--gold);font-size:.68rem;text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px}
+  .seccion{padding:8px 16px 4px;font-size:.8rem}
+  .seccion h4{color:var(--gold);font-size:.72rem;text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
+  .forma{display:flex;gap:14px;flex-wrap:wrap}
+  .forma div{flex:1;min-width:240px}
+  .news{padding:10px 16px 16px;font-size:.8rem;color:#cdd9e6}
+  .news h4{color:var(--gold);font-size:.72rem;text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
+  .news li{margin-left:18px;margin-bottom:3px}
+  .analisis{padding:0 16px 14px;font-size:.82rem;color:#b9c9da;font-style:italic}
+  .dia{margin-bottom:20px}
+  .dia h3{color:var(--gold);font-size:1rem;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:8px}
+  .pline{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 14px;margin-bottom:6px;font-size:.85rem;flex-wrap:wrap;gap:4px}
+  .pline .hora{color:var(--gold);font-weight:700;min-width:84px}
+  .pline .sede{color:var(--mut);font-size:.74rem}
+  .pline .g{color:var(--mut);font-size:.72rem;border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+  .favrow{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px;display:grid;grid-template-columns:64px 1.1fr 2fr 2fr;gap:14px;align-items:center}
+  .favrow .pct{color:var(--gold);font-weight:800;font-size:1.3rem;text-align:center}
+  .favrow .tm{font-weight:700;font-size:1rem}
+  .favrow .tm small{display:block;color:var(--mut);font-weight:400;font-size:.72rem}
+  .favrow .pro{font-size:.76rem;color:#bfe8d2}
+  .favrow .con{font-size:.76rem;color:#f0c9c9}
+  .favrow .pro b,.favrow .con b{display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px}
+  .favrow .pro b{color:var(--green)} .favrow .con b{color:var(--red)}
+  @media(max-width:760px){.favrow{grid-template-columns:54px 1fr;}.favrow .pro,.favrow .con{grid-column:1/-1}}
+  .simbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+  .btn{background:var(--gold);color:#10243d;border:none;border-radius:8px;padding:8px 16px;font-weight:700;cursor:pointer;font-size:.85rem}
+  .btn.sec{background:transparent;color:var(--mut);border:1px solid var(--line)}
+  .champ{background:linear-gradient(135deg,#1a3050,#23456e);border:1px solid var(--gold);border-radius:14px;padding:16px;text-align:center;margin-bottom:18px}
+  .champ .t{font-size:.72rem;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px}
+  .champ .c{font-size:1.5rem;font-weight:800;margin-top:4px}
+  .champ .sub{color:var(--mut);font-size:.78rem;margin-top:4px}
+  .ronda{margin-bottom:22px}
+  .ronda h3{color:var(--gold);font-size:.95rem;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:10px}
+  .rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+  .sm{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:.8rem}
+  .sm .mid{color:var(--mut);font-size:.66rem;text-align:center;margin:2px 0}
+  .sm .row{display:flex;justify-content:space-between;align-items:center;padding:4px 6px;border-radius:6px;cursor:pointer}
+  .sm .row:hover{background:#0c1c30}
+  .sm .row.win{background:#11331f;border:1px solid #2c6e46}
+  .sm .row .pr{color:var(--mut);font-size:.7rem}
+  .sm .row.win .pr{color:var(--green);font-weight:700}
+  .simnote{color:var(--mut);font-size:.76rem;margin-bottom:14px}
+  .award{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:18px;overflow:hidden}
+  .award h3{background:var(--card2);padding:10px 16px;color:var(--gold);font-size:.95rem}
+  .award p.d{padding:8px 16px 0;color:var(--mut);font-size:.76rem}
+  .award table{margin-top:6px}
+  .tagfav{background:#3a2f12;color:var(--gold);border:1px solid var(--gold);border-radius:5px;padding:1px 6px;font-size:.66rem}
+  .props{margin:6px 16px 8px;background:#0c1c30;border:1px solid var(--line);border-radius:10px}
+  .props summary{cursor:pointer;padding:9px 12px;color:var(--gold);font-size:.78rem;font-weight:600}
+  .props summary:hover{color:#f5d97e}
+  .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;padding:2px 12px 10px}
+  .pbox{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.74rem;color:#cdd9e6}
+  .pbox b{display:block;color:var(--gold);font-size:.66rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+  .pbox ul{margin-left:16px}
+  .pnote{padding:0 12px 10px;color:var(--mut);font-size:.68rem}
+  .btnimg{background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:3px 10px;font-size:.7rem;cursor:pointer;transition:.2s}
+  .btnimg:hover{background:var(--gold);color:#10243d}
+  .btnref{background:transparent;border:1px solid var(--green);color:var(--green);border-radius:6px;padding:3px 10px;font-size:.7rem;cursor:pointer;transition:.2s}
+  .btnref:hover{background:var(--green);color:#0e2138}
+  .buscador{position:relative;margin:2px 0 10px}
+  #busca{width:100%;background:#0c1c30;border:1px solid var(--line);border-radius:8px;padding:9px 12px;color:var(--txt);font-size:.85rem;outline:none;transition:.2s}
+  #busca:focus{border-color:var(--gold);box-shadow:0 0 8px rgba(232,194,88,.2)}
+  #sugs{position:absolute;top:100%;left:0;right:0;background:#13263f;border:1px solid var(--line);border-radius:8px;z-index:60;max-height:280px;overflow:auto;display:none;margin-top:4px}
+  #sugs div{padding:8px 12px;cursor:pointer;font-size:.85rem;display:flex;gap:8px;align-items:center}
+  #sugs div:hover{background:#1a3050;color:var(--gold)}
+  .fhead{display:flex;gap:20px;align-items:center;background:linear-gradient(135deg,var(--card),#1a3258);border:1px solid var(--gold);border-radius:14px;padding:18px;margin-bottom:14px;flex-wrap:wrap}
+  .fhead img{width:112px;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.5)}
+  .fhead h2{font-size:1.6rem;margin-bottom:4px}
+  .fhead p{color:var(--mut);font-size:.86rem;margin-bottom:3px}
+  .fsec{color:var(--gold);margin:20px 0 9px;font-size:1rem;border-bottom:1px solid var(--line);padding-bottom:5px}
+  .clickeq{cursor:pointer;transition:.15s}
+  .clickeq:hover{color:var(--gold);text-decoration:underline}
+  .statwrap{margin:10px 16px 4px;background:#0c1c30;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .sthead{color:var(--gold);font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+  .sthead span{color:var(--mut);text-transform:none;font-weight:400;letter-spacing:0}
+  .strow{display:grid;grid-template-columns:minmax(150px,210px) 1fr;gap:10px;align-items:start;margin-bottom:7px}
+  .slbl{font-size:.74rem;color:#cdd9e6;padding-top:2px}
+  .sbar{display:flex;height:18px;border-radius:5px;overflow:hidden;font-size:.68rem;font-weight:700;color:#0e2138}
+  .sa{background:var(--green);display:flex;align-items:center;justify-content:center;min-width:34px}
+  .sb{background:var(--red);display:flex;align-items:center;justify-content:center;min-width:34px}
+  .scom{color:var(--mut);font-size:.68rem;margin-top:2px}
+  .stlists{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;margin-top:8px}
+  @media(max-width:560px){.strow{grid-template-columns:1fr}}
+  .met{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;font-size:.88rem;color:#c8d6e4}
+  .met h3{color:var(--gold);margin:14px 0 6px;font-size:.95rem}
+  .met a{color:#7fb4e8}
+  .met p{margin-bottom:8px}
+  footer{text-align:center;color:var(--mut);font-size:.72rem;padding:18px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚽ TABLERO <span>MUNDIAL 2026</span></h1>
+  <p id="stamp">Última actualización: 9 de junio de 2026 · Previa de la Jornada 1 · Se actualiza automáticamente cada mañana (7:00)</p>
+</header>
+
+<!-- FAVORITOS AL TÍTULO (parte superior, siempre visible) -->
+<div class="hero">
+  <h2>🏆 Favoritos para ganar la Copa del Mundo</h2>
+  <div class="chips" id="heroChips"></div>
+</div>
+
+<div class="layout">
+<nav class="tabs">
+  <div class="buscador">
+    <input id="busca" type="text" placeholder="🔍 Buscar selección..." autocomplete="off">
+    <div id="sugs"></div>
+  </div>
+  <button class="tab active" data-v="favoritos">🏆 Favoritos</button>
+  <button class="tab" data-v="grupos">📊 Fase de Grupos</button>
+  <button class="tab" data-v="jornada">🔮 Pronósticos J1</button>
+  <button class="tab" data-v="simulador">🗺 Simulador</button>
+  <button class="tab" data-v="premios">⭐ Premios individuales</button>
+  <button class="tab" data-v="calendario">📅 Calendario</button>
+  <button class="tab" data-v="metodo">📖 Metodología</button>
+</nav>
+<main>
+
+  <section id="favoritos" class="view active">
+    <p class="leyenda">Probabilidad de ganar el título según el modelo: ranking FIFA (5-jun), forma de los últimos 10 partidos, plantel, bajas, calendario/sedes (clima, altitud, viajes) e historial en torneos. Se recalcula a diario con los resultados. <button class="btnimg" onclick="imgFavoritos()">📷 Descargar imagen</button> <button class="btnref" onclick="location.reload()" title="Recarga el tablero con los últimos datos guardados">↻ Restablecer datos</button></p>
+    <div id="favList"></div>
+  </section>
+
+  <section id="grupos" class="view">
+    <p class="leyenda">Tablas oficiales calculadas con los resultados registrados (hoy: torneo sin iniciar). <span style="color:var(--green)">PROY</span> = puntos finales proyectados. <b>Verde</b>: 1.º y 2.º clasifican · <i>Ámbar</i>: 3.º puede avanzar entre los 8 mejores terceros. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con los últimos resultados registrados">↻ Restablecer datos</button></p>
+    <div class="grid" id="gridGrupos"></div>
+  </section>
+
+  <section id="jornada" class="view">
+    <p class="leyenda">Los 24 partidos de la Jornada 1 (11–17 de junio). Probabilidades Victoria local / Empate / Victoria visitante, marcador probable y factores: hora, clima, altitud y árbitro. Horas en ET. Debajo del marcador probable de cada ficha verás las <b>📊 barras de probabilidad</b> de cada mercado: reparto de faltas y primera falta, amarillas y primera tarjeta (con prob. de roja), córners por equipo y primer córner, mitad con más goles, tiros libres, rematadores con remates a puerta y goleadores probables. Verde = equipo izquierdo, rojo = derecho. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con las probabilidades más recientes">↻ Restablecer datos</button></p>
+    <div id="listaPartidos"></div>
+  </section>
+
+  <section id="simulador" class="view">
+    <p class="simnote">El simulador toma las posiciones <b>actuales</b> de los grupos (hoy, la proyección previa; conforme entren resultados reales, el cuadro se ajusta solo). Los terceros se asignan a su llave según las combinaciones oficiales de la FIFA. <b>Haz clic en cualquier equipo</b> para forzarlo como ganador de su cruce y ver cómo cambia el camino al título. El % es la probabilidad estimada de ganar ese cruce.</p>
+    <div class="simbar"><button class="btn sec" id="btnReset">↺ Restablecer simulación</button><button class="btnimg" onclick="imgSimulador()">📷 Descargar imagen del cuadro</button><button class="btnref" onclick="location.reload()" title="Recarga el tablero con las posiciones reales más recientes">↻ Restablecer datos</button><span class="simnote" id="ovCount"></span></div>
+    <div class="champ"><div class="t">Campeón proyectado</div><div class="c" id="champName">—</div><div class="sub" id="champSub"></div></div>
+    <div id="bracket"></div>
+  </section>
+
+  <section id="premios" class="view">
+    <p class="leyenda">Carrera por los premios individuales. Estadísticas del torneo (goles, asistencias, vallas invictas) en cero hasta el arranque; se actualizan cada mañana. La etiqueta <span class="tagfav">FAVORITO</span> marca al líder actual de cada carrera según el modelo. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con las estadísticas más recientes">↻ Restablecer datos</button></p>
+    <div id="awards"></div>
+  </section>
+
+  <section id="calendario" class="view">
+    <p class="leyenda">Los 72 partidos de la fase de grupos (11–27 de junio), hora ET. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con el calendario y horarios vigentes">↻ Restablecer datos</button></p>
+    <div id="cal"></div>
+  </section>
+
+  <section id="equipo" class="view">
+    <div id="fichaEquipo"></div>
+  </section>
+
+  <section id="metodo" class="view">
+    <div class="met">
+      <h3>🧮 Cómo se calculan las probabilidades</h3>
+      <p>Cada pronóstico combina: <b>(1) Ranking FIFA</b> del 5 de junio de 2026 (Argentina 1.º, España 2.º, Francia 3.º, Inglaterra 4.º, Portugal 5.º, Brasil 6.º, Marruecos 7.º, Países Bajos 8.º, Bélgica 9.º, Alemania 10.º; México 14.º). <b>(2) Forma reciente</b>: últimos 10 partidos de cada selección, con énfasis en los amistosos del 22 de mayo al 10 de junio. <b>(3) Factores contextuales</b>: localía, altitud (CDMX 2 240 m, Guadalajara 1 566 m, Monterrey 540 m), clima, horario, viajes y zonas horarias. <b>(4) Bajas y noticias</b>: lesiones confirmadas y dudas. <b>(5) Arbitraje</b>: perfil del árbitro designado cuando la FIFA lo confirma (~48 h antes).</p>
+      <h3>🗺 Cómo funciona el simulador</h3>
+      <p>A cada selección se le asigna un <b>rating de fuerza (0–100)</b> derivado de ranking, forma y plantel. La probabilidad de ganar un cruce se calcula con una curva logística sobre la diferencia de ratings. El cuadro usa el bracket oficial FIFA (Ronda de 32 → Octavos → Cuartos → Semifinales → Final) y la asignación reglamentaria de los 8 mejores terceros a las llaves permitidas.</p>
+      <h3>🔄 Actualización diaria automática</h3>
+      <p>Cada mañana a las 7:00 se registran los marcadores del día anterior (las tablas se recalculan solas), se recalibran probabilidades de los próximos partidos y de los favoritos al título, se actualizan goleadores/asistencias/vallas invictas y se agregan noticias: bajas, sanciones, tarjetas acumuladas y designaciones arbitrales.</p>
+      <h3>⚠️ Aviso</h3>
+      <p>Estimaciones informativas, no consejo de apuestas. Las listas de 26 son modificables hasta 24 h antes del debut de cada selección (reglamento FIFA).</p>
+      <h3>🔗 Fuentes</h3>
+      <p>
+        <a href="https://www.fifa.com/es/tournaments/mens/worldcup/canadamexicousa2026" target="_blank">FIFA.com — Mundial 2026</a> ·
+        <a href="https://bracketmundial2026.com/calendario" target="_blank">Calendario, grupos y bracket (datos FIFA)</a> ·
+        <a href="https://www.eluniverso.com/deportes/futbol/selecciones-clasificadas-al-mundial-2026-lista-completa-de-los-48-equipos-y-grupos-nota/" target="_blank">El Universo — 48 selecciones</a> ·
+        <a href="https://www.telemundo.com/deportes/copa-mundial-de-la-fifa-2026/ranking-fifa-previo-al-mundial-2026-mexico-sube-y-argentina-es-lider-rcna348760" target="_blank">Telemundo — Ranking FIFA 5-jun</a> ·
+        <a href="https://www.elgrafico.com.ar/articulo/mundial-2026/100376/todos-los-amistosos-previos-al-comienzo-del-mundial-resultados-proximos-cruces-y-mas" target="_blank">El Gráfico — Amistosos previos</a> ·
+        <a href="https://www.elgrafico.com.ar/articulo/mundial-2026/100511/mundial-2026-la-fifa-designo-los-arbitros-para-los-primeros-partidos-con-la-presencia-de-facundo-tello" target="_blank">El Gráfico — Árbitros</a> ·
+        <a href="https://www.infobae.com/mexico/2026/06/08/clima-en-cdmx-11-de-junio-llovera-en-el-mexico-vs-sudafrica-en-la-inauguracion-del-mundial-2026/" target="_blank">Infobae — Clima</a> ·
+        <a href="https://www.expreso.ec/deportes/copa-mundial-de-futbol/mundial-2026-ocho-selecciones-sufren-bajas-figuras-lesiones-inesperadas-debut-285039.html" target="_blank">Expreso — Bajas por lesión</a>
+      </p>
+    </div>
+  </section>
+</main>
+</div>
+<footer>Tablero no oficial con fines informativos · Datos: FIFA y prensa deportiva · Probabilidades: modelo propio · Actualización diaria 7:00 a.m.</footer>
+
+<script>
+// ============================================================
+// EQUIPOS: nombre, bandera, grupo, rating de fuerza (0-100), puntos proyectados
+// La tarea diaria puede ajustar "r" (forma) y "proy" tras cada jornada.
+// ============================================================
+const T = {
+ MEX:{n:"México",f:"🇲🇽",g:"A",r:77,proy:7}, KOR:{n:"Corea del Sur",f:"🇰🇷",g:"A",r:73,proy:4}, CZE:{n:"Chequia",f:"🇨🇿",g:"A",r:70,proy:3}, RSA:{n:"Sudáfrica",f:"🇿🇦",g:"A",r:64,proy:2},
+ SUI:{n:"Suiza",f:"🇨🇭",g:"B",r:78,proy:7}, CAN:{n:"Canadá",f:"🇨🇦",g:"B",r:74,proy:6}, BIH:{n:"Bosnia y Herz.",f:"🇧🇦",g:"B",r:66,proy:3}, QAT:{n:"Qatar",f:"🇶🇦",g:"B",r:60,proy:1},
+ BRA:{n:"Brasil",f:"🇧🇷",g:"C",r:86,proy:7}, MAR:{n:"Marruecos",f:"🇲🇦",g:"C",r:84,proy:6}, SCO:{n:"Escocia",f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",g:"C",r:70,proy:3}, HAI:{n:"Haití",f:"🇭🇹",g:"C",r:62,proy:1},
+ USA:{n:"Estados Unidos",f:"🇺🇸",g:"D",r:75,proy:6}, TUR:{n:"Turquía",f:"🇹🇷",g:"D",r:76,proy:5}, PAR:{n:"Paraguay",f:"🇵🇾",g:"D",r:71,proy:4}, AUS:{n:"Australia",f:"🇦🇺",g:"D",r:68,proy:2},
+ GER:{n:"Alemania",f:"🇩🇪",g:"E",r:85,proy:9}, ECU:{n:"Ecuador",f:"🇪🇨",g:"E",r:75,proy:5}, CIV:{n:"Costa de Marfil",f:"🇨🇮",g:"E",r:76,proy:4}, CUW:{n:"Curazao",f:"🇨🇼",g:"E",r:55,proy:0},
+ NED:{n:"Países Bajos",f:"🇳🇱",g:"F",r:82,proy:6}, JPN:{n:"Japón",f:"🇯🇵",g:"F",r:76,proy:5}, SWE:{n:"Suecia",f:"🇸🇪",g:"F",r:70,proy:3}, TUN:{n:"Túnez",f:"🇹🇳",g:"F",r:64,proy:2},
+ BEL:{n:"Bélgica",f:"🇧🇪",g:"G",r:81,proy:7}, IRN:{n:"Irán",f:"🇮🇷",g:"G",r:72,proy:5}, EGY:{n:"Egipto",f:"🇪🇬",g:"G",r:70,proy:3}, NZL:{n:"Nueva Zelanda",f:"🇳🇿",g:"G",r:58,proy:1},
+ ESP:{n:"España",f:"🇪🇸",g:"H",r:91,proy:9}, URU:{n:"Uruguay",f:"🇺🇾",g:"H",r:79,proy:6}, CPV:{n:"Cabo Verde",f:"🇨🇻",g:"H",r:66,proy:2}, KSA:{n:"Arabia Saudita",f:"🇸🇦",g:"H",r:65,proy:1},
+ FRA:{n:"Francia",f:"🇫🇷",g:"I",r:89,proy:7}, NOR:{n:"Noruega",f:"🇳🇴",g:"I",r:77,proy:5}, SEN:{n:"Senegal",f:"🇸🇳",g:"I",r:74,proy:4}, IRQ:{n:"Irak",f:"🇮🇶",g:"I",r:61,proy:1},
+ ARG:{n:"Argentina",f:"🇦🇷",g:"J",r:92,proy:9}, AUT:{n:"Austria",f:"🇦🇹",g:"J",r:74,proy:4}, ALG:{n:"Argelia",f:"🇩🇿",g:"J",r:73,proy:4}, JOR:{n:"Jordania",f:"🇯🇴",g:"J",r:58,proy:0},
+ POR:{n:"Portugal",f:"🇵🇹",g:"K",r:86,proy:9}, COL:{n:"Colombia",f:"🇨🇴",g:"K",r:78,proy:6}, UZB:{n:"Uzbekistán",f:"🇺🇿",g:"K",r:64,proy:2}, COD:{n:"RD Congo",f:"🇨🇩",g:"K",r:63,proy:1},
+ ENG:{n:"Inglaterra",f:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",g:"L",r:87,proy:7}, CRO:{n:"Croacia",f:"🇭🇷",g:"L",r:78,proy:5}, GHA:{n:"Ghana",f:"🇬🇭",g:"L",r:68,proy:2}, PAN:{n:"Panamá",f:"🇵🇦",g:"L",r:66,proy:2}
+};
+// Banderas reales (los emojis de bandera no se renderizan en Windows)
+const FLAGCODE={MEX:"mx",RSA:"za",KOR:"kr",CZE:"cz",SUI:"ch",CAN:"ca",BIH:"ba",QAT:"qa",BRA:"br",MAR:"ma",SCO:"gb-sct",HAI:"ht",USA:"us",TUR:"tr",PAR:"py",AUS:"au",GER:"de",ECU:"ec",CIV:"ci",CUW:"cw",NED:"nl",JPN:"jp",SWE:"se",TUN:"tn",BEL:"be",IRN:"ir",EGY:"eg",NZL:"nz",ESP:"es",URU:"uy",CPV:"cv",KSA:"sa",FRA:"fr",NOR:"no",SEN:"sn",IRQ:"iq",ARG:"ar",AUT:"at",ALG:"dz",JOR:"jo",POR:"pt",COL:"co",UZB:"uz",COD:"cd",ENG:"gb-eng",CRO:"hr",GHA:"gh",PAN:"pa"};
+const fl=c=>FLAGCODE[c]?`<img class="flg" src="https://flagcdn.com/h24/${FLAGCODE[c]}.png" alt="">`:'';
+const codeDe=nombre=>Object.keys(T).find(c=>T[c].n===nombre)||Object.keys(T).find(c=>nombre.startsWith(T[c].n.replace(/\./g,'')));
+const name=c=>fl(c)+" "+T[c].n;
+// Convierte "🇲🇽 México" (emoji que Windows no dibuja) en bandera real + nombre
+const equipo=str=>{const n=str.split(' ').slice(1).join(' ');const c=codeDe(n);return (c?fl(c)+' ':'')+n;};
+
+// ============================================================
+// RESULTADOS OFICIALES — la tarea diaria agrega aquí cada marcador final.
+// FORMATO: {f:"11 jun", g:"A", h:"MEX", a:"RSA", hg:2, ag:0}
+// ============================================================
+const RESULTADOS = [
+];
+
+// ============================================================
+// FAVORITOS AL TÍTULO (recalculados a diario)
+// ============================================================
+const FAVORITOS = [
+ {c:"ARG",p:16,pro:"Campeona vigente y 1.ª del ranking; bloque consolidado desde 2021; Messi motivado en su último Mundial; cerró la previa ganando.",con:"Baja de Balerdi (desgarro); edad de varios referentes; toda la presión de defender el título."},
+ {c:"ESP",p:15,pro:"2.ª del ranking con racha invicta histórica; Lamine Yamal en su pico; la plantilla más profunda del torneo; venció 3-1 a Perú en el cierre.",con:"El 1-1 ante Irak (con rotación) mostró que el plan B genera menos; expectativa altísima."},
+ {c:"FRA",p:11,pro:"3.ª del ranking; talento de élite en cada línea; Olise encendido (triplete a Irlanda del Norte); experiencia en finales (2018, 2022).",con:"Perdió 1-2 con Costa de Marfil; dudas defensivas; grupo I exigente con Senegal y Noruega."},
+ {c:"ENG",p:10,pro:"4.ª del ranking; Kane + Bellingham; jugará con techo y clima controlado en Dallas (sin factor calor); plantel profundo.",con:"Victorias discretas en la previa (1-0 a NZ); historial de quedarse corta en cruces grandes."},
+ {c:"BRA",p:9,pro:"Pegada intacta (6-2 a Panamá, 2-1 a Egipto); Ancelotti ordenó al equipo; 6.º del ranking.",con:"Neymar entre algodones (evolución positiva pero sin ritmo); baja de Wesley; debut difícil vs Marruecos."},
+ {c:"GER",p:8,pro:"La mejor forma de Europa: 4-0 a Finlandia y 2-1 a EE. UU. de visita; grupo E accesible; juega de día con techo cerrado en Houston.",con:"Baja del joven Karl; el 10.º del ranking refleja su irregularidad de los últimos años."},
+ {c:"POR",p:8,pro:"5.º del ranking; generación dorada en plenitud + CR7 a su sexto Mundial; grupo K manejable.",con:"Dependencia emocional de veteranos; Colombia al cierre del grupo puede costarle el 1.er puesto."},
+ {c:"MAR",p:5,pro:"7.º del ranking, mejor selección africana de la historia reciente (semifinal 2022); invicta en la previa (5-0, 4-0, 1-1 Noruega).",con:"Dudas físicas de Mazraoui y Ez Abde; debut directo contra Brasil; poca pólvora ante zagas top."},
+ {c:"NED",p:4,pro:"8.ª del ranking; plantel de élite y oficio en Mundiales.",con:"Perdió con Argelia y sufrió con Uzbekistán; baja de Timber; señales preocupantes de gol."},
+ {c:"MEX",p:3,pro:"Localía total: debut y cierre en el Azteca (2 240 m); 3 triunfos al hilo sin recibir gol; subió al 14.º del ranking; la altitud castiga al rival.",con:"Techo histórico de octavos; sin figuras en la élite top; la presión de local es arma de doble filo."},
+ {c:"BEL",p:3,pro:"Dos exhibiciones al cierre: 2-0 a Croacia de visita y 5-0 a Túnez; De Bruyne administra a una camada nueva con hambre.",con:"Transición generacional incompleta; zaga lenta ante delanteros rápidos."},
+ {c:"URU",p:2,pro:"El Uruguay de Bielsa compite contra cualquiera; Valverde y Núñez en plenitud; oficio copero.",con:"Grupo H con España; irregularidad ofensiva en partidos cerrados."}
+];
+
+// hero chips (top 6)
+document.getElementById('heroChips').innerHTML = FAVORITOS.slice(0,6).map((x,i)=>
+ `<div class="chip ${i==0?'c1':''}" onclick="document.querySelector('[data-v=favoritos]').click()"><div class="pc">${x.p}%</div><div class="nm">${name(x.c)}</div></div>`).join('')
+ + `<div class="chip"><div class="pc">${100-FAVORITOS.reduce((s,x)=>s+x.p,0)}%</div><div class="nm">🌍 Resto del campo</div></div>`;
+
+// favoritos tab
+document.getElementById('favList').innerHTML = FAVORITOS.map((x,i)=>
+ `<div class="favrow">
+   <div class="pct">${x.p}%</div>
+   <div class="tm">${i+1}. ${name(x.c)}<small>Grupo ${T[x.c].g} · Rating ${T[x.c].r}</small></div>
+   <div class="pro"><b>✔ A favor</b>${x.pro}</div>
+   <div class="con"><b>✖ En contra</b>${x.con}</div>
+ </div>`).join('') +
+ `<p class="leyenda">El ${100-FAVORITOS.reduce((s,x)=>s+x.p,0)}% restante se reparte entre las otras 36 selecciones (ninguna supera el 1 % individual hoy).</p>`;
+
+// ============================================================
+// TABLAS DE GRUPO calculadas desde RESULTADOS
+// ============================================================
+const GL = "ABCDEFGHIJKL".split("");
+function tablaGrupo(g){
+  const eqs = Object.keys(T).filter(c=>T[c].g===g);
+  const st = {}; eqs.forEach(c=>st[c]={c,pj:0,w:0,e:0,l:0,gf:0,gc:0,pts:0});
+  RESULTADOS.filter(r=>r.g===g && r.hg!=null).forEach(r=>{
+    const H=st[r.h], A=st[r.a];
+    H.pj++;A.pj++; H.gf+=r.hg;H.gc+=r.ag; A.gf+=r.ag;A.gc+=r.hg;
+    if(r.hg>r.ag){H.w++;H.pts+=3;A.l++;}
+    else if(r.hg<r.ag){A.w++;A.pts+=3;H.l++;}
+    else {H.e++;A.e++;H.pts++;A.pts++;}
+  });
+  return Object.values(st).sort((a,b)=> b.pts-a.pts || (b.gf-b.gc)-(a.gf-a.gc) || b.gf-a.gf || T[b.c].proy-T[a.c].proy || T[b.c].r-T[a.c].r);
+}
+document.getElementById('gridGrupos').innerHTML = GL.map(g=>{
+  const rows = tablaGrupo(g).map((s,i)=>`<tr class="${i<2?'q1':(i==2?'q3':'q4')}">
+    <td>${i+1}</td><td class="eq clickeq" onclick="verEquipo('${s.c}')" title="Ver ficha de ${T[s.c].n}">${name(s.c)}</td><td>${s.pj}</td><td>${s.w}</td><td>${s.e}</td><td>${s.l}</td><td>${s.gf}</td><td>${s.gc}</td><td>${s.gf-s.gc}</td><td class="pts">${s.pts}</td><td class="proy">${T[s.c].proy}</td></tr>`).join('');
+  return `<div class="gcard"><h3>GRUPO ${g} <button class="btnimg" style="float:right" onclick="imgGrupo('${g}')">📷 Imagen</button></h3>
+  <table><thead><tr><th>#</th><th style="text-align:left;padding-left:12px">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>DIF</th><th>PTS</th><th>PROY</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}).join('');
+
+// ============================================================
+// JORNADA 1 — fichas con pronóstico (la tarea diaria reemplaza por la jornada vigente)
+// ============================================================
+const J1 = [
+ {g:"A",f:"Jue 11 jun",h:"15:00 ET (13:00 CDMX)",e1:"🇲🇽 México",e2:"🇿🇦 Sudáfrica",sede:"Estadio Azteca, Ciudad de México",
+  p:[64,22,14],m:"2-0",alt:"2 240 m — la sede más alta del torneo; exige mucho a equipos no aclimatados",
+  clima:"~24 °C, nublado; 90 % prob. de lluvia desde las 15:00 local (el partido se jugaría mayormente en seco)",
+  arb:"Wilton Sampaio (BRA) · VAR: Nicolás Gallo (COL). Perfil: deja jugar, pero no duda en penales tras revisión",
+  f1:"V. 2-0 Ghana, V. 1-0 Australia, V. 5-1 Serbia — 3 triunfos al hilo, portería casi imbatida y subió al 14.º del ranking",
+  f2:"E. 0-0 Nicaragua, V. 1-0 Jamaica — sólida atrás pero con muy poca pegada ofensiva",
+  news:["México llega entero y con racha; Aguirre define al 9 titular tras la goleada a Serbia.","Sudáfrica sin bajas reportadas, pero apenas 1 gol en sus últimos 2 amistosos.","Ambiente: inauguración en el Azteca, presión y empuje total para el Tri."],
+  an:"Localía, altitud y forma apuntan al Tri. El riesgo es la ansiedad del debut: si Sudáfrica resiste 60 minutos, el empate crece."},
+ {g:"A",f:"Jue 11 jun",h:"22:00 ET (20:00 GDL)",e1:"🇰🇷 Corea del Sur",e2:"🇨🇿 Chequia",sede:"Estadio Akron, Guadalajara",
+  p:[36,29,35],m:"1-1",alt:"1 566 m — altitud moderada, afecta a ambos por igual",
+  clima:"28–29 °C de día con UV muy alta; chubascos tormentosos hacia la noche, posible cancha pesada",
+  arb:"Amin Mohamed (EGY) · VAR: Mahmoud Ashour (EGY). Terna egipcia, estilo conservador con tarjetas",
+  f1:"V. 5-0 Trinidad y Tobago, V. 1-0 El Salvador — afinada, con Son liderando la presión alta",
+  f2:"V. 2-1 Kosovo, D. 1-3 Guatemala — la derrota ante Guatemala encendió alarmas defensivas",
+  news:["Chequia cayó sorpresivamente ante Guatemala en su penúltimo ensayo.","Corea cierra preparación en EE. UU. con dos victorias y sin lesionados reportados.","La lluvia nocturna en Guadalajara puede nivelar el duelo físico."],
+  an:"Paridad casi total: Corea llega mejor afinada, Chequia tiene más oficio europeo. El empate es el resultado individual más probable."},
+ {g:"B",f:"Vie 12 jun",h:"15:00 ET",e1:"🇨🇦 Canadá",e2:"🇧🇦 Bosnia y Herzegovina",sede:"BMO Field, Toronto",
+  p:[55,26,19],m:"2-0",alt:"76 m — sin efecto",
+  clima:"~24 °C, agradable; estadio abierto junto al lago Ontario",
+  arb:"Facundo Tello (ARG) · VAR: Hernán Mastrángelo (ARG). Tello es estricto: promedio alto de tarjetas, cuidado con faltas tácticas",
+  f1:"V. 2-0 Uzbekistán, E. 1-1 Irlanda — local, rápido por bandas con Davies y David",
+  f2:"E. 0-0 Macedonia, E. 1-1 Panamá — llega sin ganar y con escasa generación de juego",
+  news:["Canadá juega en casa su primer Mundial como anfitrión; lleno asegurado en Toronto.","Bosnia eliminó a Italia en repechaje, pero su forma reciente es de empates sin goles.","Con Tello de árbitro, las entradas fuertes de la zaga bosnia son riesgo de amarillas tempranas."],
+  an:"Canadá tiene velocidad para romper el bloque bosnio y el envión de su gente. Bosnia depende de un partido trabado y de pelota parada."},
+ {g:"D",f:"Vie 12 jun",h:"21:00 ET (18:00 PT)",e1:"🇺🇸 Estados Unidos",e2:"🇵🇾 Paraguay",sede:"SoFi Stadium, Inglewood",
+  p:[48,27,25],m:"2-1",alt:"30 m — sin efecto",
+  clima:"Estadio techado (cubierta fija), ~22 °C exterior; condiciones perfectas",
+  arb:"Danny Makkelie (NED) · VAR: Del Cerro Grande (ESP). Makkelie: criterio europeo, deja continuidad pero sanciona protestas",
+  f1:"V. 3-2 Senegal, D. 1-2 Alemania — ofensiva productiva (Pulisic), pero concedió goles en ambos ensayos",
+  f2:"V. 4-0 Nicaragua — goleada para cerrar; bloque bajo y contragolpe, estilo Alfaro",
+  news:["EE. UU. debuta como anfitrión en Los Ángeles con estadio lleno.","Paraguay sin bajas; llega con confianza tras la goleada en Asunción.","La zaga estadounidense mostró grietas ante Alemania y Senegal: dato para el contragolpe guaraní."],
+  an:"EE. UU. favorito por localía y talento ofensivo, pero Paraguay es incómodo, ordenado y castiga errores. Partido más cerrado de lo que sugiere el papel."},
+ {g:"B",f:"Sáb 13 jun",h:"15:00 ET (12:00 PT)",e1:"🇶🇦 Qatar",e2:"🇨🇭 Suiza",sede:"Levi's Stadium, Santa Clara",
+  p:[15,24,61],m:"0-2",alt:"25 m — sin efecto",
+  clima:"~24 °C, soleado y seco; mediodía californiano sin humedad",
+  arb:"Por confirmar (FIFA designa ~48 h antes)",
+  f1:"E. 0-0 El Salvador — muy poca producción ofensiva en la previa",
+  f2:"V. 4-1 Jordania, E. 1-1 Australia — engranada, con gol repartido y rotaciones probadas",
+  news:["Suiza goleó en su último ensayo en casa y llega como clara favorita del cruce.","Qatar apenas marcó en su preparación; dependerá del orden defensivo.","Único partido del Grupo B que se juega en EE. UU."],
+  an:"Diferencia amplia de nivel y de forma. A Qatar solo le sirve un partido de bloque bajo perfecto; Suiza debería imponerse con paciencia."},
+ {g:"C",f:"Sáb 13 jun",h:"18:00 ET",e1:"🇧🇷 Brasil",e2:"🇲🇦 Marruecos",sede:"MetLife Stadium, East Rutherford",
+  p:[48,27,25],m:"2-1",alt:"3 m — sin efecto",
+  clima:"~27 °C, posible humedad alta en Nueva Jersey; estadio abierto",
+  arb:"Por confirmar",
+  f1:"V. 6-2 Panamá, V. 2-1 Egipto — pegada intacta; Ancelotti con el once casi definido",
+  f2:"V. 5-0 Burundi, V. 4-0 Madagascar, E. 1-1 Noruega — invicto, 7.º del ranking, mejor África de la historia reciente",
+  news:["Neymar: resonancia del lunes mostró 'buena evolución' — llega entre algodones pero disponible (CBF).","Baja confirmada en Brasil: Wesley (desgarro aductor); Ederson (Atalanta) ya se sumó en Nueva Jersey.","Marruecos espera estudios de Mazraoui y Ez Abde, ambos con molestias tras el 1-1 con Noruega."],
+  an:"El partidazo de la jornada: 6.º vs 7.º del ranking. Brasil tiene más individualidades; Marruecos, el bloque más sólido. Las dudas físicas marroquíes inclinan apenas la balanza."},
+ {g:"C",f:"Sáb 13 jun",h:"21:00 ET",e1:"🇭🇹 Haití",e2:"🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia",sede:"Gillette Stadium, Foxborough",
+  p:[28,28,44],m:"1-2",alt:"90 m — sin efecto",
+  clima:"~22 °C nocturno, fresco; condiciones cómodas",
+  arb:"Por confirmar",
+  f1:"V. 4-0 Nueva Zelanda, D. 1-2 Perú — sorprendente por momentos, frágil atrás",
+  f2:"V. 4-0 Bolivia — contundente, aunque pierde a su motor de mediocampo",
+  news:["Baja en Escocia: Billy Gilmour (rodilla); convocado Tyler Fletcher.","Haití, debutante con gran diáspora en EE. UU., dio aviso goleando a Nueva Zelanda.","Duelo de estilos: presión escocesa vs transiciones rápidas haitianas."],
+  an:"Escocia favorita por jerarquía y oficio, pero sin Gilmour pierde salida limpia. Haití tiene velocidad para hacer daño: cuidado con la sorpresa."},
+ {g:"D",f:"Dom 14 jun",h:"00:00 ET (21:00 PT sáb)",e1:"🇦🇺 Australia",e2:"🇹🇷 Turquía",sede:"BC Place, Vancouver",
+  p:[27,29,44],m:"1-2",alt:"0 m — nivel del mar",
+  clima:"Estadio con techo retráctil; ~18 °C, sin factor climático",
+  arb:"Por confirmar",
+  f1:"E. 1-1 Suiza, D. 0-1 México — competitiva pero sin ganar en la previa",
+  f2:"V. 4-0 Macedonia del Norte, V. 2-1 Venezuela — ofensiva en racha con Güler y Yildiz",
+  news:["Turquía llega con dos triunfos y un once joven y agresivo.","Australia sin bajas, pero con menos pólvora arriba.","Horario atípico (medianoche ET) por la ventana de Vancouver."],
+  an:"Turquía tiene más talento y mejor momento. Australia compite siempre por físico y orden, pero necesita su mejor versión para puntuar."},
+ {g:"E",f:"Dom 14 jun",h:"13:00 ET (12:00 CT)",e1:"🇩🇪 Alemania",e2:"🇨🇼 Curazao",sede:"NRG Stadium, Houston",
+  p:[82,12,6],m:"4-0",alt:"15 m — sin efecto",
+  clima:"Techo cerrado con clima controlado (~22 °C); fuera, calor húmedo de Houston",
+  arb:"Por confirmar",
+  f1:"V. 4-0 Finlandia, V. 2-1 EE. UU. — máquina ofensiva; 10.º del ranking pero candidata",
+  f2:"V. 4-0 Aruba — debutante absoluto; el país más pequeño en la historia de los Mundiales",
+  news:["Baja en Alemania: Lennart Karl (desgarro); Nagelsmann llamó a Assan Ouédraogo.","Curazao celebra su histórico debut; mayoría de plantel formado en la liga neerlandesa.","Brecha de ranking enorme: la mayor de toda la jornada."],
+  an:"El pronóstico más desbalanceado de la fecha. Para Alemania la clave es la goleada (diferencia de gol); para Curazao, hacer historia con un gol."},
+ {g:"F",f:"Dom 14 jun",h:"16:00 ET (15:00 CT)",e1:"🇳🇱 Países Bajos",e2:"🇯🇵 Japón",sede:"AT&T Stadium, Arlington",
+  p:[44,28,28],m:"2-1",alt:"180 m — sin efecto",
+  clima:"Techo retráctil, clima controlado; fuera ~33 °C en Dallas",
+  arb:"Por confirmar",
+  f1:"D. 0-1 Argelia, V. 2-1 Uzbekistán — señales mixtas: dominio sin contundencia",
+  f2:"V. 1-0 Islandia — fiable, ordenado y con europeos en todas sus líneas",
+  news:["Baja en Países Bajos: Jurriën Timber (ingle); entra Lutsharel Geertruida.","Japón llega sin bajas y con bloque consolidado desde Qatar 2022.","La 'Oranje' perdió con Argelia y dejó dudas en la generación de ocasiones."],
+  an:"El papel favorece a Países Bajos (8.º), pero su forma es irregular y Japón es de los rivales más serios fuera de los cabezas de serie. Cruce trampa."},
+ {g:"E",f:"Dom 14 jun",h:"19:00 ET",e1:"🇨🇮 Costa de Marfil",e2:"🇪🇨 Ecuador",sede:"Lincoln Financial Field, Philadelphia",
+  p:[33,32,35],m:"1-1",alt:"12 m — sin efecto",
+  clima:"~26 °C al atardecer, estadio abierto",
+  arb:"Por confirmar",
+  f1:"V. 2-1 a Francia (en Nantes) — campeona de África en alza y con golpe de autoridad",
+  f2:"V. 2-1 Arabia Saudita, V. 3-0 Guatemala — sólida, con la mejor defensa de las eliminatorias CONMEBOL",
+  news:["Costa de Marfil venció nada menos que a Francia en su gira de preparación.","Ecuador cerró con dos triunfos y plantel completo.","Choque clave: el segundo puesto del grupo E probablemente se defina aquí."],
+  an:"El más parejo de la jornada junto al Corea–Chequia. Físico y verticalidad marfileña contra el orden táctico ecuatoriano: empate como escenario central."},
+ {g:"F",f:"Dom 14 jun",h:"22:00 ET (20:00 MTY)",e1:"🇸🇪 Suecia",e2:"🇹🇳 Túnez",sede:"Estadio BBVA, Monterrey",
+  p:[42,30,28],m:"1-0",alt:"540 m — leve, no determinante",
+  clima:"Monterrey muy caluroso de día (~35 °C); de noche ~28 °C, bochorno",
+  arb:"Por confirmar",
+  f1:"D. 1-3 Noruega, E. 2-2 Grecia — irregular, pero con Isak/Gyökeres arriba",
+  f2:"D. 0-1 Austria, D. 0-5 Bélgica — dos derrotas, la última muy dura",
+  news:["Túnez encajó 5 ante Bélgica en su despedida: alarma defensiva total.","Suecia no gana, pero genera; su delantera es de élite.","El calor regio puede pasar factura a ambos equipos por igual."],
+  an:"Ninguno llega bien, pero el desplome defensivo tunecino es más reciente y profundo. Suecia favorita corta en un duelo de urgencias."},
+ {g:"H",f:"Lun 15 jun",h:"12:00 ET",e1:"🇪🇸 España",e2:"🇨🇻 Cabo Verde",sede:"Mercedes-Benz Stadium, Atlanta",
+  p:[70,19,11],m:"3-0",alt:"320 m — sin efecto",
+  clima:"Techo retráctil, clima controlado; mediodía sin factor",
+  arb:"Por confirmar",
+  f1:"E. 1-1 Irak, V. 3-1 Perú — invicta en 2026; 2.ª del ranking y racha histórica viva",
+  f2:"V. 3-0 Serbia, V. 3-0 Bermudas — el debutante más en forma: 6 goles, 0 en contra",
+  news:["España extendió su racha invicta ante Perú; Lamine Yamal llega encendido.","Cabo Verde sorprendió goleando a Serbia: no es una víctima cualquiera.","El empate ante Irak fue con rotación masiva, no con el once de gala."],
+  an:"España domina todos los indicadores, pero Cabo Verde llega invicto y con confianza. La Roja debería resolverlo con posesión larga y amplitud."},
+ {g:"G",f:"Lun 15 jun",h:"15:00 ET (12:00 PT)",e1:"🇧🇪 Bélgica",e2:"🇪🇬 Egipto",sede:"Lumen Field, Seattle",
+  p:[55,26,19],m:"2-1",alt:"5 m — sin efecto",
+  clima:"~21 °C, clima templado de Seattle; ideal para ritmo alto",
+  arb:"Por confirmar",
+  f1:"V. 2-0 Croacia (visita), V. 5-0 Túnez — la mejor forma entre los cabezas de serie europeos fuera del top 4",
+  f2:"V. 1-0 Rusia, D. 1-2 Brasil — compite ante cualquiera con Salah como bandera",
+  news:["Bélgica enlaza dos exhibiciones; De Bruyne maneja los tiempos y la nueva camada responde.","Egipto cayó con honor ante Brasil; Salah llega en buen momento.","Duelo táctico: presión belga contra el repliegue + transición de Salah."],
+  an:"Bélgica llega lanzada y es favorita lógica, pero Egipto con Salah siempre tiene un gol de ventaja psicológica. 2-1 como guion más probable."},
+ {g:"H",f:"Lun 15 jun",h:"18:00 ET",e1:"🇸🇦 Arabia Saudita",e2:"🇺🇾 Uruguay",sede:"Hard Rock Stadium, Miami",
+  p:[18,26,56],m:"0-2",alt:"3 m — sin efecto",
+  clima:"~31 °C y humedad alta de Miami; la lona cubre gradas, la cancha queda al aire — desgaste real",
+  arb:"Por confirmar",
+  f1:"V. 3-0 Puerto Rico, D. 1-2 Ecuador (cerró ante Senegal el 9-jun) — irregular ante rivales de peso",
+  f2:"Cerró eliminatorias fuerte; plantel de élite con Valverde y Núñez como referentes",
+  news:["Uruguay de Bielsa llega con su núcleo completo y descansado.","Arabia probó ante Ecuador y Senegal; compite, pero le cuesta generar ante zagas top.","El calor-humedad de Miami es el gran ecualizador del cruce."],
+  an:"Uruguay claramente superior en plantel y ranking. El bochorno de Miami y el orden saudí pueden hacer el partido feo, pero la jerarquía celeste pesa."},
+ {g:"G",f:"Lun 15 jun",h:"21:00 ET (18:00 PT)",e1:"🇮🇷 Irán",e2:"🇳🇿 Nueva Zelanda",sede:"SoFi Stadium, Inglewood",
+  p:[52,28,20],m:"2-0",alt:"30 m — sin efecto",
+  clima:"Techado; sin factor climático",
+  arb:"Por confirmar",
+  f1:"V. 3-1 Gambia — entró al top-20 del ranking; sólido y veterano",
+  f2:"D. 0-4 Haití, D. 0-1 Inglaterra — dos derrotas y cero goles en la previa",
+  news:["Irán subió al top-20 del ranking FIFA en la última actualización.","Nueva Zelanda no marcó en sus dos últimos amistosos: problema ofensivo evidente.","Este partido define las opciones reales de avanzar como 2.º o 3.º del grupo G."],
+  an:"Irán tiene más oficio, más gol y mejor momento. Nueva Zelanda necesita un cambio radical de cara al arco para competir el cruce."},
+ {g:"I",f:"Mar 16 jun",h:"15:00 ET",e1:"🇫🇷 Francia",e2:"🇸🇳 Senegal",sede:"MetLife Stadium, East Rutherford",
+  p:[52,26,22],m:"2-1",alt:"3 m — sin efecto",
+  clima:"~27 °C, estadio abierto; tarde calurosa posible",
+  arb:"Por confirmar",
+  f1:"D. 1-2 Costa de Marfil, V. 3-1 Irlanda del Norte (triplete de Olise) — talento intacto, defensa con dudas",
+  f2:"D. 2-3 EE. UU. (cerró ante Arabia el 9-jun) — físico, pero cedió terreno en el ranking",
+  news:["Olise firmó triplete en la despedida francesa: candidato a figura del grupo.","Francia perdió con Costa de Marfil: aviso serio sobre su solidez.","Senegal cayó ante EE. UU. y bajó posiciones en el ranking; Mané y Jackson lideran el ataque."],
+  an:"Choque de potencias francófonas. Francia (3.ª) es favorita pero su zaga concede; Senegal tiene físico y velocidad para explotarlo. Goles en ambos arcos como escenario probable."},
+ {g:"I",f:"Mar 16 jun",h:"18:00 ET",e1:"🇮🇶 Irak",e2:"🇳🇴 Noruega",sede:"Gillette Stadium, Foxborough",
+  p:[20,27,53],m:"1-2",alt:"90 m — sin efecto",
+  clima:"~23 °C, sin factor",
+  arb:"Por confirmar",
+  f1:"V. 1-0 Andorra, E. 1-1 España — el empate ante La Roja (con rotaciones) infló la moral iraquí",
+  f2:"V. 3-1 Suecia, E. 1-1 Marruecos — Haaland y compañía, con la mejor delantera 'no top-5' del torneo",
+  news:["Irak vuelve a un Mundial 40 años después (México 86).","Noruega invicta en la previa; Haaland llega descansado y enchufado.","El bloque bajo iraquí vs el juego directo noruego: partido de área."],
+  an:"Noruega tiene con Haaland el diferencial absoluto del cruce. Irak compite y se cierra bien, pero sufrirá el juego aéreo y la pelota parada."},
+ {g:"J",f:"Mar 16 jun",h:"21:00 ET (20:00 CT)",e1:"🇦🇷 Argentina",e2:"🇩🇿 Argelia",sede:"GEHA Field at Arrowhead, Kansas City",
+  p:[62,24,14],m:"2-0",alt:"270 m — sin efecto",
+  clima:"~28 °C al inicio, calor del medio oeste; posible tormenta aislada de tarde",
+  arb:"Por confirmar",
+  f1:"V. 2-0 Honduras (cerró ante Islandia el 9-jun) — campeona vigente y 1.ª del ranking; Messi, su último Mundial",
+  f2:"V. 1-0 a Países Bajos en Rotterdam — aviso mayúsculo: Argelia no es comparsa",
+  news:["Baja en Argentina: Leo Balerdi (desgarro en el sóleo) quedó fuera del torneo.","Scaloni citó a un debutante de último momento para la preparación.","Mahrez (capitán argelino) calentó la previa: 'no le tenemos miedo a nadie'.","Argentina llega como líder del ranking FIFA y defensora del título."],
+  an:"Argentina es muy superior en plantel y jerarquía, pero Argelia acaba de ganarle a Países Bajos y tiene contragolpe letal con Mahrez. Favoritismo claro, no trámite."},
+ {g:"J",f:"Mié 17 jun",h:"00:00 ET (21:00 PT mar)",e1:"🇦🇹 Austria",e2:"🇯🇴 Jordania",sede:"Levi's Stadium, Santa Clara",
+  p:[48,30,22],m:"1-0",alt:"25 m — sin efecto",
+  clima:"~17 °C nocturno, fresco y seco",
+  arb:"Por confirmar",
+  f1:"V. 1-0 Túnez (con 10), cerró ante Guatemala el 10-jun — sólida, estilo Rangnick de presión",
+  f2:"D. 1-4 Suiza, D. 0-2 Colombia — dos derrotas claras en la previa",
+  news:["Baja sensible en Austria: Baumgartner (desgarro en el muslo) — su creador principal.","Jordania, debutante absoluto, no pudo con Suiza ni Colombia.","Austria mostró carácter ganando con 10 hombres ante Túnez."],
+  an:"Austria favorita aun sin Baumgartner: su presión asfixia a rivales de menor ritmo. Jordania necesita el partido perfecto; un 1-0 trabajado es el guion lógico."},
+ {g:"K",f:"Mié 17 jun",h:"13:00 ET (12:00 CT)",e1:"🇵🇹 Portugal",e2:"🇨🇩 RD Congo",sede:"NRG Stadium, Houston",
+  p:[67,21,12],m:"2-0",alt:"15 m — techo cerrado",
+  clima:"Clima controlado (~22 °C); sin factor",
+  arb:"Por confirmar",
+  f1:"V. 2-1 Chile, cerró ante Nigeria el 10-jun — 5.º del ranking; CR7 a su sexto Mundial",
+  f2:"E. 0-0 Dinamarca (amistoso ante Chile suspendido) — físicamente fuerte, ofensivamente romo",
+  news:["RD Congo llegó vía repechaje intercontinental; su 0-0 ante Dinamarca muestra solidez.","Su amistoso del 9-jun ante Chile fue suspendido: menos rodaje del previsto.","Portugal cierra preparación ante Nigeria con el once de gala."],
+  an:"Portugal muy favorito. El Congo defiende bien y puede mantener el cero un rato largo, pero genera poquísimo: la diferencia de talento debería imponerse."},
+ {g:"L",f:"Mié 17 jun",h:"16:00 ET (15:00 CT)",e1:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",e2:"🇭🇷 Croacia",sede:"AT&T Stadium, Arlington",
+  p:[50,28,22],m:"2-1",alt:"180 m — techo retráctil",
+  clima:"Clima controlado; fuera ~34 °C en Dallas",
+  arb:"Por confirmar",
+  f1:"V. 1-0 Nueva Zelanda, cerró ante Costa Rica el 10-jun — 4.ª del ranking, Kane y Bellingham al frente",
+  f2:"D. 0-2 Bélgica (local), V. 2-1 Eslovenia — Modric a su despedida; recambio generacional a medias",
+  news:["Inglaterra llega con victorias discretas pero sin bajas.","Croacia perdió en casa con Bélgica: señales de desgaste del bloque histórico.","El duelo Bellingham–Modric, choque generacional del grupo L."],
+  an:"El cruce más 'eliminatoria' de la jornada 1. Inglaterra favorita por presente y profundidad de plantel; Croacia vive de su oficio en partidos grandes."},
+ {g:"L",f:"Mié 17 jun",h:"19:00 ET",e1:"🇬🇭 Ghana",e2:"🇵🇦 Panamá",sede:"BMO Field, Toronto",
+  p:[38,30,32],m:"1-1",alt:"76 m — sin efecto",
+  clima:"~23 °C, tarde templada en Toronto",
+  arb:"Por confirmar",
+  f1:"D. 0-2 México, E. 1-1 Gales — sin ganar en la previa, pero con talento joven (Kudus)",
+  f2:"V. 4-2 Rep. Dominicana, E. 1-1 Bosnia — competitiva y con gol; cayó goleada solo ante Brasil",
+  news:["Panamá mostró más regularidad reciente que Ghana.","Ghana confía en el salto de calidad de sus figuras de Premier League.","Ambos saben que el tercer puesto del grupo L puede dar boleto: partido de seis puntos."],
+  an:"Paridad real. Ghana tiene techo más alto; Panamá, mejor momento y rodaje CONCACAF. El empate deja vivo a ambos y es escenario muy plausible."},
+ {g:"K",f:"Mié 17 jun",h:"22:00 ET (20:00 CDMX)",e1:"🇺🇿 Uzbekistán",e2:"🇨🇴 Colombia",sede:"Estadio Azteca, Ciudad de México",
+  p:[18,26,56],m:"0-2",alt:"2 240 m — factor mayúsculo; ninguno juega 'en casa', pero Colombia tiene jugadores habituados a la altura",
+  clima:"Lluvia vespertina probable en CDMX en junio; cancha rápida y pesada de noche",
+  arb:"Por confirmar",
+  f1:"D. 0-2 Canadá, D. 1-2 Países Bajos — debutante digno, compite pero pierde los duelos grandes",
+  f2:"V. 3-1 Costa Rica, V. 2-0 Jordania — dos triunfos, James y Luis Díaz finos",
+  news:["Colombia cerró su preparación con dos victorias sólidas.","Uzbekistán compitió de tú a tú ante Países Bajos pero volvió a caer.","La altura del Azteca castigará más al equipo que corra detrás del balón: ventaja cafetera si maneja la posesión."],
+  an:"Colombia favorita clara: mejor plantel, mejor forma y mejor adaptación esperable a los 2 240 m. Uzbekistán ya demostró que compite; necesita eficacia máxima."}
+];
+// ============================================================
+// PROPS — Probabilidades detalladas por partido (mismo orden que J1).
+// Pares [x,y] y campos a/b siempre en orden: equipo local listado / visitante.
+// fa=faltas (t total, a/b por equipo, p1 prob. primera falta)
+// am=amarillas (t, a/b, p1 prob. primera tarjeta, roja=prob. de roja en el partido %)
+// co=córners (t, a/b, p1 prob. primer córner) · li=tiros libres a favor (a/b)
+// mi=mitades (g1/g2 prob. de gol en cada mitad %, m2 prob. de más goles en 2T, m1t marcador 1T más probable)
+// re=rematadores [nombre, remates esperados, a puerta] · go=goleadores [nombre, prob. de anotar %]
+// La tarea diaria actualiza este arreglo junto con J1.
+// ============================================================
+const PROPS = [
+ {fa:{t:24,a:12,b:12,p1:[48,52]},am:{t:3.5,a:1.5,b:2.0,p1:[42,58],roja:7},co:{t:9.5,a:6.5,b:3.0,p1:[66,34]},li:{a:12,b:12},mi:{g1:52,g2:74,m2:60,m1t:"1-0 (29%)"},re:[["S. Giménez (MEX)","3.4","1.6"],["R. Jiménez (MEX)","2.6","1.1"],["L. Foster (RSA)","1.8","0.7"]],go:[["Santiago Giménez (MEX)",34],["Raúl Jiménez (MEX)",27],["Lyle Foster (RSA)",14]]},
+ {fa:{t:26,a:13,b:13,p1:[50,50]},am:{t:4.0,a:2.0,b:2.0,p1:[50,50],roja:9},co:{t:9.0,a:4.8,b:4.2,p1:[53,47]},li:{a:13,b:13},mi:{g1:46,g2:68,m2:57,m1t:"0-0 (38%)"},re:[["H-M. Son (KOR)","3.8","1.7"],["P. Schick (CZE)","2.9","1.3"],["Lee Kang-in (KOR)","2.4","1.0"]],go:[["Heung-min Son (KOR)",31],["Patrik Schick (CZE)",26],["Lee Kang-in (KOR)",18]]},
+ {fa:{t:28,a:12,b:16,p1:[42,58]},am:{t:4.5,a:1.8,b:2.7,p1:[38,62],roja:12},co:{t:10.0,a:6.5,b:3.5,p1:[64,36]},li:{a:16,b:12},mi:{g1:50,g2:72,m2:59,m1t:"1-0 (27%)"},re:[["J. David (CAN)","3.5","1.6"],["A. Davies (CAN)","2.8","1.2"],["E. Džeko (BIH)","2.0","0.8"]],go:[["Jonathan David (CAN)",33],["Alphonso Davies (CAN)",25],["Edin Džeko (BIH)",13]]},
+ {fa:{t:25,a:11,b:14,p1:[44,56]},am:{t:3.5,a:1.4,b:2.1,p1:[40,60],roja:8},co:{t:9.5,a:6.0,b:3.5,p1:[63,37]},li:{a:14,b:11},mi:{g1:54,g2:75,m2:58,m1t:"1-0 (26%)"},re:[["C. Pulisic (USA)","3.6","1.7"],["F. Balogun (USA)","2.8","1.3"],["M. Almirón (PAR)","2.2","0.9"]],go:[["Christian Pulisic (USA)",32],["Folarin Balogun (USA)",26],["Miguel Almirón (PAR)",15]]},
+ {fa:{t:24,a:13,b:11,p1:[55,45]},am:{t:3.0,a:1.8,b:1.2,p1:[62,38],roja:6},co:{t:9.0,a:3.0,b:6.0,p1:[35,65]},li:{a:11,b:13},mi:{g1:50,g2:70,m2:56,m1t:"0-1 (28%)"},re:[["B. Embolo (SUI)","3.2","1.5"],["R. Vargas (SUI)","2.6","1.1"],["A. Afif (QAT)","2.0","0.8"]],go:[["Breel Embolo (SUI)",30],["Ruben Vargas (SUI)",22],["Akram Afif (QAT)",12]]},
+ {fa:{t:27,a:12,b:15,p1:[44,56]},am:{t:4.0,a:1.7,b:2.3,p1:[44,56],roja:10},co:{t:10.0,a:5.5,b:4.5,p1:[57,43]},li:{a:15,b:12},mi:{g1:49,g2:72,m2:57,m1t:"0-0 (32%)"},re:[["Vinícius Jr. (BRA)","3.9","1.8"],["Rodrygo (BRA)","2.8","1.2"],["Y. En-Nesyri (MAR)","2.4","1.0"],["A. Hakimi (MAR)","1.6","0.6"]],go:[["Vinícius Jr. (BRA)",33],["Rodrygo (BRA)",24],["Youssef En-Nesyri (MAR)",19]]},
+ {fa:{t:26,a:14,b:12,p1:[54,46]},am:{t:3.5,a:2.0,b:1.5,p1:[58,42],roja:8},co:{t:9.5,a:4.0,b:5.5,p1:[43,57]},li:{a:12,b:14},mi:{g1:47,g2:70,m2:58,m1t:"0-0 (33%)"},re:[["S. McTominay (SCO)","3.0","1.3"],["C. Adams (SCO)","2.6","1.2"],["D. Nazon (HAI)","2.2","0.9"]],go:[["Scott McTominay (SCO)",27],["Che Adams (SCO)",23],["Duckens Nazon (HAI)",15]]},
+ {fa:{t:27,a:14,b:13,p1:[52,48]},am:{t:4.0,a:2.2,b:1.8,p1:[55,45],roja:9},co:{t:9.0,a:3.8,b:5.2,p1:[42,58]},li:{a:13,b:14},mi:{g1:47,g2:69,m2:57,m1t:"0-1 (27%)"},re:[["A. Güler (TUR)","3.4","1.5"],["K. Yildiz (TUR)","3.0","1.3"],["J. Irvine (AUS)","1.8","0.7"]],go:[["Arda Güler (TUR)",28],["Kenan Yildiz (TUR)",25],["Jackson Irvine (AUS)",12]]},
+ {fa:{t:20,a:8,b:12,p1:[38,62]},am:{t:2.5,a:0.8,b:1.7,p1:[30,70],roja:5},co:{t:11.0,a:8.5,b:2.5,p1:[78,22]},li:{a:12,b:8},mi:{g1:72,g2:86,m2:55,m1t:"2-0 (22%)"},re:[["F. Wirtz (GER)","4.2","2.0"],["K. Havertz (GER)","3.5","1.7"],["J. Musiala (GER)","3.3","1.6"]],go:[["Kai Havertz (GER)",45],["Florian Wirtz (GER)",41],["Jamal Musiala (GER)",38]]},
+ {fa:{t:24,a:11,b:13,p1:[46,54]},am:{t:3.0,a:1.4,b:1.6,p1:[47,53],roja:6},co:{t:9.5,a:5.5,b:4.0,p1:[58,42]},li:{a:13,b:11},mi:{g1:50,g2:71,m2:57,m1t:"0-0 (31%)"},re:[["C. Gakpo (NED)","3.3","1.5"],["M. Depay (NED)","2.9","1.3"],["K. Mitoma (JPN)","2.7","1.2"],["T. Kubo (JPN)","2.4","1.0"]],go:[["Cody Gakpo (NED)",29],["Memphis Depay (NED)",26],["Kaoru Mitoma (JPN)",19]]},
+ {fa:{t:28,a:14,b:14,p1:[50,50]},am:{t:4.0,a:2.0,b:2.0,p1:[50,50],roja:10},co:{t:9.0,a:4.5,b:4.5,p1:[50,50]},li:{a:14,b:14},mi:{g1:44,g2:66,m2:58,m1t:"0-0 (36%)"},re:[["S. Haller (CIV)","2.8","1.2"],["E. Valencia (ECU)","2.6","1.1"],["K. Páez (ECU)","2.2","0.9"]],go:[["Sébastien Haller (CIV)",24],["Enner Valencia (ECU)",22],["Kendry Páez (ECU)",17]]},
+ {fa:{t:26,a:12,b:14,p1:[46,54]},am:{t:3.5,a:1.5,b:2.0,p1:[44,56],roja:8},co:{t:9.5,a:5.8,b:3.7,p1:[60,40]},li:{a:14,b:12},mi:{g1:46,g2:68,m2:57,m1t:"0-0 (34%)"},re:[["V. Gyökeres (SWE)","3.6","1.7"],["A. Isak (SWE)","3.5","1.6"],["Y. Msakni (TUN)","1.8","0.7"]],go:[["Viktor Gyökeres (SWE)",31],["Alexander Isak (SWE)",29],["Youssef Msakni (TUN)",11]]},
+ {fa:{t:21,a:9,b:12,p1:[40,60]},am:{t:2.5,a:0.9,b:1.6,p1:[33,67],roja:5},co:{t:10.5,a:7.5,b:3.0,p1:[73,27]},li:{a:12,b:9},mi:{g1:64,g2:82,m2:56,m1t:"1-0 (30%)"},re:[["L. Yamal (ESP)","4.0","1.9"],["M. Oyarzabal (ESP)","3.0","1.4"],["Pedri (ESP)","2.2","1.0"]],go:[["Mikel Oyarzabal (ESP)",38],["Lamine Yamal (ESP)",36],["Pedri (ESP)",22]]},
+ {fa:{t:25,a:11,b:14,p1:[44,56]},am:{t:3.5,a:1.5,b:2.0,p1:[43,57],roja:7},co:{t:10.0,a:6.2,b:3.8,p1:[62,38]},li:{a:14,b:11},mi:{g1:52,g2:73,m2:58,m1t:"1-0 (26%)"},re:[["K. De Bruyne (BEL)","3.2","1.4"],["J. Doku (BEL)","3.0","1.3"],["L. Openda (BEL)","2.8","1.3"],["M. Salah (EGY)","3.4","1.6"]],go:[["Loïs Openda (BEL)",28],["Mohamed Salah (EGY)",26],["Jérémy Doku (BEL)",21]]},
+ {fa:{t:26,a:14,b:12,p1:[56,44]},am:{t:3.5,a:2.1,b:1.4,p1:[60,40],roja:8},co:{t:9.5,a:3.5,b:6.0,p1:[37,63]},li:{a:12,b:14},mi:{g1:49,g2:71,m2:57,m1t:"0-1 (27%)"},re:[["D. Núñez (URU)","3.6","1.7"],["F. Valverde (URU)","3.2","1.4"],["S. Al-Dawsari (KSA)","2.0","0.8"]],go:[["Darwin Núñez (URU)",34],["Federico Valverde (URU)",24],["Salem Al-Dawsari (KSA)",10]]},
+ {fa:{t:25,a:13,b:12,p1:[53,47]},am:{t:3.0,a:1.6,b:1.4,p1:[53,47],roja:6},co:{t:9.0,a:5.8,b:3.2,p1:[64,36]},li:{a:12,b:13},mi:{g1:50,g2:70,m2:56,m1t:"1-0 (28%)"},re:[["M. Taremi (IRN)","3.3","1.6"],["S. Azmoun (IRN)","2.7","1.2"],["C. Wood (NZL)","2.2","0.9"]],go:[["Mehdi Taremi (IRN)",32],["Sardar Azmoun (IRN)",24],["Chris Wood (NZL)",13]]},
+ {fa:{t:26,a:12,b:14,p1:[45,55]},am:{t:3.5,a:1.5,b:2.0,p1:[45,55],roja:8},co:{t:10.0,a:6.0,b:4.0,p1:[60,40]},li:{a:14,b:12},mi:{g1:53,g2:74,m2:57,m1t:"1-0 (25%)"},re:[["K. Mbappé (FRA)","4.1","2.0"],["M. Olise (FRA)","3.4","1.6"],["S. Mané (SEN)","2.8","1.2"],["N. Jackson (SEN)","2.6","1.2"]],go:[["Kylian Mbappé (FRA)",38],["Michael Olise (FRA)",28],["Nicolas Jackson (SEN)",19]]},
+ {fa:{t:27,a:15,b:12,p1:[58,42]},am:{t:3.5,a:2.2,b:1.3,p1:[62,38],roja:8},co:{t:9.5,a:3.5,b:6.0,p1:[36,64]},li:{a:12,b:15},mi:{g1:51,g2:72,m2:58,m1t:"0-1 (27%)"},re:[["E. Haaland (NOR)","4.3","2.1"],["A. Sørloth (NOR)","2.6","1.2"],["M. Ødegaard (NOR)","2.8","1.2"]],go:[["Erling Haaland (NOR)",44],["Alexander Sørloth (NOR)",22],["Martin Ødegaard (NOR)",18]]},
+ {fa:{t:26,a:11,b:15,p1:[42,58]},am:{t:3.5,a:1.4,b:2.1,p1:[40,60],roja:8},co:{t:10.0,a:6.8,b:3.2,p1:[67,33]},li:{a:15,b:11},mi:{g1:55,g2:76,m2:58,m1t:"1-0 (27%)"},re:[["L. Messi (ARG)","3.8","1.8"],["J. Álvarez (ARG)","3.4","1.6"],["L. Martínez (ARG)","3.0","1.4"],["R. Mahrez (ALG)","2.4","1.0"]],go:[["Julián Álvarez (ARG)",33],["Lionel Messi (ARG)",31],["Lautaro Martínez (ARG)",28]]},
+ {fa:{t:27,a:13,b:14,p1:[48,52]},am:{t:3.5,a:1.6,b:1.9,p1:[46,54],roja:7},co:{t:10.0,a:6.5,b:3.5,p1:[65,35]},li:{a:14,b:13},mi:{g1:50,g2:70,m2:56,m1t:"0-0 (30%)"},re:[["M. Arnautović (AUT)","2.9","1.3"],["M. Gregoritsch (AUT)","2.5","1.1"],["M. Al-Tamari (JOR)","2.0","0.8"]],go:[["Marko Arnautović (AUT)",28],["Michael Gregoritsch (AUT)",22],["Musa Al-Tamari (JOR)",10]]},
+ {fa:{t:24,a:10,b:14,p1:[40,60]},am:{t:3.0,a:1.1,b:1.9,p1:[36,64],roja:7},co:{t:10.5,a:7.5,b:3.0,p1:[72,28]},li:{a:14,b:10},mi:{g1:58,g2:78,m2:57,m1t:"1-0 (29%)"},re:[["C. Ronaldo (POR)","3.6","1.7"],["R. Leão (POR)","3.1","1.4"],["B. Fernandes (POR)","2.9","1.3"]],go:[["Cristiano Ronaldo (POR)",36],["Rafael Leão (POR)",28],["Bruno Fernandes (POR)",22]]},
+ {fa:{t:24,a:11,b:13,p1:[46,54]},am:{t:3.0,a:1.3,b:1.7,p1:[44,56],roja:6},co:{t:10.0,a:6.0,b:4.0,p1:[60,40]},li:{a:13,b:11},mi:{g1:51,g2:72,m2:57,m1t:"0-0 (30%)"},re:[["H. Kane (ENG)","3.7","1.8"],["J. Bellingham (ENG)","3.2","1.5"],["B. Saka (ENG)","2.9","1.3"],["A. Kramarić (CRO)","2.0","0.8"]],go:[["Harry Kane (ENG)",35],["Jude Bellingham (ENG)",26],["Bukayo Saka (ENG)",22]]},
+ {fa:{t:27,a:14,b:13,p1:[52,48]},am:{t:3.5,a:1.9,b:1.6,p1:[54,46],roja:8},co:{t:9.0,a:4.8,b:4.2,p1:[53,47]},li:{a:13,b:14},mi:{g1:46,g2:68,m2:57,m1t:"0-0 (34%)"},re:[["M. Kudus (GHA)","3.3","1.5"],["A. Semenyo (GHA)","2.7","1.2"],["J. Fajardo (PAN)","2.0","0.8"]],go:[["Mohammed Kudus (GHA)",27],["Antoine Semenyo (GHA)",22],["José Fajardo (PAN)",13]]},
+ {fa:{t:26,a:14,b:12,p1:[55,45]},am:{t:3.5,a:2.0,b:1.5,p1:[57,43],roja:8},co:{t:9.5,a:3.7,b:5.8,p1:[39,61]},li:{a:12,b:14},mi:{g1:50,g2:73,m2:59,m1t:"0-1 (26%)"},re:[["L. Díaz (COL)","3.5","1.6"],["James Rodríguez (COL)","2.8","1.3"],["E. Shomurodov (UZB)","2.4","1.0"]],go:[["Luis Díaz (COL)",31],["James Rodríguez (COL)",22],["Eldor Shomurodov (UZB)",14]]}
+];
+// Genera las barras de probabilidades detalladas (verde = equipo local listado, rojo = visitante)
+const propsHTML=(x,P)=>{
+  const fila=(icono,titulo,pa,pb,com)=>`<div class="strow"><div class="slbl">${icono} ${titulo}</div><div><div class="sbar"><div class="sa" style="width:${pa}%">${pa}%</div><div class="sb" style="width:${pb}%">${pb}%</div></div>${com?`<div class="scom">${com}</div>`:''}</div></div>`;
+  const shr=(a,b)=>{const s=Math.round(100*a/(a+b));return [s,100-s];};
+  const [fA,fB]=shr(P.fa.a,P.fa.b), [cA,cB]=shr(P.co.a,P.co.b), [tA,tB]=shr(P.am.a,P.am.b);
+  return `<div class="statwrap">
+    <div class="sthead">📊 Probabilidades del partido <span>— barras: ${equipo(x.e1)} (verde) / ${equipo(x.e2)} (rojo)</span></div>
+    ${fila("🦵","Reparto de faltas",fA,fB,`Total esperado: ${P.fa.t} faltas (${P.fa.a} / ${P.fa.b}) · Tiros libres a favor: ${P.li.a} / ${P.li.b}`)}
+    ${fila("🦵","1.ª falta del partido",P.fa.p1[0],P.fa.p1[1],"")}
+    ${fila("🟨","Reparto de amarillas",tA,tB,`Total esperado: ${P.am.t} amarillas (${P.am.a} / ${P.am.b}) · 🟥 Prob. de roja en el partido: ${P.am.roja}%`)}
+    ${fila("🟨","1.ª tarjeta",P.am.p1[0],P.am.p1[1],"")}
+    ${fila("🚩","Reparto de córners",cA,cB,`Total esperado: ${P.co.t} córners (${P.co.a} / ${P.co.b})`)}
+    ${fila("🚩","1.er córner",P.co.p1[0],P.co.p1[1],"")}
+    ${fila("⏱","¿Mitad con más goles?",100-P.mi.m2,P.mi.m2,`Aquí: 1.ª mitad (verde) vs 2.ª mitad (rojo) · Prob. de gol 1T: ${P.mi.g1}% · 2T: ${P.mi.g2}% · Al descanso: ${P.mi.m1t}`)}
+    <div class="stlists">
+      <div class="pbox"><b>🎯 Rematadores (remates / a puerta)</b><ul>${P.re.map(r=>`<li>${r[0]} — ${r[1]} / ${r[2]}</li>`).join('')}</ul></div>
+      <div class="pbox"><b>⚽ Goleadores probables (anota en cualquier momento)</b><ul>${P.go.map(r=>`<li>${r[0]} — ${r[1]}%</li>`).join('')}</ul></div>
+    </div>
+  </div>`;
+};
+document.getElementById('listaPartidos').innerHTML = J1.map((x,i)=>{const P=PROPS[i];return `<div class="mcard">
+    <div class="mtop"><span class="grp">GRUPO ${x.g}</span><span>${x.f} · ${x.h}</span><span>🏟 ${x.sede}</span><button class="btnimg" onclick="descargarPNG(${i})">📷 Descargar imagen</button></div>
+    <div class="mmain"><span>${equipo(x.e1)}</span><span class="score">Marcador probable: ${x.m}</span><span>${equipo(x.e2)}</span></div>
+    <div class="probbar">
+      <div class="pl" style="width:${x.p[0]}%">${x.p[0]}%</div>
+      <div class="pe" style="width:${x.p[1]}%">${x.p[1]}%</div>
+      <div class="pv" style="width:${x.p[2]}%">${x.p[2]}%</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:0 18px;font-size:.68rem;color:var(--mut)"><span>◀ Gana ${x.e1.split(' ').slice(1).join(' ')}</span><span>Empate</span><span>Gana ${x.e2.split(' ').slice(1).join(' ')} ▶</span></div>
+    ${P?propsHTML(x,P):''}
+    <div class="factores">
+      <div class="factor"><b>⛰ Altitud</b>${x.alt}</div>
+      <div class="factor"><b>🌦 Clima</b>${x.clima}</div>
+      <div class="factor"><b>🟨 Árbitro</b>${x.arb}</div>
+    </div>
+    <div class="seccion"><h4>📈 Forma reciente</h4>
+      <div class="forma"><div><b>${equipo(x.e1)}:</b> ${x.f1}</div><div><b>${equipo(x.e2)}:</b> ${x.f2}</div></div>
+    </div>
+    <div class="news"><h4>📰 Noticias del partido</h4><ul>${x.news.map(n=>`<li>${n}</li>`).join('')}</ul></div>
+    <div class="analisis">💡 ${x.an}</div>
+  </div>`;}).join('');
+
+// ============================================================
+// IMAGEN DESCARGABLE DEL PRONÓSTICO (canvas 1080x1350, banderas de flagcdn.com)
+// ============================================================
+const loadFlag=code=>new Promise(res=>{
+  if(!code||!FLAGCODE[code]) return res(null);
+  const im=new Image(); im.crossOrigin="anonymous";
+  im.onload=()=>res(im); im.onerror=()=>res(null);
+  im.src=`https://flagcdn.com/w320/${FLAGCODE[code]}.png`;
+});
+function rrect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+async function descargarPNG(i){
+  const x=J1[i], P=PROPS[i];
+  const n1=x.e1.split(' ').slice(1).join(' '), n2=x.e2.split(' ').slice(1).join(' ');
+  const c1=codeDe(n1), c2=codeDe(n2);
+  const [im1,im2]=await Promise.all([loadFlag(c1),loadFlag(c2)]);
+  const W=1080, H=2200;
+  const cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+  const ctx=cv.getContext('2d');
+  // helper: texto con saltos de línea y tope de líneas
+  const wrap=(txt,X,Y,maxW,lh,maxLines)=>{
+    const words=String(txt).split(' '); let line='', lines=[];
+    for(const w of words){ const t=line?line+' '+w:w; if(ctx.measureText(t).width>maxW&&line){lines.push(line);line=w;} else line=t; }
+    if(line)lines.push(line);
+    if(lines.length>maxLines){ lines=lines.slice(0,maxLines); lines[maxLines-1]=lines[maxLines-1].replace(/\s+\S*$/,'')+'…'; }
+    lines.forEach((l,k)=>ctx.fillText(l,X,Y+k*lh));
+    return Y+lines.length*lh;
+  };
+  const sec=(titulo,Y)=>{ ctx.textAlign='left'; ctx.fillStyle='#e8c258'; ctx.font='bold 26px Segoe UI, Arial'; ctx.fillText(titulo,90,Y); return Y; };
+  // fondo
+  const bg=ctx.createLinearGradient(0,0,W,H); bg.addColorStop(0,'#0a1628'); bg.addColorStop(.5,'#13294a'); bg.addColorStop(1,'#0a1628');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='#e8c258'; ctx.lineWidth=6; ctx.strokeRect(14,14,W-28,H-28);
+  // encabezado
+  ctx.textAlign='center';
+  ctx.fillStyle='#e8c258'; ctx.font='bold 38px Segoe UI, Arial';
+  ctx.fillText('⚽ TABLERO MUNDIAL 2026',540,78);
+  ctx.fillStyle='#8aa0b8'; ctx.font='26px Segoe UI, Arial';
+  ctx.fillText(`Pronóstico · Grupo ${x.g} · ${x.f} · ${x.h}`,540,120);
+  ctx.font='24px Segoe UI, Arial'; ctx.fillText(`🏟 ${x.sede}`,540,156);
+  // banderas
+  const drawFlag=(im,cx,nom)=>{
+    const fx=cx-100, fy=188, fw=200, fh=133;
+    if(im){ ctx.save(); rrect(ctx,fx,fy,fw,fh,12); ctx.clip(); ctx.drawImage(im,fx,fy,fw,fh); ctx.restore(); ctx.strokeStyle='#e8c258'; ctx.lineWidth=3; rrect(ctx,fx,fy,fw,fh,12); ctx.stroke(); }
+    else { ctx.fillStyle='#1a3050'; rrect(ctx,fx,fy,fw,fh,12); ctx.fill(); ctx.strokeStyle='#e8c258'; ctx.lineWidth=3; rrect(ctx,fx,fy,fw,fh,12); ctx.stroke(); ctx.fillStyle='#e8c258'; ctx.font='bold 48px Segoe UI, Arial'; ctx.textAlign='center'; ctx.fillText(nom.slice(0,3).toUpperCase(),cx,fy+84); }
+    ctx.textAlign='center'; ctx.fillStyle='#e9eef5'; ctx.font='bold 30px Segoe UI, Arial';
+    ctx.fillText(nom,cx,362,320);
+  };
+  drawFlag(im1,280,n1); drawFlag(im2,800,n2);
+  ctx.textAlign='center'; ctx.fillStyle='#e8c258'; ctx.font='bold 46px Segoe UI, Arial'; ctx.fillText('VS',540,268);
+  // marcador probable
+  ctx.fillStyle='#e8c258'; ctx.font='bold 24px Segoe UI, Arial'; ctx.fillText('MARCADOR PROBABLE',540,420);
+  ctx.fillStyle='#ffffff'; ctx.font='bold 76px Segoe UI, Arial'; ctx.fillText(x.m,540,496);
+  // barra V/E/D
+  const bx=90, bw=900, by=524, bh=48;
+  const w1=bw*x.p[0]/100, w2=bw*x.p[1]/100, w3=bw-w1-w2;
+  ctx.fillStyle='#3ecf8e'; ctx.fillRect(bx,by,w1,bh);
+  ctx.fillStyle='#b9c6d6'; ctx.fillRect(bx+w1,by,w2,bh);
+  ctx.fillStyle='#ef6a6a'; ctx.fillRect(bx+w1+w2,by,w3,bh);
+  ctx.fillStyle='#0e2138'; ctx.font='bold 26px Segoe UI, Arial';
+  if(x.p[0]>7) ctx.fillText(x.p[0]+'%',bx+w1/2,by+33);
+  if(x.p[1]>7) ctx.fillText(x.p[1]+'%',bx+w1+w2/2,by+33);
+  if(x.p[2]>7) ctx.fillText(x.p[2]+'%',bx+w1+w2+w3/2,by+33);
+  ctx.fillStyle='#8aa0b8'; ctx.font='21px Segoe UI, Arial';
+  ctx.textAlign='left';  ctx.fillText('Gana '+n1,bx,by+78);
+  ctx.textAlign='center';ctx.fillText('Empate',540,by+78);
+  ctx.textAlign='right'; ctx.fillText('Gana '+n2,bx+bw,by+78);
+  // FACTORES CLAVE
+  let y=sec('🎯 FACTORES CLAVE',656)+34;
+  ctx.fillStyle='#cdd9e6'; ctx.font='22px Segoe UI, Arial'; ctx.textAlign='left';
+  y=wrap('⛰ Altitud: '+x.alt,90,y,900,28,2)+8;
+  y=wrap('🌦 Clima: '+x.clima,90,y,900,28,2)+8;
+  y=wrap('🟨 Árbitro: '+x.arb,90,y,900,28,2);
+  // FORMA RECIENTE
+  y=sec('📈 FORMA RECIENTE',y+40)+34;
+  ctx.fillStyle='#cdd9e6'; ctx.font='22px Segoe UI, Arial'; ctx.textAlign='left';
+  y=wrap(n1+': '+x.f1,90,y,900,28,2)+8;
+  y=wrap(n2+': '+x.f2,90,y,900,28,2);
+  // PROBABILIDADES (7 barras)
+  y=sec('📊 PROBABILIDADES',y+40);
+  ctx.fillStyle='#8aa0b8'; ctx.font='20px Segoe UI, Arial'; ctx.textAlign='right';
+  ctx.fillText(`verde: ${n1} · rojo: ${n2}`,990,y);
+  y+=26;
+  const shr=(a,b)=>{const s=Math.round(100*a/(a+b));return [s,100-s];};
+  const filas=[
+    [`Reparto de faltas (${P.fa.t} esp.)`,shr(P.fa.a,P.fa.b)],
+    ['1.ª falta del partido',P.fa.p1],
+    [`Reparto de amarillas (${P.am.t} esp. · roja ${P.am.roja}%)`,shr(P.am.a,P.am.b)],
+    ['1.ª tarjeta',P.am.p1],
+    [`Reparto de córners (${P.co.t} esp.)`,shr(P.co.a,P.co.b)],
+    ['1.er córner',P.co.p1],
+    [`Mitad con más goles (1T/2T) · descanso ${P.mi.m1t}`,[100-P.mi.m2,P.mi.m2]]
+  ];
+  filas.forEach(f=>{
+    ctx.textAlign='left'; ctx.fillStyle='#cdd9e6'; ctx.font='21px Segoe UI, Arial';
+    ctx.fillText(f[0],90,y+25,375);
+    const rx=480, rw=510, rh=34;
+    const wA=rw*f[1][0]/100;
+    ctx.fillStyle='#3ecf8e'; ctx.fillRect(rx,y,wA,rh);
+    ctx.fillStyle='#ef6a6a'; ctx.fillRect(rx+wA,y,rw-wA,rh);
+    ctx.fillStyle='#0e2138'; ctx.font='bold 20px Segoe UI, Arial'; ctx.textAlign='center';
+    if(f[1][0]>9) ctx.fillText(f[1][0]+'%',rx+wA/2,y+24);
+    if(f[1][1]>9) ctx.fillText(f[1][1]+'%',rx+wA+(rw-wA)/2,y+24);
+    y+=52;
+  });
+  // REMATADORES y GOLEADORES en dos columnas
+  const yCols=y+38;
+  sec('🎯 REMATADORES (rem. / a puerta)',yCols);
+  ctx.textAlign='left'; ctx.fillStyle='#e8c258'; ctx.font='bold 26px Segoe UI, Arial';
+  ctx.fillText('⚽ GOLEADORES (prob.)',610,yCols);
+  ctx.fillStyle='#e9eef5'; ctx.font='22px Segoe UI, Arial';
+  P.re.slice(0,4).forEach((r,k)=>ctx.fillText(`${r[0]} — ${r[1]} / ${r[2]}`,90,yCols+38+k*32,490));
+  P.go.slice(0,4).forEach((g,k)=>ctx.fillText(`${g[0]} — ${g[1]}%`,610,yCols+38+k*32,380));
+  y=yCols+38+Math.max(Math.min(P.re.length,4),Math.min(P.go.length,4))*32;
+  // NOTICIAS
+  y=sec('📰 NOTICIAS DEL PARTIDO',y+30)+32;
+  ctx.fillStyle='#cdd9e6'; ctx.font='21px Segoe UI, Arial'; ctx.textAlign='left';
+  x.news.slice(0,4).forEach(nw=>{ y=wrap('• '+nw,90,y,900,27,2)+6; });
+  // ANÁLISIS
+  y=sec('💡 ANÁLISIS',y+26)+32;
+  ctx.fillStyle='#b9c9da'; ctx.font='italic 22px Segoe UI, Arial'; ctx.textAlign='left';
+  wrap(x.an,90,y,900,28,3);
+  // pie
+  ctx.textAlign='center'; ctx.fillStyle='#8aa0b8'; ctx.font='19px Segoe UI, Arial';
+  ctx.fillText('Probabilidades del modelo (forma, árbitro, clima y altitud) · No es consejo de apuestas · Actualización diaria 7:00',540,H-32);
+  // descarga
+  try{
+    cv.toBlob(b=>{
+      const a=document.createElement('a');
+      a.href=URL.createObjectURL(b);
+      a.download=`pronostico_${n1.replace(/ /g,'_')}_vs_${n2.replace(/ /g,'_')}.png`;
+      a.click();
+      setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+    },'image/png');
+  }catch(e){ alert('No se pudo generar la imagen: '+e.message); }
+}
+
+// ============================================================
+// IMÁGENES DESCARGABLES DE SECCIONES (favoritos, grupos, simulador, premios)
+// ============================================================
+function dlCanvas(cv,nombre){try{cv.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=nombre;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),5000);},'image/png');}catch(e){alert('No se pudo generar la imagen: '+e.message);}}
+async function flagsImgs(codes){const u=[...new Set(codes.filter(Boolean))];const imgs=await Promise.all(u.map(loadFlag));const m={};u.forEach((c,i)=>m[c]=imgs[i]);return m;}
+function lienzo(H,sub){const cv=document.createElement('canvas');cv.width=1080;cv.height=H;const ctx=cv.getContext('2d');const bg=ctx.createLinearGradient(0,0,1080,H);bg.addColorStop(0,'#0a1628');bg.addColorStop(.5,'#13294a');bg.addColorStop(1,'#0a1628');ctx.fillStyle=bg;ctx.fillRect(0,0,1080,H);ctx.strokeStyle='#e8c258';ctx.lineWidth=6;ctx.strokeRect(14,14,1052,H-28);ctx.textAlign='center';ctx.fillStyle='#e8c258';ctx.font='bold 38px Segoe UI, Arial';ctx.fillText('⚽ TABLERO MUNDIAL 2026',540,78);ctx.fillStyle='#8aa0b8';ctx.font='26px Segoe UI, Arial';ctx.fillText(sub,540,122);return [cv,ctx];}
+function pieImg(ctx,H){ctx.textAlign='center';ctx.fillStyle='#8aa0b8';ctx.font='19px Segoe UI, Arial';ctx.fillText('Modelo propio · No es consejo de apuestas · Actualización diaria 7:00',540,H-32);}
+function miniFlag(ctx,im,x,y,w,h,txt){if(im){ctx.save();rrect(ctx,x,y,w,h,4);ctx.clip();ctx.drawImage(im,x,y,w,h);ctx.restore();ctx.strokeStyle='#23405f';ctx.lineWidth=1;rrect(ctx,x,y,w,h,4);ctx.stroke();}else{ctx.fillStyle='#1a3050';rrect(ctx,x,y,w,h,4);ctx.fill();ctx.fillStyle='#e8c258';ctx.font='bold '+Math.round(h*.55)+'px Segoe UI, Arial';ctx.textAlign='center';ctx.fillText((txt||'?').slice(0,3),x+w/2,y+h*.7);}}
+function wrapG(ctx,txt,X,Y,maxW,lh,maxLines){const words=String(txt).split(' ');let line='',lines=[];for(const w of words){const t=line?line+' '+w:w;if(ctx.measureText(t).width>maxW&&line){lines.push(line);line=w;}else line=t;}if(line)lines.push(line);if(lines.length>maxLines){lines=lines.slice(0,maxLines);lines[maxLines-1]=lines[maxLines-1].replace(/\s+\S*$/,'')+'…';}lines.forEach((l,k)=>ctx.fillText(l,X,Y+k*lh));return Y+lines.length*lh;}
+
+// --- Favoritos (sección completa) ---
+async function imgFavoritos(){
+  const m=await flagsImgs(FAVORITOS.map(f=>f.c));
+  const H=210+FAVORITOS.length*118+80;
+  const [cv,ctx]=lienzo(H,'🏆 Favoritos para ganar la Copa del Mundo');
+  const pmax=FAVORITOS[0].p;
+  FAVORITOS.forEach((f,i)=>{
+    const y=170+i*118;
+    ctx.fillStyle=i%2?'#10223a':'#13263f'; rrect(ctx,60,y,960,106,10); ctx.fill();
+    ctx.textAlign='center'; ctx.fillStyle='#e8c258'; ctx.font='bold 38px Segoe UI, Arial';
+    ctx.fillText(f.p+'%',135,y+62);
+    miniFlag(ctx,m[f.c],210,y+18,64,43,T[f.c].n);
+    ctx.textAlign='left'; ctx.fillStyle='#e9eef5'; ctx.font='bold 30px Segoe UI, Arial';
+    ctx.fillText(`${i+1}. ${T[f.c].n}`,292,y+44);
+    ctx.fillStyle='#8aa0b8'; ctx.font='19px Segoe UI, Arial';
+    ctx.fillText(`Grupo ${T[f.c].g} · Rating ${T[f.c].r}`,292,y+68);
+    ctx.fillStyle='#23405f'; ctx.fillRect(292,y+80,420,9);
+    ctx.fillStyle='#e8c258'; ctx.fillRect(292,y+80,420*f.p/pmax,9);
+    ctx.fillStyle='#bfe8d2'; ctx.font='18px Segoe UI, Arial';
+    wrapG(ctx,'✔ '+f.pro,740,y+34,260,22,2);
+    ctx.fillStyle='#f0c9c9';
+    wrapG(ctx,'✖ '+f.con,740,y+86,260,22,1);
+  });
+  ctx.textAlign='center'; ctx.fillStyle='#8aa0b8'; ctx.font='20px Segoe UI, Arial';
+  ctx.fillText(`El ${100-FAVORITOS.reduce((s,x)=>s+x.p,0)}% restante se reparte entre las otras 36 selecciones`,540,H-70);
+  pieImg(ctx,H); dlCanvas(cv,'favoritos_mundial2026.png');
+}
+
+// --- Fase de grupos (un grupo) ---
+async function imgGrupo(g){
+  const tabla=tablaGrupo(g);
+  const m=await flagsImgs(tabla.map(s=>s.c));
+  const H=800;
+  const [cv,ctx]=lienzo(H,`Fase de Grupos · Tabla del GRUPO ${g}`);
+  const cols=[['PJ',560],['G',615],['E',668],['P',721],['GF',778],['GC',836],['DIF',897],['PTS',957],['PROY',1014]];
+  ctx.fillStyle='#8aa0b8'; ctx.font='bold 20px Segoe UI, Arial'; ctx.textAlign='center';
+  ctx.fillText('#',75,218); cols.forEach(c=>ctx.fillText(c[0],c[1],218));
+  ctx.textAlign='left'; ctx.fillText('Equipo',175,218);
+  tabla.forEach((s,i)=>{
+    const y=240+i*108;
+    ctx.fillStyle=i%2?'#10223a':'#13263f'; rrect(ctx,55,y,970,94,10); ctx.fill();
+    ctx.fillStyle=i<2?'#3ecf8e':(i==2?'#f0b35a':'transparent');
+    if(i<3) ctx.fillRect(55,y,7,94);
+    ctx.textAlign='center'; ctx.fillStyle='#e9eef5'; ctx.font='bold 28px Segoe UI, Arial';
+    ctx.fillText(i+1,80,y+58);
+    miniFlag(ctx,m[s.c],108,y+24,68,45,T[s.c].n);
+    ctx.textAlign='left'; ctx.font='bold 27px Segoe UI, Arial'; ctx.fillStyle='#e9eef5';
+    ctx.fillText(T[s.c].n,192,y+58,340);
+    ctx.textAlign='center'; ctx.font='26px Segoe UI, Arial';
+    const vals=[s.pj,s.w,s.e,s.l,s.gf,s.gc,s.gf-s.gc];
+    vals.forEach((v,k)=>{ctx.fillStyle='#cdd9e6';ctx.fillText(v,cols[k][1],y+58);});
+    ctx.fillStyle='#e8c258'; ctx.font='bold 28px Segoe UI, Arial'; ctx.fillText(s.pts,957,y+58);
+    ctx.fillStyle='#3ecf8e'; ctx.font='bold 26px Segoe UI, Arial'; ctx.fillText(T[s.c].proy,1014,y+58);
+  });
+  ctx.textAlign='center'; ctx.fillStyle='#8aa0b8'; ctx.font='19px Segoe UI, Arial';
+  ctx.fillText('Verde: 1.º y 2.º clasifican directo · Ámbar: el 3.º puede avanzar entre los 8 mejores terceros · PROY = puntos proyectados',540,H-70);
+  pieImg(ctx,H); dlCanvas(cv,`grupo_${g}_mundial2026.png`);
+}
+
+// --- Simulador (cuadro completo, respeta tus ajustes manuales) ---
+async function imgSimulador(){
+  const M=simular();
+  const todos=[...FIN,...TP,...SF,...QF,...R16,...R32];
+  const m=await flagsImgs(todos.flatMap(x=>[M[x.id].A,M[x.id].B,M[x.id].w]));
+  const nLineas=todos.length;
+  const H=330+6*48+nLineas*36+70;
+  const [cv,ctx]=lienzo(H,'🗺 Simulador del cuadro eliminatorio · 28 jun – 19 jul');
+  const fin=M[104];
+  ctx.fillStyle='#e8c258'; ctx.font='bold 24px Segoe UI, Arial'; ctx.textAlign='center';
+  ctx.fillText('CAMPEÓN PROYECTADO',540,182);
+  if(fin&&fin.w){ miniFlag(ctx,m[fin.w],460,200,72,48,T[fin.w].n);
+    ctx.fillStyle='#ffffff'; ctx.font='bold 42px Segoe UI, Arial'; ctx.textAlign='left';
+    ctx.fillText(T[fin.w].n,550,236); }
+  ctx.textAlign='center'; ctx.fillStyle='#8aa0b8'; ctx.font='20px Segoe UI, Arial';
+  ctx.fillText(Object.keys(OV).length?`Con ${Object.keys(OV).length} ajuste(s) manual(es)`:'Todo según el modelo',540,278);
+  let y=320;
+  const rondas=[['🏆 GRAN FINAL — MetLife, 19 jul',FIN],['🥉 Tercer lugar',TP],['🟠 Semifinales',SF],['🟡 Cuartos de final',QF],['🟢 Octavos de final',R16],['🔵 Ronda de 32',R32]];
+  rondas.forEach(([titulo,arr])=>{
+    ctx.textAlign='left'; ctx.fillStyle='#e8c258'; ctx.font='bold 24px Segoe UI, Arial';
+    ctx.fillText(titulo,80,y+30); y+=48;
+    arr.forEach(mm=>{
+      const x=M[mm.id]; if(!x.A||!x.B){y+=36;return;}
+      const pA=x.pA, pB=100-x.pA;
+      miniFlag(ctx,m[x.A],90,y+6,33,22,T[x.A].n);
+      ctx.textAlign='left'; ctx.fillStyle='#cdd9e6'; ctx.font='22px Segoe UI, Arial';
+      ctx.fillText(`${T[x.A].n} ${pA}%`,132,y+24,250);
+      ctx.fillStyle='#8aa0b8'; ctx.fillText('vs',400,y+24);
+      miniFlag(ctx,m[x.B],440,y+6,33,22,T[x.B].n);
+      ctx.fillStyle='#cdd9e6'; ctx.fillText(`${T[x.B].n} ${pB}%`,482,y+24,250);
+      ctx.fillStyle='#8aa0b8'; ctx.fillText('→',756,y+24);
+      miniFlag(ctx,m[x.w],792,y+6,33,22,T[x.w].n);
+      ctx.fillStyle='#3ecf8e'; ctx.font='bold 22px Segoe UI, Arial';
+      ctx.fillText(T[x.w].n,834,y+24,180);
+      y+=36;
+    });
+    y+=8;
+  });
+  pieImg(ctx,H); dlCanvas(cv,'simulador_mundial2026.png');
+}
+
+// --- Premios individuales (uno por premio) ---
+const PREMIOS_IMG=[
+ ['👟 Bota de Oro — Máximo goleador',()=>BOTA,[['g','Goles'],['a','Asist.'],['pj','PJ']],'bota_de_oro'],
+ ['🏅 Balón de Oro — Mejor jugador del torneo',()=>BALON,[['g','Goles'],['a','Asist.'],['pj','PJ']],'balon_de_oro'],
+ ['🧤 Guante de Oro — Mejor portero',()=>GUANTE,[['vi','Vallas inv.'],['gc','Goles recibidos'],['pj','PJ']],'guante_de_oro'],
+ ['🌟 Premio al Jugador Joven',()=>JOVEN,[['g','Goles'],['a','Asist.'],['pj','PJ']],'jugador_joven']
+];
+async function imgPremio(k){
+  const [titulo,getArr,cols,slug]=PREMIOS_IMG[k];
+  const arr=getArr();
+  const m=await flagsImgs(arr.map(x=>x.c));
+  const H=200+arr.length*86+80;
+  const [cv,ctx]=lienzo(H,titulo);
+  arr.forEach((x,i)=>{
+    const y=165+i*86;
+    ctx.fillStyle=i%2?'#10223a':'#13263f'; rrect(ctx,55,y,970,76,10); ctx.fill();
+    if(x.fav){ctx.fillStyle='#e8c258';ctx.fillRect(55,y,7,76);}
+    ctx.textAlign='center'; ctx.fillStyle='#8aa0b8'; ctx.font='bold 24px Segoe UI, Arial';
+    ctx.fillText(i+1,85,y+48);
+    miniFlag(ctx,m[x.c],112,y+18,56,37,T[x.c].n);
+    ctx.textAlign='left'; ctx.fillStyle='#e9eef5'; ctx.font='bold 26px Segoe UI, Arial';
+    ctx.fillText(x.j+(x.fav?' ⭐':''),186,y+34,380);
+    ctx.fillStyle='#8aa0b8'; ctx.font='17px Segoe UI, Arial';
+    wrapG(ctx,x.nota,186,y+60,520,20,1);
+    ctx.textAlign='right'; ctx.fillStyle='#e8c258'; ctx.font='bold 23px Segoe UI, Arial';
+    ctx.fillText(cols.map(c=>`${c[1]}: ${x[c[0]]}`).join('  ·  '),1000,y+48);
+  });
+  ctx.textAlign='center'; ctx.fillStyle='#8aa0b8'; ctx.font='19px Segoe UI, Arial';
+  ctx.fillText('⭐ = favorito actual según el modelo · Estadísticas del torneo, se actualizan a diario',540,H-70);
+  pieImg(ctx,H); dlCanvas(cv,`premio_${slug}_mundial2026.png`);
+}
+
+// ============================================================
+// SIMULADOR DE RONDAS (bracket oficial FIFA 2026)
+// ============================================================
+const R32 = [
+ {id:73,a:"2A",b:"2B",s:"SoFi, Inglewood"},{id:74,a:"1E",b:"3ABCDF",s:"Gillette, Foxborough"},
+ {id:75,a:"1F",b:"2C",s:"BBVA, Monterrey"},{id:76,a:"1C",b:"2F",s:"NRG, Houston"},
+ {id:77,a:"1I",b:"3CDFGH",s:"MetLife, NY/NJ"},{id:78,a:"2E",b:"2I",s:"AT&T, Arlington"},
+ {id:79,a:"1A",b:"3CEFHI",s:"Azteca, CDMX"},{id:80,a:"1L",b:"3EHIJK",s:"Mercedes-Benz, Atlanta"},
+ {id:81,a:"1D",b:"3BEFIJ",s:"Levi's, Santa Clara"},{id:82,a:"1G",b:"3AEHIJ",s:"Lumen, Seattle"},
+ {id:83,a:"2K",b:"2L",s:"BMO, Toronto"},{id:84,a:"1H",b:"2J",s:"SoFi, Inglewood"},
+ {id:85,a:"1B",b:"3EFGIJ",s:"BC Place, Vancouver"},{id:86,a:"1J",b:"2H",s:"Hard Rock, Miami"},
+ {id:87,a:"1K",b:"3DEIJL",s:"Arrowhead, Kansas City"},{id:88,a:"2D",b:"2G",s:"AT&T, Arlington"}
+];
+const R16 = [{id:89,a:"W74",b:"W77",s:"Lincoln Financial, Filadelfia"},{id:90,a:"W73",b:"W75",s:"NRG, Houston"},{id:91,a:"W76",b:"W78",s:"MetLife, NY/NJ"},{id:92,a:"W79",b:"W80",s:"Azteca, CDMX"},{id:93,a:"W83",b:"W84",s:"AT&T, Arlington"},{id:94,a:"W81",b:"W82",s:"Lumen, Seattle"},{id:95,a:"W86",b:"W88",s:"Mercedes-Benz, Atlanta"},{id:96,a:"W85",b:"W87",s:"BC Place, Vancouver"}];
+const QF  = [{id:97,a:"W89",b:"W90",s:"Gillette, Foxborough"},{id:98,a:"W93",b:"W94",s:"SoFi, Inglewood"},{id:99,a:"W91",b:"W92",s:"Hard Rock, Miami"},{id:100,a:"W95",b:"W96",s:"Arrowhead, Kansas City"}];
+const SF  = [{id:101,a:"W97",b:"W98",s:"AT&T, Arlington"},{id:102,a:"W99",b:"W100",s:"Mercedes-Benz, Atlanta"}];
+const TP  = [{id:103,a:"L101",b:"L102",s:"Hard Rock, Miami"}];
+const FIN = [{id:104,a:"W101",b:"W102",s:"MetLife Stadium, NY/NJ — 19 de julio"}];
+
+let OV = {}; // ajustes manuales del usuario: {idPartido: codigoEquipo}
+const probWin=(a,b)=>1/(1+Math.pow(10,(T[b].r-T[a].r)/22));
+
+function simular(){
+  const pos={}; GL.forEach(g=>{pos[g]=tablaGrupo(g).map(s=>s.c);});
+  const terceros = GL.map(g=>tablaGrupo(g)[2]).sort((x,y)=> y.pts-x.pts || (y.gf-y.gc)-(x.gf-x.gc) || y.gf-x.gf || T[y.c].r-T[x.c].r);
+  const mejores8 = terceros.slice(0,8).map(s=>s.c);
+  const slots = R32.filter(m=>m.b.startsWith("3"));
+  const asig = {};
+  (function bt(i,used){
+    if(i===slots.length) return true;
+    for(const t of mejores8){
+      if(used.has(t)) continue;
+      if(slots[i].b.slice(1).includes(T[t].g)){
+        asig[slots[i].id]=t; used.add(t);
+        if(bt(i+1,used)) return true;
+        used.delete(t); delete asig[slots[i].id];
+      }
+    }
+    return false;
+  })(0,new Set());
+  slots.forEach(s=>{ if(!asig[s.id]){ asig[s.id]=mejores8.find(t=>!Object.values(asig).includes(t)); }});
+
+  const W={},L={},M={};
+  const resolver=ref=>{
+    if(ref.startsWith("W")) return W[ref.slice(1)];
+    if(ref.startsWith("L")) return L[ref.slice(1)];
+    const p=+ref[0], g=ref[1];
+    return pos[g] ? pos[g][p-1] : null;
+  };
+  [...R32,...R16,...QF,...SF,...TP,...FIN].forEach(m=>{
+    const A = resolver(m.a);
+    const B = m.b.startsWith("3") ? asig[m.id] : resolver(m.b);
+    M[m.id]={...m,A,B};
+    if(A&&B){
+      const pA=probWin(A,B);
+      const w = OV[m.id] && (OV[m.id]===A||OV[m.id]===B) ? OV[m.id] : (pA>=.5?A:B);
+      M[m.id].w=w; M[m.id].pA=Math.round(pA*100);
+      W[m.id]=w; L[m.id]= w===A?B:A;
+    }
+  });
+  return M;
+}
+
+function renderSim(){
+  const M=simular();
+  const rondas=[["🔵 Dieciseisavos — Ronda de 32 (28 jun – 3 jul)",R32],["🟢 Octavos de final (4–7 jul)",R16],["🟡 Cuartos de final (9–11 jul)",QF],["🟠 Semifinales (14–15 jul)",SF],["🥉 Tercer lugar (18 jul)",TP],["🏆 GRAN FINAL (19 jul)",FIN]];
+  document.getElementById('bracket').innerHTML = rondas.map(([t,arr])=>`<div class="ronda"><h3>${t}</h3><div class="rgrid">${
+    arr.map(m=>{
+      const x=M[m.id];
+      const fila=(c,etq)=>{
+        if(!c) return `<div class="row"><span style="color:var(--mut)">${etq}</span></div>`;
+        const win=x.w===c, pr= x.pA!=null ? (c===x.A?x.pA:100-x.pA) : null;
+        return `<div class="row ${win?'win':''}" onclick="elegir(${m.id},'${c}')"><span>${name(c)}</span>${pr!=null?`<span class="pr">${pr}%</span>`:''}</div>`;
+      };
+      return `<div class="sm">${fila(x.A,x.a)}<div class="mid">P${m.id} · ${m.s}</div>${fila(x.B,x.b)}</div>`;
+    }).join('')
+  }</div></div>`).join('');
+  const fin=M[104];
+  document.getElementById('champName').innerHTML = fin&&fin.w ? name(fin.w) : "—";
+  document.getElementById('champSub').innerHTML = fin&&fin.w ? `Final: ${name(fin.A)} vs ${name(fin.B)} · MetLife Stadium · ${Object.keys(OV).length? 'con '+Object.keys(OV).length+' ajuste(s) manual(es)' : 'según el modelo'}` : "";
+  document.getElementById('ovCount').textContent = Object.keys(OV).length? `${Object.keys(OV).length} cruce(s) forzado(s) por ti` : "Sin ajustes manuales — todo según el modelo";
+}
+function elegir(id,c){ OV[id]= OV[id]===c ? undefined : c; if(OV[id]===undefined) delete OV[id]; renderSim(); }
+document.getElementById('btnReset').addEventListener('click',()=>{OV={};renderSim();});
+renderSim();
+
+// ============================================================
+// PREMIOS INDIVIDUALES — la tarea diaria actualiza g (goles), a (asistencias),
+// pj (partidos), vi (vallas invictas), gc (goles en contra)
+// ============================================================
+const BOTA = [
+ {j:"Kylian Mbappé",c:"FRA",g:0,a:0,pj:0,fav:1,nota:"12 goles en Mundiales a sus 27; el ritmo francés pasa por él"},
+ {j:"Erling Haaland",c:"NOR",g:0,a:0,pj:0,nota:"Su primer Mundial; venía de eliminatorias récord con Noruega"},
+ {j:"Harry Kane",c:"ENG",g:0,a:0,pj:0,nota:"Bota de Oro 2018; Inglaterra genera volumen para su 9"},
+ {j:"Lionel Messi",c:"ARG",g:0,a:0,pj:0,nota:"Último Mundial; llega con menos minutos pero máxima jerarquía"},
+ {j:"Julián Álvarez",c:"ARG",g:0,a:0,pj:0,nota:"El 9 de la campeona; 4 goles en Qatar 2022"},
+ {j:"Lamine Yamal",c:"ESP",g:0,a:0,pj:0,nota:"La estrella de la favorita europea; gol y asistencia"},
+ {j:"Vinícius Jr.",c:"BRA",g:0,a:0,pj:0,nota:"Líder ofensivo de Brasil con Neymar a media máquina"},
+ {j:"Michael Olise",c:"FRA",g:0,a:0,pj:0,nota:"Triplete a Irlanda del Norte en la despedida: llega encendido"},
+ {j:"Viktor Gyökeres",c:"SWE",g:0,a:0,pj:0,nota:"Goleador serial; Suecia depende de su pegada"},
+ {j:"Mohamed Salah",c:"EGY",g:0,a:0,pj:0,nota:"Toda la generación egipcia juega para él"},
+ {j:"Heung-min Son",c:"KOR",g:0,a:0,pj:0,nota:"Capitán y referencia; Corea llegó afinada"},
+ {j:"Santiago Giménez",c:"MEX",g:0,a:0,pj:0,nota:"El 9 del anfitrión; racha del Tri y Azteca a favor"}
+];
+const BALON = [
+ {j:"Lamine Yamal",c:"ESP",g:0,a:0,pj:0,fav:1,nota:"Mejor jugador joven de la Euro 2024; España candidata máxima"},
+ {j:"Lionel Messi",c:"ARG",g:0,a:0,pj:0,nota:"Balón de Oro en 2014 y 2022; va por una despedida de leyenda"},
+ {j:"Jude Bellingham",c:"ENG",g:0,a:0,pj:0,nota:"El motor total de Inglaterra"},
+ {j:"Kylian Mbappé",c:"FRA",g:0,a:0,pj:0,nota:"Si Francia llega lejos, será con él como protagonista"},
+ {j:"Pedri",c:"ESP",g:0,a:0,pj:0,nota:"El cerebro de la Roja invicta"},
+ {j:"Vitinha",c:"POR",g:0,a:0,pj:0,nota:"El mejor mediocentro de Europa esta temporada"},
+ {j:"Kevin De Bruyne",c:"BEL",g:0,a:0,pj:0,nota:"Bélgica en gran forma gira a su alrededor"},
+ {j:"Federico Valverde",c:"URU",g:0,a:0,pj:0,nota:"Caudillo del Uruguay de Bielsa"}
+];
+const GUANTE = [
+ {j:"Emiliano 'Dibu' Martínez",c:"ARG",vi:0,gc:0,pj:0,fav:1,nota:"Guante de Oro en Qatar 2022; especialista en momentos límite"},
+ {j:"Unai Simón",c:"ESP",vi:0,gc:0,pj:0,nota:"El arco de la selección más sólida de Europa"},
+ {j:"Mike Maignan",c:"FRA",vi:0,gc:0,pj:0,nota:"Reflejos de élite tras una zaga que concede ocasiones"},
+ {j:"Jordan Pickford",c:"ENG",vi:0,gc:0,pj:0,nota:"Seguro bajo palos y en tandas de penales"},
+ {j:"Marc-André ter Stegen",c:"GER",vi:0,gc:0,pj:0,nota:"Alemania encajó 1 gol en 2 amistosos de cierre"},
+ {j:"Diogo Costa",c:"POR",vi:0,gc:0,pj:0,nota:"Atajapenales; grupo accesible para acumular vallas invictas"},
+ {j:"Yassine 'Bono' Bounou",c:"MAR",vi:0,gc:0,pj:0,nota:"Héroe de 2022; el muro marroquí empieza con él"},
+ {j:"Thibaut Courtois",c:"BEL",vi:0,gc:0,pj:0,nota:"Jerarquía intacta; Bélgica llega lanzada"}
+];
+const JOVEN = [
+ {j:"Lamine Yamal",c:"ESP",g:0,a:0,pj:0,fav:1,nota:"18 años y ya es la cara del torneo"},
+ {j:"Endrick",c:"BRA",g:0,a:0,pj:0,nota:"Revulsivo de lujo de Ancelotti"},
+ {j:"Arda Güler",c:"TUR",g:0,a:0,pj:0,nota:"Turquía en racha gira sobre su zurda"},
+ {j:"Kenan Yildiz",c:"TUR",g:0,a:0,pj:0,nota:"Socio de Güler en la Turquía más talentosa en décadas"},
+ {j:"Assan Ouédraogo",c:"GER",g:0,a:0,pj:0,nota:"Entró a la lista por la baja de Karl; proyección enorme"},
+ {j:"Franco Mastantuono",c:"ARG",g:0,a:0,pj:0,nota:"La joya argentina que pide minutos"},
+ {j:"Pau Cubarsí",c:"ESP",g:0,a:0,pj:0,nota:"Central precoz de la Roja"},
+ {j:"Warren Zaïre-Emery",c:"FRA",g:0,a:0,pj:0,nota:"El mediocampo francés del futuro, hoy"}
+];
+function tj(arr,cols){
+  return `<table><thead><tr><th style="text-align:left;padding-left:14px">Jugador</th><th>País</th>${cols.map(c=>`<th>${c[1]}</th>`).join('')}<th style="text-align:left">Nota</th></tr></thead><tbody>${
+    arr.map(x=>`<tr><td class="eq">${x.j} ${x.fav?'<span class="tagfav">FAVORITO</span>':''}</td><td>${fl(x.c)}</td>${cols.map(c=>`<td class="pts">${x[c[0]]}</td>`).join('')}<td style="text-align:left;font-size:.74rem;color:var(--mut)">${x.nota}</td></tr>`).join('')
+  }</tbody></table>`;
+}
+document.getElementById('awards').innerHTML =
+ `<div class="award"><h3>👟 Bota de Oro — Máximo goleador <button class="btnimg" style="float:right" onclick="imgPremio(0)">📷 Imagen</button></h3><p class="d">Desempates oficiales: asistencias y menos minutos jugados.</p>${tj(BOTA,[["g","Goles"],["a","Asist."],["pj","PJ"]])}</div>
+  <div class="award"><h3>🏅 Balón de Oro — Mejor jugador del torneo <button class="btnimg" style="float:right" onclick="imgPremio(1)">📷 Imagen</button></h3><p class="d">Lo elige el Grupo de Estudios Técnicos de la FIFA.</p>${tj(BALON,[["g","Goles"],["a","Asist."],["pj","PJ"]])}</div>
+  <div class="award"><h3>🧤 Guante de Oro — Mejor portero <button class="btnimg" style="float:right" onclick="imgPremio(2)">📷 Imagen</button></h3><p class="d">Vallas invictas y goles recibidos, actualizados a diario.</p>${tj(GUANTE,[["vi","Vallas inv."],["gc","Goles recibidos"],["pj","PJ"]])}</div>
+  <div class="award"><h3>🌟 Premio al Jugador Joven <button class="btnimg" style="float:right" onclick="imgPremio(3)">📷 Imagen</button></h3><p class="d">Para nacidos a partir del 1 de enero de 2005.</p>${tj(JOVEN,[["g","Goles"],["a","Asist."],["pj","PJ"]])}</div>`;
+
+// ============================================================
+// CALENDARIO COMPLETO FASE DE GRUPOS
+// ============================================================
+const CAL = [
+ ["Jueves 11 de junio",[["15:00","A","🇲🇽 México","🇿🇦 Sudáfrica","Estadio Azteca, CDMX"],["22:00","A","🇰🇷 Corea del Sur","🇨🇿 Chequia","Estadio Akron, Guadalajara"]]],
+ ["Viernes 12 de junio",[["15:00","B","🇨🇦 Canadá","🇧🇦 Bosnia y Herz.","BMO Field, Toronto"],["21:00","D","🇺🇸 Estados Unidos","🇵🇾 Paraguay","SoFi Stadium, Inglewood"]]],
+ ["Sábado 13 de junio",[["15:00","B","🇶🇦 Qatar","🇨🇭 Suiza","Levi's Stadium, Santa Clara"],["18:00","C","🇧🇷 Brasil","🇲🇦 Marruecos","MetLife Stadium, East Rutherford"],["21:00","C","🇭🇹 Haití","🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia","Gillette Stadium, Foxborough"]]],
+ ["Domingo 14 de junio",[["00:00","D","🇦🇺 Australia","🇹🇷 Turquía","BC Place, Vancouver"],["13:00","E","🇩🇪 Alemania","🇨🇼 Curazao","NRG Stadium, Houston"],["16:00","F","🇳🇱 Países Bajos","🇯🇵 Japón","AT&T Stadium, Arlington"],["19:00","E","🇨🇮 Costa de Marfil","🇪🇨 Ecuador","Lincoln Financial Field, Filadelfia"],["22:00","F","🇸🇪 Suecia","🇹🇳 Túnez","Estadio BBVA, Monterrey"]]],
+ ["Lunes 15 de junio",[["12:00","H","🇪🇸 España","🇨🇻 Cabo Verde","Mercedes-Benz Stadium, Atlanta"],["15:00","G","🇧🇪 Bélgica","🇪🇬 Egipto","Lumen Field, Seattle"],["18:00","H","🇸🇦 Arabia Saudita","🇺🇾 Uruguay","Hard Rock Stadium, Miami"],["21:00","G","🇮🇷 Irán","🇳🇿 Nueva Zelanda","SoFi Stadium, Inglewood"]]],
+ ["Martes 16 de junio",[["15:00","I","🇫🇷 Francia","🇸🇳 Senegal","MetLife Stadium, East Rutherford"],["18:00","I","🇮🇶 Irak","🇳🇴 Noruega","Gillette Stadium, Foxborough"],["21:00","J","🇦🇷 Argentina","🇩🇿 Argelia","Arrowhead Stadium, Kansas City"]]],
+ ["Miércoles 17 de junio",[["00:00","J","🇦🇹 Austria","🇯🇴 Jordania","Levi's Stadium, Santa Clara"],["13:00","K","🇵🇹 Portugal","🇨🇩 RD Congo","NRG Stadium, Houston"],["16:00","L","🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra","🇭🇷 Croacia","AT&T Stadium, Arlington"],["19:00","L","🇬🇭 Ghana","🇵🇦 Panamá","BMO Field, Toronto"],["22:00","K","🇺🇿 Uzbekistán","🇨🇴 Colombia","Estadio Azteca, CDMX"]]],
+ ["Jueves 18 de junio",[["12:00","A","🇨🇿 Chequia","🇿🇦 Sudáfrica","Mercedes-Benz Stadium, Atlanta"],["15:00","B","🇨🇭 Suiza","🇧🇦 Bosnia y Herz.","SoFi Stadium, Inglewood"],["18:00","B","🇨🇦 Canadá","🇶🇦 Qatar","BC Place, Vancouver"],["21:00","A","🇲🇽 México","🇰🇷 Corea del Sur","Estadio Akron, Guadalajara"]]],
+ ["Viernes 19 de junio",[["15:00","D","🇺🇸 Estados Unidos","🇦🇺 Australia","Lumen Field, Seattle"],["18:00","C","🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia","🇲🇦 Marruecos","Gillette Stadium, Foxborough"],["20:30","C","🇧🇷 Brasil","🇭🇹 Haití","Lincoln Financial Field, Filadelfia"],["23:00","D","🇹🇷 Turquía","🇵🇾 Paraguay","Levi's Stadium, Santa Clara"]]],
+ ["Sábado 20 de junio",[["13:00","F","🇳🇱 Países Bajos","🇸🇪 Suecia","NRG Stadium, Houston"],["16:00","E","🇩🇪 Alemania","🇨🇮 Costa de Marfil","BMO Field, Toronto"],["20:00","E","🇪🇨 Ecuador","🇨🇼 Curazao","Arrowhead Stadium, Kansas City"]]],
+ ["Domingo 21 de junio",[["00:00","F","🇹🇳 Túnez","🇯🇵 Japón","Estadio BBVA, Monterrey"],["12:00","H","🇪🇸 España","🇸🇦 Arabia Saudita","Mercedes-Benz Stadium, Atlanta"],["15:00","G","🇧🇪 Bélgica","🇮🇷 Irán","SoFi Stadium, Inglewood"],["18:00","H","🇺🇾 Uruguay","🇨🇻 Cabo Verde","Hard Rock Stadium, Miami"],["21:00","G","🇳🇿 Nueva Zelanda","🇪🇬 Egipto","BC Place, Vancouver"]]],
+ ["Lunes 22 de junio",[["13:00","J","🇦🇷 Argentina","🇦🇹 Austria","AT&T Stadium, Arlington"],["17:00","I","🇫🇷 Francia","🇮🇶 Irak","Lincoln Financial Field, Filadelfia"],["20:00","I","🇳🇴 Noruega","🇸🇳 Senegal","MetLife Stadium, East Rutherford"],["23:00","J","🇯🇴 Jordania","🇩🇿 Argelia","Levi's Stadium, Santa Clara"]]],
+ ["Martes 23 de junio",[["13:00","K","🇵🇹 Portugal","🇺🇿 Uzbekistán","NRG Stadium, Houston"],["16:00","L","🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra","🇬🇭 Ghana","Gillette Stadium, Foxborough"],["19:00","L","🇵🇦 Panamá","🇭🇷 Croacia","BMO Field, Toronto"],["22:00","K","🇨🇴 Colombia","🇨🇩 RD Congo","Estadio Akron, Guadalajara"]]],
+ ["Miércoles 24 de junio",[["15:00","B","🇨🇭 Suiza","🇨🇦 Canadá","BC Place, Vancouver"],["15:00","B","🇧🇦 Bosnia y Herz.","🇶🇦 Qatar","Lumen Field, Seattle"],["18:00","C","🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia","🇧🇷 Brasil","Hard Rock Stadium, Miami"],["18:00","C","🇲🇦 Marruecos","🇭🇹 Haití","Mercedes-Benz Stadium, Atlanta"],["21:00","A","🇨🇿 Chequia","🇲🇽 México","Estadio Azteca, CDMX"],["21:00","A","🇿🇦 Sudáfrica","🇰🇷 Corea del Sur","Estadio BBVA, Monterrey"]]],
+ ["Jueves 25 de junio",[["16:00","E","🇨🇼 Curazao","🇨🇮 Costa de Marfil","Lincoln Financial Field, Filadelfia"],["16:00","E","🇪🇨 Ecuador","🇩🇪 Alemania","MetLife Stadium, East Rutherford"],["19:00","F","🇯🇵 Japón","🇸🇪 Suecia","AT&T Stadium, Arlington"],["19:00","F","🇹🇳 Túnez","🇳🇱 Países Bajos","Arrowhead Stadium, Kansas City"],["22:00","D","🇹🇷 Turquía","🇺🇸 Estados Unidos","SoFi Stadium, Inglewood"],["22:00","D","🇵🇾 Paraguay","🇦🇺 Australia","Levi's Stadium, Santa Clara"]]],
+ ["Viernes 26 de junio",[["15:00","I","🇳🇴 Noruega","🇫🇷 Francia","Gillette Stadium, Foxborough"],["15:00","I","🇸🇳 Senegal","🇮🇶 Irak","BMO Field, Toronto"],["20:00","H","🇨🇻 Cabo Verde","🇸🇦 Arabia Saudita","NRG Stadium, Houston"],["20:00","H","🇺🇾 Uruguay","🇪🇸 España","Estadio Akron, Guadalajara"],["23:00","G","🇪🇬 Egipto","🇮🇷 Irán","Lumen Field, Seattle"],["23:00","G","🇳🇿 Nueva Zelanda","🇧🇪 Bélgica","BC Place, Vancouver"]]],
+ ["Sábado 27 de junio",[["17:00","L","🇵🇦 Panamá","🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra","MetLife Stadium, East Rutherford"],["17:00","L","🇭🇷 Croacia","🇬🇭 Ghana","Lincoln Financial Field, Filadelfia"],["19:30","K","🇨🇴 Colombia","🇵🇹 Portugal","Hard Rock Stadium, Miami"],["19:30","K","🇨🇩 RD Congo","🇺🇿 Uzbekistán","Mercedes-Benz Stadium, Atlanta"],["22:00","J","🇩🇿 Argelia","🇦🇹 Austria","Arrowhead Stadium, Kansas City"],["22:00","J","🇯🇴 Jordania","🇦🇷 Argentina","AT&T Stadium, Arlington"]]]
+];
+document.getElementById('cal').innerHTML = CAL.map(([dia,ps])=>`<div class="dia"><h3>${dia}</h3>${
+  ps.map(p=>`<div class="pline"><span class="hora">${p[0]} ET</span><span class="g">Grupo ${p[1]}</span><span style="flex:1;text-align:center">${equipo(p[2])} <b style="color:var(--mut)">vs</b> ${equipo(p[3])}</span><span class="sede">${p[4]}</span></div>`).join('')
+}</div>`).join('');
+
+// ===== TABS =====
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById(t.dataset.v).classList.add('active');
+}));
+
+// ============================================================
+// BUSCADOR DE SELECCIONES + FICHA GENERAL DEL EQUIPO
+// ============================================================
+const RONDA_NOMBRE=id=>id<=88?'Dieciseisavos (R32)':id<=96?'Octavos de final':id<=100?'Cuartos de final':id<=102?'Semifinal':id===103?'Tercer lugar':'GRAN FINAL';
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const inpBusca=document.getElementById('busca'), sugs=document.getElementById('sugs');
+inpBusca.addEventListener('input',()=>{
+  const q=norm(inpBusca.value.trim());
+  if(!q){sugs.style.display='none';return;}
+  const hits=Object.keys(T).filter(c=>norm(T[c].n).includes(q)).slice(0,8);
+  sugs.innerHTML=hits.length?hits.map(c=>`<div onclick="verEquipo('${c}')">${fl(c)} ${T[c].n}</div>`).join(''):'<div style="color:var(--mut);cursor:default">Sin resultados</div>';
+  sugs.style.display='block';
+});
+inpBusca.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    const q=norm(inpBusca.value.trim());
+    const c=Object.keys(T).find(c=>norm(T[c].n).includes(q));
+    if(c) verEquipo(c);
+  }
+});
+document.addEventListener('click',e=>{ if(!e.target.closest('.buscador')) sugs.style.display='none'; });
+
+function verEquipo(c){
+  sugs.style.display='none'; inpBusca.value=T[c].n;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  document.getElementById('equipo').classList.add('active');
+  const g=T[c].g, tabla=tablaGrupo(g);
+  const pos=tabla.findIndex(s=>s.c===c)+1;
+  const fav=FAVORITOS.find(f=>f.c===c);
+  // tabla del grupo con el equipo resaltado
+  const filasT=tabla.map((s,i)=>`<tr class="${i<2?'q1':(i==2?'q3':'q4')}"${s.c===c?' style="background:#1d3a5f"':''}>
+    <td>${i+1}</td><td class="eq clickeq" onclick="verEquipo('${s.c}')" title="Ver ficha de ${T[s.c].n}">${name(s.c)}</td><td>${s.pj}</td><td>${s.w}</td><td>${s.e}</td><td>${s.l}</td><td>${s.gf}</td><td>${s.gc}</td><td>${s.gf-s.gc}</td><td class="pts">${s.pts}</td><td class="proy">${T[s.c].proy}</td></tr>`).join('');
+  // sus partidos (calendario + resultado real si existe)
+  let partidos='';
+  CAL.forEach(([dia,ps])=>ps.forEach(p=>{
+    const cA=codeDe(p[2].split(' ').slice(1).join(' ')), cB=codeDe(p[3].split(' ').slice(1).join(' '));
+    if(cA!==c&&cB!==c) return;
+    const res=RESULTADOS.find(r=>r.hg!=null&&((r.h===cA&&r.a===cB)||(r.h===cB&&r.a===cA)));
+    const estado=res?`<b style="color:var(--gold);min-width:60px;text-align:center">${res.h===cA?res.hg+' - '+res.ag:res.ag+' - '+res.hg}</b>`:`<span style="color:var(--green);font-size:.75rem;min-width:60px;text-align:center">Por jugar</span>`;
+    const d=dia.split(' ');
+    partidos+=`<div class="pline"><span class="hora">${d[1]} ${d[3].slice(0,3)} · ${p[0]} ET</span><span class="g">Grupo ${p[1]}</span><span style="flex:1;text-align:center">${equipo(p[2])} <b style="color:var(--mut)">vs</b> ${equipo(p[3])}</span>${estado}<span class="sede">${p[4]}</span></div>`;
+  }));
+  // pronósticos que lo involucran + su forma + noticias
+  let pron='', forma='', noticias=[];
+  J1.forEach(x=>{
+    const cA=codeDe(x.e1.split(' ').slice(1).join(' ')), cB=codeDe(x.e2.split(' ').slice(1).join(' '));
+    if(cA!==c&&cB!==c) return;
+    forma = cA===c?x.f1:x.f2;
+    noticias.push(...x.news);
+    pron+=`<div class="mcard" style="margin-bottom:10px">
+      <div class="mtop"><span class="grp">GRUPO ${x.g}</span><span>${x.f} · ${x.h}</span><span>🏟 ${x.sede}</span></div>
+      <div class="mmain" style="font-size:1rem"><span>${equipo(x.e1)}</span><span class="score">Marcador probable: ${x.m}</span><span>${equipo(x.e2)}</span></div>
+      <div class="probbar"><div class="pl" style="width:${x.p[0]}%">${x.p[0]}%</div><div class="pe" style="width:${x.p[1]}%">${x.p[1]}%</div><div class="pv" style="width:${x.p[2]}%">${x.p[2]}%</div></div>
+      <div class="analisis" style="padding-top:6px">💡 ${x.an}</div></div>`;
+  });
+  // camino proyectado en eliminatorias
+  const M=simular(); let camino='';
+  [...R32,...R16,...QF,...SF,...TP,...FIN].forEach(m=>{
+    const x=M[m.id]; if(!x.A||!x.B||(x.A!==c&&x.B!==c)) return;
+    const rival=x.A===c?x.B:x.A, gana=x.w===c, pct=x.A===c?x.pA:100-x.pA;
+    camino+=`<div class="pline"><span class="hora" style="min-width:150px">${RONDA_NOMBRE(m.id)}</span><span style="flex:1;text-align:center">vs ${name(rival)}</span><span style="color:${gana?'var(--green)':'var(--red)'};font-weight:700;font-size:.78rem">${gana?'AVANZA':'ELIMINADO'} · ${pct}%</span><span class="sede">${m.s}</span></div>`;
+  });
+  // sus jugadores en carreras de premios
+  const premios=[['👟 Bota de Oro',BOTA],['🏅 Balón de Oro',BALON],['🧤 Guante de Oro',GUANTE],['🌟 Jugador Joven',JOVEN]].map(([t,arr])=>{
+    const js=arr.filter(x=>x.c===c); if(!js.length) return '';
+    return `<div class="factor"><b>${t}</b>${js.map(x=>`${x.j}${x.fav?' ⭐':''}`).join(' · ')}</div>`;
+  }).filter(Boolean).join('');
+  document.getElementById('fichaEquipo').innerHTML=`
+   <div class="fhead">
+     <img src="https://flagcdn.com/w160/${FLAGCODE[c]}.png" alt="${T[c].n}">
+     <div style="flex:1;min-width:240px">
+       <h2>${T[c].n}</h2>
+       <p>Grupo ${g} · Posición actual: ${pos}.º · Rating de fuerza: ${T[c].r} · Proyección: ${T[c].proy} pts</p>
+       <p style="color:var(--gold);font-weight:700">${fav?`🏆 ${fav.p}% de probabilidad de título · ${FAVORITOS.indexOf(fav)+1}.º favorito`:'🏆 <1% de probabilidad de título según el modelo'}</p>
+     </div>
+     <button class="btnref" onclick="location.reload()" title="Recarga el tablero con los últimos datos">↻ Restablecer datos</button>
+   </div>
+   ${fav?`<div class="factores" style="padding:0 0 4px"><div class="factor"><b>✔ A favor</b>${fav.pro}</div><div class="factor"><b>✖ En contra</b>${fav.con}</div></div>`:''}
+   ${forma?`<div class="factores" style="padding:0"><div class="factor"><b>📈 Forma reciente (últimos partidos)</b>${forma}</div></div>`:''}
+   <h3 class="fsec">📊 Su grupo</h3>
+   <div class="gcard"><table><thead><tr><th>#</th><th style="text-align:left;padding-left:12px">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>DIF</th><th>PTS</th><th>PROY</th></tr></thead><tbody>${filasT}</tbody></table></div>
+   <h3 class="fsec">📅 Sus partidos en el torneo (resultados y por jugar)</h3>${partidos||'<p class="leyenda">Sin partidos registrados.</p>'}
+   ${pron?`<h3 class="fsec">🔮 Pronóstico de su próximo partido</h3>${pron}`:''}
+   <h3 class="fsec">🗺 Camino proyectado en eliminatorias</h3>${camino||'<p class="leyenda">El modelo no lo proyecta clasificado a la fase eliminatoria hoy. Puede cambiar con los resultados reales.</p>'}
+   ${noticias.length?`<h3 class="fsec">📰 Noticias relacionadas</h3><div class="news" style="padding:0 0 8px"><ul>${noticias.map(n=>`<li>${n}</li>`).join('')}</ul></div>`:''}
+   ${premios?`<h3 class="fsec">⭐ Sus jugadores en carreras de premios</h3><div class="factores" style="padding:0 0 20px">${premios}</div>`:''}
+  `;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
