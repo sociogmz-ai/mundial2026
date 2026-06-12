@@ -159,6 +159,11 @@
 <header>
   <h1>⚽ TABLERO <span>MUNDIAL 2026</span></h1>
   <p id="stamp">Última actualización: 12 de junio de 2026 · Jornada 1 en curso (2 partidos jugados, grupo A) · Se actualiza automáticamente cada mañana (7:00)</p>
+  <p style="margin-top:8px;color:var(--mut);font-size:.75rem">📤 Comparte el tablero:
+    <button class="btnimg" style="border-color:#3ecf8e;color:#3ecf8e" onclick="compartirSitio('wa')">WhatsApp</button>
+    <button class="btnimg" onclick="compartirSitio('x')">X</button>
+    <button class="btnimg" onclick="compartirSitio('copy')">🔗 Copiar link</button>
+  </p>
 </header>
 
 <!-- FAVORITOS AL TÍTULO (parte superior, siempre visible) -->
@@ -272,6 +277,22 @@ const codeDe=nombre=>Object.keys(T).find(c=>T[c].n===nombre)||Object.keys(T).fin
 const name=c=>fl(c)+" "+T[c].n;
 // Convierte "🇲🇽 México" (emoji que Windows no dibuja) en bandera real + nombre
 const equipo=str=>{const n=str.split(' ').slice(1).join(' ');const c=codeDe(n);return (c?fl(c)+' ':'')+n;};
+// URL pública del sitio (marca de agua y botones de compartir; cambiar aquí si migra de dominio)
+const SITE_HOST='sociogmz-ai.github.io/mundial2026';
+const SITE_URL='https://'+SITE_HOST+'/';
+function compartir(i,red){
+  const x=J1[i];
+  const n1=x.e1.split(' ').slice(1).join(' '), n2=x.e2.split(' ').slice(1).join(' ');
+  const msg=`⚽ PRONÓSTICO MUNDIAL 2026\n${n1} vs ${n2} · ${x.f} · ${x.h}\n📊 Marcador probable: ${x.m} · ${x.p[0]}% V / ${x.p[1]}% E / ${x.p[2]}% V\n🏟 ${x.sede}\n👉 ${SITE_URL}`;
+  const u=encodeURIComponent(msg);
+  window.open(red==='wa'?`https://wa.me/?text=${u}`:`https://twitter.com/intent/tweet?text=${u}`,'_blank');
+}
+function compartirSitio(red){
+  if(red==='copy'){ navigator.clipboard.writeText(SITE_URL).then(()=>alert('✔ Link copiado: '+SITE_URL)); return; }
+  const msg=`⚽ Tablero Mundial 2026: pronósticos diarios con probabilidades, simulador del torneo, estadísticas y fichas por selección.\n👉 ${SITE_URL}`;
+  const u=encodeURIComponent(msg);
+  window.open(red==='wa'?`https://wa.me/?text=${u}`:`https://twitter.com/intent/tweet?text=${u}`,'_blank');
+}
 
 // ============================================================
 // RESULTADOS OFICIALES — la tarea diaria agrega aquí cada marcador final.
@@ -603,7 +624,7 @@ const claveCrono=i=>{
 };
 const ordenJ1=J1.map((_,i)=>i).sort((a,b)=>claveCrono(a)-claveCrono(b));
 document.getElementById('listaPartidos').innerHTML = ordenJ1.map(i=>{const x=J1[i],P=PROPS[i];return `<div class="mcard">
-    <div class="mtop"><span class="grp">GRUPO ${x.g}</span><span>${x.f} · ${x.h}</span><span>🏟 ${x.sede}</span><button class="btnimg" onclick="descargarPNG(${i})">📷 Descargar imagen</button></div>
+    <div class="mtop"><span class="grp">GRUPO ${x.g}</span><span>${x.f} · ${x.h}</span><span>🏟 ${x.sede}</span><span style="display:flex;gap:6px"><button class="btnimg" onclick="descargarPNG(${i})">📷 Imagen</button><button class="btnimg" style="border-color:#3ecf8e;color:#3ecf8e" onclick="compartir(${i},'wa')">📤 WhatsApp</button><button class="btnimg" onclick="compartir(${i},'x')">📤 X</button></span></div>
     <div class="mmain"><span>${equipo(x.e1)}</span><span class="score">Marcador probable: ${x.m}</span><span>${equipo(x.e2)}</span></div>
     <div class="probbar">
       <div class="pl" style="width:${x.p[0]}%">${x.p[0]}%</div>
@@ -745,9 +766,11 @@ async function descargarPNG(i){
   y=sec('💡 ANÁLISIS',y+26)+32;
   ctx.fillStyle='#b9c9da'; ctx.font='italic 22px Segoe UI, Arial'; ctx.textAlign='left';
   wrap(x.an,90,y,900,28,3);
-  // pie
-  ctx.textAlign='center'; ctx.fillStyle='#8aa0b8'; ctx.font='19px Segoe UI, Arial';
-  ctx.fillText('Probabilidades del modelo (forma, árbitro, clima y altitud) · No es consejo de apuestas · Actualización diaria 7:00',540,H-32);
+  // pie con marca de agua
+  ctx.textAlign='center'; ctx.fillStyle='#e8c258'; ctx.font='bold 24px Segoe UI, Arial';
+  ctx.fillText('🌐 '+SITE_HOST,540,H-62);
+  ctx.fillStyle='#8aa0b8'; ctx.font='19px Segoe UI, Arial';
+  ctx.fillText('Probabilidades del modelo (forma, árbitro, clima y altitud) · No es consejo de apuestas · Actualización diaria 7:00',540,H-30);
   // descarga
   try{
     cv.toBlob(b=>{
@@ -766,7 +789,7 @@ async function descargarPNG(i){
 function dlCanvas(cv,nombre){try{cv.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=nombre;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),5000);},'image/png');}catch(e){alert('No se pudo generar la imagen: '+e.message);}}
 async function flagsImgs(codes){const u=[...new Set(codes.filter(Boolean))];const imgs=await Promise.all(u.map(loadFlag));const m={};u.forEach((c,i)=>m[c]=imgs[i]);return m;}
 function lienzo(H,sub){const cv=document.createElement('canvas');cv.width=1080;cv.height=H;const ctx=cv.getContext('2d');const bg=ctx.createLinearGradient(0,0,1080,H);bg.addColorStop(0,'#0a1628');bg.addColorStop(.5,'#13294a');bg.addColorStop(1,'#0a1628');ctx.fillStyle=bg;ctx.fillRect(0,0,1080,H);ctx.strokeStyle='#e8c258';ctx.lineWidth=6;ctx.strokeRect(14,14,1052,H-28);ctx.textAlign='center';ctx.fillStyle='#e8c258';ctx.font='bold 38px Segoe UI, Arial';ctx.fillText('⚽ TABLERO MUNDIAL 2026',540,78);ctx.fillStyle='#8aa0b8';ctx.font='26px Segoe UI, Arial';ctx.fillText(sub,540,122);return [cv,ctx];}
-function pieImg(ctx,H){ctx.textAlign='center';ctx.fillStyle='#8aa0b8';ctx.font='19px Segoe UI, Arial';ctx.fillText('Modelo propio · No es consejo de apuestas · Actualización diaria 7:00',540,H-32);}
+function pieImg(ctx,H){ctx.textAlign='center';ctx.fillStyle='#e8c258';ctx.font='bold 23px Segoe UI, Arial';ctx.fillText('🌐 '+SITE_HOST,540,H-60);ctx.fillStyle='#8aa0b8';ctx.font='19px Segoe UI, Arial';ctx.fillText('Modelo propio · No es consejo de apuestas · Actualización diaria 7:00',540,H-30);}
 function miniFlag(ctx,im,x,y,w,h,txt){if(im){ctx.save();rrect(ctx,x,y,w,h,4);ctx.clip();ctx.drawImage(im,x,y,w,h);ctx.restore();ctx.strokeStyle='#23405f';ctx.lineWidth=1;rrect(ctx,x,y,w,h,4);ctx.stroke();}else{ctx.fillStyle='#1a3050';rrect(ctx,x,y,w,h,4);ctx.fill();ctx.fillStyle='#e8c258';ctx.font='bold '+Math.round(h*.55)+'px Segoe UI, Arial';ctx.textAlign='center';ctx.fillText((txt||'?').slice(0,3),x+w/2,y+h*.7);}}
 function wrapG(ctx,txt,X,Y,maxW,lh,maxLines){const words=String(txt).split(' ');let line='',lines=[];for(const w of words){const t=line?line+' '+w:w;if(ctx.measureText(t).width>maxW&&line){lines.push(line);line=w;}else line=t;}if(line)lines.push(line);if(lines.length>maxLines){lines=lines.slice(0,maxLines);lines[maxLines-1]=lines[maxLines-1].replace(/\s+\S*$/,'')+'…';}lines.forEach((l,k)=>ctx.fillText(l,X,Y+k*lh));return Y+lines.length*lh;}
 
