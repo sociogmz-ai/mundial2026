@@ -591,7 +591,18 @@ const propsHTML=(x,P)=>{
     </div>
   </div>`;
 };
-document.getElementById('listaPartidos').innerHTML = J1.map((x,i)=>{const P=PROPS[i];return `<div class="mcard">
+// Orden cronológico: siempre el próximo partido primero (sin importar el orden del arreglo).
+// Lee el día de x.f ("Vie 12 jun"), el mes (jun/jul) y la hora ET de x.h ("21:00 ET ...").
+const claveCrono=i=>{
+  const f=J1[i].f||'', h=J1[i].h||'';
+  const mes=/jul/i.test(f)?7:6;
+  const dia=(f.match(/(\d+)/)||[,99])[1];
+  const hm=h.match(/(\d+):(\d+)/);
+  const min=hm?(+hm[1])*60+(+hm[2]):0;
+  return mes*1000000+(+dia)*10000+min;
+};
+const ordenJ1=J1.map((_,i)=>i).sort((a,b)=>claveCrono(a)-claveCrono(b));
+document.getElementById('listaPartidos').innerHTML = ordenJ1.map(i=>{const x=J1[i],P=PROPS[i];return `<div class="mcard">
     <div class="mtop"><span class="grp">GRUPO ${x.g}</span><span>${x.f} · ${x.h}</span><span>🏟 ${x.sede}</span><button class="btnimg" onclick="descargarPNG(${i})">📷 Descargar imagen</button></div>
     <div class="mmain"><span>${equipo(x.e1)}</span><span class="score">Marcador probable: ${x.m}</span><span>${equipo(x.e2)}</span></div>
     <div class="probbar">
@@ -1152,19 +1163,4 @@ function verEquipo(c){
        <p style="color:var(--gold);font-weight:700">${fav?`🏆 ${fav.p}% de probabilidad de título · ${FAVORITOS.indexOf(fav)+1}.º favorito`:'🏆 <1% de probabilidad de título según el modelo'}</p>
      </div>
      <button class="btnref" onclick="location.reload()" title="Recarga el tablero con los últimos datos">↻ Restablecer datos</button>
-   </div>
-   ${fav?`<div class="factores" style="padding:0 0 4px"><div class="factor"><b>✔ A favor</b>${fav.pro}</div><div class="factor"><b>✖ En contra</b>${fav.con}</div></div>`:''}
-   ${forma?`<div class="factores" style="padding:0"><div class="factor"><b>📈 Forma reciente (últimos partidos)</b>${forma}</div></div>`:''}
-   <h3 class="fsec">📊 Su grupo</h3>
-   <div class="gcard"><table><thead><tr><th>#</th><th style="text-align:left;padding-left:12px">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>DIF</th><th>PTS</th><th>PROY</th></tr></thead><tbody>${filasT}</tbody></table></div>
-   <h3 class="fsec">📅 Sus partidos en el torneo (resultados y por jugar)</h3>${partidos||'<p class="leyenda">Sin partidos registrados.</p>'}
-   ${pron?`<h3 class="fsec">🔮 Pronóstico de su próximo partido</h3>${pron}`:''}
-   <h3 class="fsec">🗺 Camino proyectado en eliminatorias</h3>${camino||'<p class="leyenda">El modelo no lo proyecta clasificado a la fase eliminatoria hoy. Puede cambiar con los resultados reales.</p>'}
-   ${noticias.length?`<h3 class="fsec">📰 Noticias relacionadas</h3><div class="news" style="padding:0 0 8px"><ul>${noticias.map(n=>`<li>${n}</li>`).join('')}</ul></div>`:''}
-   ${premios?`<h3 class="fsec">⭐ Sus jugadores en carreras de premios</h3><div class="factores" style="padding:0 0 20px">${premios}</div>`:''}
-  `;
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-</script>
-</body>
-</html>
+   </
