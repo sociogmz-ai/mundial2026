@@ -210,7 +210,7 @@
   </section>
 
   <section id="grupos" class="view">
-    <p class="leyenda">Tablas oficiales calculadas con los resultados registrados (hoy: torneo sin iniciar). <span style="color:var(--green)">PROY</span> = puntos finales proyectados. <b>Verde</b>: 1.º y 2.º clasifican · <i>Ámbar</i>: 3.º puede avanzar entre los 8 mejores terceros. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con los últimos resultados registrados">↻ Restablecer datos</button></p>
+    <p class="leyenda">Tablas oficiales calculadas con los resultados registrados (jornada 1 en curso: 4 partidos jugados). <span style="color:var(--green)">PROY</span> = puntos finales proyectados. <b>Verde</b>: 1.º y 2.º clasifican · <i>Ámbar</i>: 3.º puede avanzar entre los 8 mejores terceros. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con los últimos resultados registrados">↻ Restablecer datos</button></p>
     <div class="grid" id="gridGrupos"></div>
   </section>
 
@@ -227,7 +227,7 @@
   </section>
 
   <section id="premios" class="view">
-    <p class="leyenda">Carrera por los premios individuales. Estadísticas del torneo (goles, asistencias, vallas invictas) en cero hasta el arranque; se actualizan cada mañana. La etiqueta <span class="tagfav">FAVORITO</span> marca al líder actual de cada carrera según el modelo. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con las estadísticas más recientes">↻ Restablecer datos</button></p>
+    <p class="leyenda">Carrera por los premios individuales. Estadísticas reales del torneo (goles, asistencias, vallas invictas), actualizadas cada mañana con lo registrado hasta hoy. La etiqueta <span class="tagfav">FAVORITO</span> marca al líder actual de cada carrera según el modelo. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con las estadísticas más recientes">↻ Restablecer datos</button></p>
     <div id="awards"></div>
   </section>
 
@@ -317,7 +317,9 @@ function compartirSitio(red){
 // ============================================================
 const RESULTADOS = [
  {f:"11 jun", g:"A", h:"MEX", a:"RSA", hg:2, ag:0},
- {f:"11 jun", g:"A", h:"KOR", a:"CZE", hg:2, ag:1}
+ {f:"11 jun", g:"A", h:"KOR", a:"CZE", hg:2, ag:1},
+ {f:"12 jun", g:"B", h:"CAN", a:"BIH", hg:1, ag:1},
+ {f:"12 jun", g:"D", h:"USA", a:"PAR", hg:4, ag:1}
 ];
 
 // ============================================================
@@ -396,22 +398,6 @@ const J1 = [
   f2:"D. 0-2 México — solo 3 remates en todo el partido y terminó con 9 por las rojas de Sithole y Zwane",
   news:["Doble baja por suspensión en Sudáfrica: Sithole y Themba Zwane, expulsados en el debut.","Chequia generó poco (3 remates, 0 a puerta) pero su gol llegó de pelota parada: su mejor arma.","Partido de urgencias: el perdedor queda virtualmente eliminado del grupo A."],
   an:"Chequia favorita pese a su pobre debut: Sudáfrica mostró aún menos fútbol y pierde dos titulares por roja. Un 0-0 espeso es el riesgo principal; la pelota parada checa, el diferencial."},
- {g:"B",f:"Vie 12 jun",h:"15:00 ET",e1:"🇨🇦 Canadá",e2:"🇧🇦 Bosnia y Herzegovina",sede:"BMO Field, Toronto",
-  p:[55,26,19],m:"2-0",alt:"76 m — sin efecto",
-  clima:"~24 °C, agradable; estadio abierto junto al lago Ontario",
-  arb:"Facundo Tello (ARG) · VAR: Hernán Mastrángelo (ARG). Tello es estricto: promedio alto de tarjetas, cuidado con faltas tácticas",
-  f1:"V. 2-0 Uzbekistán, E. 1-1 Irlanda — local, rápido por bandas con Davies y David",
-  f2:"E. 0-0 Macedonia, E. 1-1 Panamá — llega sin ganar y con escasa generación de juego",
-  news:["Canadá juega en casa su primer Mundial como anfitrión; lleno asegurado en Toronto.","Bosnia eliminó a Italia en repechaje, pero su forma reciente es de empates sin goles.","Con Tello de árbitro, las entradas fuertes de la zaga bosnia son riesgo de amarillas tempranas."],
-  an:"Canadá tiene velocidad para romper el bloque bosnio y el envión de su gente. Bosnia depende de un partido trabado y de pelota parada."},
- {g:"D",f:"Vie 12 jun",h:"21:00 ET (18:00 PT)",e1:"🇺🇸 Estados Unidos",e2:"🇵🇾 Paraguay",sede:"SoFi Stadium, Inglewood",
-  p:[48,27,25],m:"2-1",alt:"30 m — sin efecto",
-  clima:"Estadio techado (cubierta fija), ~22 °C exterior; condiciones perfectas",
-  arb:"Danny Makkelie (NED) · VAR: Del Cerro Grande (ESP). Makkelie: criterio europeo, deja continuidad pero sanciona protestas",
-  f1:"V. 3-2 Senegal, D. 1-2 Alemania — ofensiva productiva (Pulisic), pero concedió goles en ambos ensayos",
-  f2:"V. 4-0 Nicaragua — goleada para cerrar; bloque bajo y contragolpe, estilo Alfaro",
-  news:["EE. UU. debuta como anfitrión en Los Ángeles con estadio lleno.","Paraguay sin bajas; llega con confianza tras la goleada en Asunción.","La zaga estadounidense mostró grietas ante Alemania y Senegal: dato para el contragolpe guaraní."],
-  an:"EE. UU. favorito por localía y talento ofensivo, pero Paraguay es incómodo, ordenado y castiga errores. Partido más cerrado de lo que sugiere el papel."},
  {g:"B",f:"Sáb 13 jun",h:"15:00 ET (12:00 PT)",e1:"🇶🇦 Qatar",e2:"🇨🇭 Suiza",sede:"Levi's Stadium, Santa Clara",
   p:[15,24,61],m:"0-2",alt:"25 m — sin efecto",
   clima:"~24 °C, soleado y seco; mediodía californiano sin humedad",
@@ -586,8 +572,6 @@ const J1 = [
 const PROPS = [
  {fa:{t:26,a:13,b:13,p1:[50,50]},am:{t:4.5,a:2.2,b:2.3,p1:[48,52],roja:12},co:{t:9.5,a:5.5,b:4.0,p1:[58,42]},li:{a:13,b:13},mi:{g1:50,g2:72,m2:58,m1t:"1-0 (26%)"},re:[["S. Giménez (MEX)","3.2","1.5"],["R. Jiménez (MEX)","2.4","1.1"],["H-M. Son (KOR)","3.4","1.5"],["Lee Kang-in (KOR)","2.2","0.9"]],go:[["Santiago Giménez (MEX)",30],["Heung-min Son (KOR)",28],["Raúl Jiménez (MEX)",24]]},
  {fa:{t:27,a:13,b:14,p1:[48,52]},am:{t:4.0,a:1.7,b:2.3,p1:[45,55],roja:10},co:{t:9.0,a:5.5,b:3.5,p1:[60,40]},li:{a:14,b:13},mi:{g1:44,g2:68,m2:58,m1t:"0-0 (36%)"},re:[["P. Schick (CZE)","3.2","1.4"],["L. Krejčí (CZE)","1.8","0.8"],["L. Foster (RSA)","2.0","0.8"]],go:[["Patrik Schick (CZE)",29],["Ladislav Krejčí (CZE)",16],["Lyle Foster (RSA)",13]]},
- {fa:{t:28,a:12,b:16,p1:[42,58]},am:{t:4.5,a:1.8,b:2.7,p1:[38,62],roja:12},co:{t:10.0,a:6.5,b:3.5,p1:[64,36]},li:{a:16,b:12},mi:{g1:50,g2:72,m2:59,m1t:"1-0 (27%)"},re:[["J. David (CAN)","3.5","1.6"],["A. Davies (CAN)","2.8","1.2"],["E. Džeko (BIH)","2.0","0.8"]],go:[["Jonathan David (CAN)",33],["Alphonso Davies (CAN)",25],["Edin Džeko (BIH)",13]]},
- {fa:{t:25,a:11,b:14,p1:[44,56]},am:{t:3.5,a:1.4,b:2.1,p1:[40,60],roja:8},co:{t:9.5,a:6.0,b:3.5,p1:[63,37]},li:{a:14,b:11},mi:{g1:54,g2:75,m2:58,m1t:"1-0 (26%)"},re:[["C. Pulisic (USA)","3.6","1.7"],["F. Balogun (USA)","2.8","1.3"],["M. Almirón (PAR)","2.2","0.9"]],go:[["Christian Pulisic (USA)",32],["Folarin Balogun (USA)",26],["Miguel Almirón (PAR)",15]]},
  {fa:{t:24,a:13,b:11,p1:[55,45]},am:{t:3.0,a:1.8,b:1.2,p1:[62,38],roja:6},co:{t:9.0,a:3.0,b:6.0,p1:[35,65]},li:{a:11,b:13},mi:{g1:50,g2:70,m2:56,m1t:"0-1 (28%)"},re:[["B. Embolo (SUI)","3.2","1.5"],["R. Vargas (SUI)","2.6","1.1"],["A. Afif (QAT)","2.0","0.8"]],go:[["Breel Embolo (SUI)",30],["Ruben Vargas (SUI)",22],["Akram Afif (QAT)",12]]},
  {fa:{t:27,a:12,b:15,p1:[44,56]},am:{t:4.0,a:1.7,b:2.3,p1:[44,56],roja:10},co:{t:10.0,a:5.5,b:4.5,p1:[57,43]},li:{a:15,b:12},mi:{g1:49,g2:72,m2:57,m1t:"0-0 (32%)"},re:[["Vinícius Jr. (BRA)","3.9","1.8"],["Rodrygo (BRA)","2.8","1.2"],["Y. En-Nesyri (MAR)","2.4","1.0"],["A. Hakimi (MAR)","1.6","0.6"]],go:[["Vinícius Jr. (BRA)",33],["Rodrygo (BRA)",24],["Youssef En-Nesyri (MAR)",19]]},
  {fa:{t:26,a:14,b:12,p1:[54,46]},am:{t:3.5,a:2.0,b:1.5,p1:[58,42],roja:8},co:{t:9.5,a:4.0,b:5.5,p1:[43,57]},li:{a:12,b:14},mi:{g1:47,g2:70,m2:58,m1t:"0-0 (33%)"},re:[["S. McTominay (SCO)","3.0","1.3"],["C. Adams (SCO)","2.6","1.2"],["D. Nazon (HAI)","2.2","0.9"]],go:[["Scott McTominay (SCO)",27],["Che Adams (SCO)",23],["Duckens Nazon (HAI)",15]]},
@@ -1033,11 +1017,14 @@ renderSim();
 // pj (partidos), vi (vallas invictas), gc (goles en contra)
 // ============================================================
 const BOTA = [
- {j:"Julián Quiñones",c:"MEX",g:1,a:0,pj:1,fav:1,nota:"Autor del primer gol del Mundial; co-líder con 1 tanto (desempate: menos minutos)"},
+ {j:"Folarin Balogun",c:"USA",g:2,a:0,pj:1,fav:1,nota:"Doblete en la goleada 4-1 a Paraguay; único líder de la Bota con 2 goles"},
+ {j:"Julián Quiñones",c:"MEX",g:1,a:0,pj:1,nota:"Autor del primer gol del Mundial; ahora a un tanto del líder"},
  {j:"Raúl Jiménez",c:"MEX",g:1,a:0,pj:1,nota:"De cabeza ante Sudáfrica; el 9 veterano del Tri sigue vigente"},
- {j:"Hwang In-beom",c:"KOR",g:1,a:0,pj:1,nota:"Golazo del empate ante Chequia; co-líder de la Bota"},
- {j:"Oh Hyeon-gyu",c:"KOR",g:1,a:0,pj:1,nota:"Gol del triunfo coreano en el 80'; co-líder de la Bota"},
- {j:"Ladislav Krejčí",c:"CZE",g:1,a:0,pj:1,nota:"El primer gol checo del torneo tras saque de banda largo de Souček; co-líder con 1 tanto"},
+ {j:"Hwang In-beom",c:"KOR",g:1,a:0,pj:1,nota:"Golazo del empate ante Chequia; a un gol del líder"},
+ {j:"Oh Hyeon-gyu",c:"KOR",g:1,a:0,pj:1,nota:"Gol del triunfo coreano en el 80'; a un gol del líder"},
+ {j:"Ladislav Krejčí",c:"CZE",g:1,a:0,pj:1,nota:"El primer gol checo del torneo tras saque de banda largo de Souček; a un gol del líder"},
+ {j:"Giovanni Reyna",c:"USA",g:1,a:0,pj:1,nota:"Cerró la goleada ante Paraguay; gran reaparición en el debut estadounidense"},
+ {j:"Cyle Larin",c:"CAN",g:1,a:0,pj:1,nota:"Primer gol de Canadá como anfitrión; igualó 1-1 a Bosnia al 79'"},
  {j:"Kylian Mbappé",c:"FRA",g:0,a:0,pj:0,nota:"12 goles en Mundiales a sus 27; el ritmo francés pasa por él"},
  {j:"Erling Haaland",c:"NOR",g:0,a:0,pj:0,nota:"Su primer Mundial; venía de eliminatorias récord con Noruega"},
  {j:"Harry Kane",c:"ENG",g:0,a:0,pj:0,nota:"Bota de Oro 2018; Inglaterra genera volumen para su 9"},
