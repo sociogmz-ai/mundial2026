@@ -174,7 +174,7 @@
 <body>
 <header>
   <h1>⚽ TABLERO <span>MUNDIAL 2026</span></h1>
-  <p id="stamp">Última actualización: 13 de junio de 2026 · Jornada 1 completa en grupos A, B y C (7 partidos jugados) · Se actualiza automáticamente cada mañana (7:00)</p>
+  <p id="stamp">Última actualización: 14 de junio de 2026 · Jornada 1 de grupos completada en A, B, C y D (8 partidos) · hoy debutan E–L · Se actualiza automáticamente cada mañana (7:00)</p>
   <p style="margin-top:8px;color:var(--mut);font-size:.75rem">📤 Comparte el tablero:
     <button class="btnimg" style="border-color:#3ecf8e;color:#3ecf8e" onclick="compartirSitio('wa')">WhatsApp</button>
     <button class="btnimg" onclick="compartirSitio('x')">X</button>
@@ -277,7 +277,7 @@ const T = {
  MEX:{n:"México",f:"🇲🇽",g:"A",r:78,proy:7}, KOR:{n:"Corea del Sur",f:"🇰🇷",g:"A",r:74,proy:5}, CZE:{n:"Chequia",f:"🇨🇿",g:"A",r:69,proy:3}, RSA:{n:"Sudáfrica",f:"🇿🇦",g:"A",r:62,proy:1},
  SUI:{n:"Suiza",f:"🇨🇭",g:"B",r:77,proy:7}, CAN:{n:"Canadá",f:"🇨🇦",g:"B",r:74,proy:6}, BIH:{n:"Bosnia y Herz.",f:"🇧🇦",g:"B",r:66,proy:3}, QAT:{n:"Qatar",f:"🇶🇦",g:"B",r:61,proy:1},
  BRA:{n:"Brasil",f:"🇧🇷",g:"C",r:85,proy:7}, MAR:{n:"Marruecos",f:"🇲🇦",g:"C",r:85,proy:6}, SCO:{n:"Escocia",f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",g:"C",r:72,proy:3}, HAI:{n:"Haití",f:"🇭🇹",g:"C",r:61,proy:1},
- USA:{n:"Estados Unidos",f:"🇺🇸",g:"D",r:75,proy:6}, TUR:{n:"Turquía",f:"🇹🇷",g:"D",r:76,proy:5}, PAR:{n:"Paraguay",f:"🇵🇾",g:"D",r:71,proy:4}, AUS:{n:"Australia",f:"🇦🇺",g:"D",r:68,proy:2},
+ USA:{n:"Estados Unidos",f:"🇺🇸",g:"D",r:75,proy:6}, TUR:{n:"Turquía",f:"🇹🇷",g:"D",r:74,proy:4}, PAR:{n:"Paraguay",f:"🇵🇾",g:"D",r:71,proy:3}, AUS:{n:"Australia",f:"🇦🇺",g:"D",r:71,proy:4},
  GER:{n:"Alemania",f:"🇩🇪",g:"E",r:85,proy:9}, ECU:{n:"Ecuador",f:"🇪🇨",g:"E",r:75,proy:5}, CIV:{n:"Costa de Marfil",f:"🇨🇮",g:"E",r:76,proy:4}, CUW:{n:"Curazao",f:"🇨🇼",g:"E",r:55,proy:0},
  NED:{n:"Países Bajos",f:"🇳🇱",g:"F",r:82,proy:6}, JPN:{n:"Japón",f:"🇯🇵",g:"F",r:76,proy:5}, SWE:{n:"Suecia",f:"🇸🇪",g:"F",r:70,proy:3}, TUN:{n:"Túnez",f:"🇹🇳",g:"F",r:64,proy:2},
  BEL:{n:"Bélgica",f:"🇧🇪",g:"G",r:81,proy:7}, IRN:{n:"Irán",f:"🇮🇷",g:"G",r:72,proy:5}, EGY:{n:"Egipto",f:"🇪🇬",g:"G",r:70,proy:3}, NZL:{n:"Nueva Zelanda",f:"🇳🇿",g:"G",r:58,proy:1},
@@ -322,7 +322,8 @@ const RESULTADOS = [
  {f:"12 jun", g:"D", h:"USA", a:"PAR", hg:4, ag:1},
  {f:"13 jun", g:"B", h:"QAT", a:"SUI", hg:1, ag:1},
  {f:"13 jun", g:"C", h:"BRA", a:"MAR", hg:1, ag:1},
- {f:"13 jun", g:"C", h:"HAI", a:"SCO", hg:0, ag:1}
+ {f:"13 jun", g:"C", h:"HAI", a:"SCO", hg:0, ag:1},
+ {f:"13 jun", g:"D", h:"AUS", a:"TUR", hg:2, ag:0}
 ];
 
 // ============================================================
@@ -433,14 +434,14 @@ const J1 = [
   f2:"E. 1-1 Brasil — le aguantó el ritmo al pentacampeón (gol de Saibari); 7.º del ranking",
   news:["Escocia sueña tras ganar su primer partido mundialista desde 1990 y liderar el grupo.","Marruecos sacó un punto valioso ante Brasil y va por su primera victoria.","Un triunfo escocés lo dejaría con un pie en la siguiente ronda."],
   an:"Marruecos es mejor en el papel y necesita ganar; Escocia, envalentonada y ordenada, defenderá su liderato con uñas y dientes. El empate es escenario muy plausible."},
- {g:"D",f:"Dom 14 jun",h:"00:00 ET (21:00 PT sáb)",e1:"🇦🇺 Australia",e2:"🇹🇷 Turquía",sede:"BC Place, Vancouver",
-  p:[27,29,44],m:"1-2",alt:"0 m — nivel del mar",
-  clima:"Estadio con techo retráctil; ~18 °C, sin factor climático",
-  arb:"Por confirmar",
-  f1:"E. 1-1 Suiza, D. 0-1 México — competitiva pero sin ganar en la previa",
-  f2:"V. 4-0 Macedonia del Norte, V. 2-1 Venezuela — ofensiva en racha con Güler y Yildiz",
-  news:["Turquía llega con dos triunfos y un once joven y agresivo.","Australia sin bajas, pero con menos pólvora arriba.","Horario atípico (medianoche ET) por la ventana de Vancouver."],
-  an:"Turquía tiene más talento y mejor momento. Australia compite siempre por físico y orden, pero necesita su mejor versión para puntuar."},
+ {g:"D",f:"Vie 19 jun",h:"15:00 ET (12:00 PT)",e1:"🇺🇸 Estados Unidos",e2:"🇦🇺 Australia",sede:"Lumen Field, Seattle",
+  p:[50,28,22],m:"2-1",alt:"5 m — sin efecto",
+  clima:"~21 °C, clima templado de Seattle; ideal para ritmo alto",
+  arb:"Por confirmar (FIFA designa ~48 h antes)",
+  f1:"V. 4-1 Paraguay — debut arrollador con doblete de Balogun, más Reyna; líder del grupo D",
+  f2:"V. 2-0 Turquía — sorpresón con goles de Irankunda y Metcalfe; Beach atajó todo (8 paradas, valla invicta)",
+  news:["Choque por el liderato del grupo D entre los dos ganadores de la jornada 1.","EE. UU. llega entonado tras golear a Paraguay; Pulisic y Balogun, en racha.","Australia revalida ilusión tras vencer a Turquía: el ganador queda casi clasificado a octavos."],
+  an:"EE. UU. es favorito por localía y pegada, pero Australia demostró ante Turquía que defiende con orden y golpea de contra. Beach, en racha, puede sostener a los Socceroos; un partido cerrado de jerarquía anfitriona."},
  {g:"E",f:"Dom 14 jun",h:"13:00 ET (12:00 CT)",e1:"🇩🇪 Alemania",e2:"🇨🇼 Curazao",sede:"NRG Stadium, Houston",
   p:[82,12,6],m:"4-0",alt:"15 m — sin efecto",
   clima:"Techo cerrado con clima controlado (~22 °C); fuera, calor húmedo de Houston",
@@ -587,7 +588,7 @@ const PROPS = [
  {fa:{t:24,a:12,b:12,p1:[52,48]},am:{t:3.5,a:1.7,b:1.8,p1:[50,50],roja:7},co:{t:9.5,a:6.0,b:3.5,p1:[63,37]},li:{a:12,b:12},mi:{g1:50,g2:71,m2:57,m1t:"1-0 (27%)"},re:[["J. David (CAN)","3.3","1.5"],["C. Larin (CAN)","2.6","1.1"],["A. Afif (QAT)","2.0","0.8"],["Almoez Ali (QAT)","1.8","0.7"]],go:[["Jonathan David (CAN)",31],["Cyle Larin (CAN)",24],["Akram Afif (QAT)",12]]},
  {fa:{t:23,a:10,b:13,p1:[42,58]},am:{t:3.0,a:1.1,b:1.9,p1:[36,64],roja:6},co:{t:11.0,a:8.0,b:3.0,p1:[75,25]},li:{a:13,b:10},mi:{g1:62,g2:80,m2:56,m1t:"1-0 (28%)"},re:[["Vinícius Jr. (BRA)","4.0","1.9"],["Raphinha (BRA)","3.2","1.5"],["Igor Thiago (BRA)","2.6","1.2"],["D. Nazon (HAI)","1.8","0.7"]],go:[["Vinícius Jr. (BRA)",40],["Raphinha (BRA)",30],["Igor Thiago (BRA)",26]]},
  {fa:{t:26,a:14,b:12,p1:[54,46]},am:{t:4.0,a:2.2,b:1.8,p1:[56,44],roja:9},co:{t:9.5,a:3.6,b:5.9,p1:[38,62]},li:{a:12,b:14},mi:{g1:47,g2:69,m2:57,m1t:"0-0 (33%)"},re:[["Y. En-Nesyri (MAR)","3.2","1.5"],["I. Saibari (MAR)","2.6","1.1"],["S. McTominay (SCO)","2.8","1.2"],["C. Adams (SCO)","2.3","1.0"]],go:[["Youssef En-Nesyri (MAR)",30],["Ismael Saibari (MAR)",22],["Scott McTominay (SCO)",20]]},
- {fa:{t:27,a:14,b:13,p1:[52,48]},am:{t:4.0,a:2.2,b:1.8,p1:[55,45],roja:9},co:{t:9.0,a:3.8,b:5.2,p1:[42,58]},li:{a:13,b:14},mi:{g1:47,g2:69,m2:57,m1t:"0-1 (27%)"},re:[["A. Güler (TUR)","3.4","1.5"],["K. Yildiz (TUR)","3.0","1.3"],["J. Irvine (AUS)","1.8","0.7"]],go:[["Arda Güler (TUR)",28],["Kenan Yildiz (TUR)",25],["Jackson Irvine (AUS)",12]]},
+ {fa:{t:25,a:12,b:13,p1:[48,52]},am:{t:4.0,a:1.9,b:2.1,p1:[47,53],roja:9},co:{t:9.5,a:5.6,b:3.9,p1:[59,41]},li:{a:12,b:13},mi:{g1:49,g2:71,m2:58,m1t:"1-0 (26%)"},re:[["F. Balogun (USA)","3.4","1.6"],["C. Pulisic (USA)","3.2","1.5"],["N. Irankunda (AUS)","2.6","1.1"],["M. Yengi (AUS)","2.0","0.8"]],go:[["Folarin Balogun (USA)",32],["Christian Pulisic (USA)",27],["Nestory Irankunda (AUS)",18]]},
  {fa:{t:20,a:8,b:12,p1:[38,62]},am:{t:2.5,a:0.8,b:1.7,p1:[30,70],roja:5},co:{t:11.0,a:8.5,b:2.5,p1:[78,22]},li:{a:12,b:8},mi:{g1:72,g2:86,m2:55,m1t:"2-0 (22%)"},re:[["F. Wirtz (GER)","4.2","2.0"],["K. Havertz (GER)","3.5","1.7"],["J. Musiala (GER)","3.3","1.6"]],go:[["Kai Havertz (GER)",45],["Florian Wirtz (GER)",41],["Jamal Musiala (GER)",38]]},
  {fa:{t:24,a:11,b:13,p1:[46,54]},am:{t:3.0,a:1.4,b:1.6,p1:[47,53],roja:6},co:{t:9.5,a:5.5,b:4.0,p1:[58,42]},li:{a:13,b:11},mi:{g1:50,g2:71,m2:57,m1t:"0-0 (31%)"},re:[["C. Gakpo (NED)","3.3","1.5"],["M. Depay (NED)","2.9","1.3"],["K. Mitoma (JPN)","2.7","1.2"],["T. Kubo (JPN)","2.4","1.0"]],go:[["Cody Gakpo (NED)",29],["Memphis Depay (NED)",26],["Kaoru Mitoma (JPN)",19]]},
  {fa:{t:28,a:14,b:14,p1:[50,50]},am:{t:4.0,a:2.0,b:2.0,p1:[50,50],roja:10},co:{t:9.0,a:4.5,b:4.5,p1:[50,50]},li:{a:14,b:14},mi:{g1:44,g2:66,m2:58,m1t:"0-0 (36%)"},re:[["S. Haller (CIV)","2.8","1.2"],["E. Valencia (ECU)","2.6","1.1"],["K. Páez (ECU)","2.2","0.9"]],go:[["Sébastien Haller (CIV)",24],["Enner Valencia (ECU)",22],["Kendry Páez (ECU)",17]]},
@@ -1041,6 +1042,8 @@ const BOTA = [
  {j:"Ismael Saibari",c:"MAR",g:1,a:0,pj:1,nota:"Adelantó a Marruecos al 21' ante Brasil; el 1-1 sabe a punto de oro"},
  {j:"Vinícius Jr.",c:"BRA",g:1,a:0,pj:1,nota:"Su gol 10 con Brasil rescató el 1-1 ante Marruecos en el MetLife"},
  {j:"John McGinn",c:"SCO",g:1,a:0,pj:1,nota:"Gol al 28' que dio a Escocia su primer triunfo mundialista en 36 años"},
+ {j:"Nestory Irankunda",c:"AUS",g:1,a:0,pj:1,nota:"Golazo individual al 27' en el 2-0 a Turquía; la joya de 20 años encendió el grupo D"},
+ {j:"Connor Metcalfe",c:"AUS",g:1,a:0,pj:1,nota:"Zurdazo al 75' que selló el sorpresón australiano sobre Turquía"},
  {j:"Kylian Mbappé",c:"FRA",g:0,a:0,pj:0,nota:"12 goles en Mundiales a sus 27; el ritmo francés pasa por él"},
  {j:"Erling Haaland",c:"NOR",g:0,a:0,pj:0,nota:"Su primer Mundial; venía de eliminatorias récord con Noruega"},
  {j:"Harry Kane",c:"ENG",g:0,a:0,pj:0,nota:"Bota de Oro 2018; Inglaterra genera volumen para su 9"},
@@ -1067,6 +1070,7 @@ const BALON = [
 const GUANTE = [
  {j:"José Raúl 'Tala' Rangel",c:"MEX",vi:1,gc:0,pj:1,fav:1,nota:"Titular sorpresa de Aguirre; valla invicta y 2 paradas en el debut — líder provisional"},
  {j:"Angus Gunn",c:"SCO",vi:1,gc:0,pj:1,nota:"Valla invicta en el 1-0 a Haití; clave para el primer triunfo escocés en 36 años"},
+ {j:"Patrick Beach",c:"AUS",vi:1,gc:0,pj:1,nota:"Debut soñado: relevó a Mat Ryan, hizo 8 paradas (incluida una a Güler) y dejó el cero en el 2-0 a Turquía"},
  {j:"Emiliano 'Dibu' Martínez",c:"ARG",vi:0,gc:0,pj:0,nota:"Guante de Oro en Qatar 2022; especialista en momentos límite"},
  {j:"Unai Simón",c:"ESP",vi:0,gc:0,pj:0,nota:"El arco de la selección más sólida de Europa"},
  {j:"Mike Maignan",c:"FRA",vi:0,gc:0,pj:0,nota:"Reflejos de élite tras una zaga que concede ocasiones"},
@@ -1077,11 +1081,12 @@ const GUANTE = [
  {j:"Thibaut Courtois",c:"BEL",vi:0,gc:0,pj:0,nota:"Jerarquía intacta; Bélgica llega lanzada"}
 ];
 const JOVEN = [
- {j:"Lamine Yamal",c:"ESP",g:0,a:0,pj:0,fav:1,nota:"18 años y ya es la cara del torneo"},
+ {j:"Nestory Irankunda",c:"AUS",g:1,a:0,pj:1,fav:1,nota:"Golazo individual de 20 años en el 2-0 a Turquía: hoy, el joven más determinante del torneo"},
+ {j:"Lamine Yamal",c:"ESP",g:0,a:0,pj:0,nota:"18 años y ya es la cara del torneo; aún no debuta (España juega el 15-jun)"},
  {j:"Ben Gannon Doak",c:"SCO",g:0,a:0,pj:1,nota:"Desequilibrante en el 1-0 a Haití; el extremo de 20 años fue la chispa escocesa"},
  {j:"Endrick",c:"BRA",g:0,a:0,pj:0,nota:"Revulsivo de lujo de Ancelotti"},
- {j:"Arda Güler",c:"TUR",g:0,a:0,pj:0,nota:"Turquía en racha gira sobre su zurda"},
- {j:"Kenan Yildiz",c:"TUR",g:0,a:0,pj:0,nota:"Socio de Güler en la Turquía más talentosa en décadas"},
+ {j:"Arda Güler",c:"TUR",g:0,a:0,pj:1,nota:"Turquía cayó 0-2 con Australia; su zurda no encontró espacios y Beach le negó el gol"},
+ {j:"Kenan Yildiz",c:"TUR",g:0,a:0,pj:1,nota:"Discreto en el sorpresivo tropiezo turco ante Australia; deberá reaccionar ya"},
  {j:"Assan Ouédraogo",c:"GER",g:0,a:0,pj:0,nota:"Entró a la lista por la baja de Karl; proyección enorme"},
  {j:"Franco Mastantuono",c:"ARG",g:0,a:0,pj:0,nota:"La joya argentina que pide minutos"},
  {j:"Pau Cubarsí",c:"ESP",g:0,a:0,pj:0,nota:"Central precoz de la Roja"},
