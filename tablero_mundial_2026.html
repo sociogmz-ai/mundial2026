@@ -174,7 +174,7 @@
 <body>
 <header>
   <h1>⚽ TABLERO <span>MUNDIAL 2026</span></h1>
-  <p id="stamp">Última actualización: 25 de junio de 2026 (noche) · Fase de grupos, jornada 3 · 58 partidos registrados · El 24 se cerraron los grupos A, B y C (México —fase perfecta—, Brasil y Marruecos como líderes; Chequia, Qatar y Haití, eliminados) y el 25 los grupos E y F (sorpresón: Ecuador 2-1 Alemania, aunque Alemania avanza 1.ª por diferencia; Países Bajos y Japón clasifican) · El grupo D se define esta noche (Paraguay–Australia y Turquía–EE. UU.); el 26–27 cierra la fase con los grupos G–L · Se actualiza automáticamente cada mañana (7:00)</p>
+  <p id="stamp">Última actualización: 26 de junio de 2026 · Fase de grupos, jornada 3 · 60 partidos registrados · Grupos A–F cerrados; anoche se definió el D: EE. UU. cayó 2-3 con Turquía pero terminó 1.º, Australia (2.º) y Paraguay (3.º) avanzan y Turquía queda fuera · Hoy se juega la jornada 3 de los grupos G, H e I (Uruguay–España y Noruega–Francia, los duelos estelares) y mañana cierran J, K y L · Messi lidera la Bota (5) y Tala Rangel el Guante (3 vallas) · Se actualiza automáticamente cada mañana (7:00)</p>
   <p style="margin-top:8px;color:var(--mut);font-size:.75rem">📤 Comparte el tablero:
     <button class="btnimg" style="border-color:#3ecf8e;color:#3ecf8e" onclick="compartirSitio('wa')">WhatsApp</button>
     <button class="btnimg" onclick="compartirSitio('x')">X</button>
@@ -210,12 +210,12 @@
   </section>
 
   <section id="grupos" class="view">
-    <p class="leyenda">Tablas oficiales calculadas con los resultados registrados (58 partidos: grupos A, B, C, E y F ya cerrados; el grupo D termina hoy y los grupos G–L el 26–27). <span style="color:var(--green)">PROY</span> = puntos finales proyectados. <b>Verde</b>: 1.º y 2.º clasifican · <i>Ámbar</i>: 3.º puede avanzar entre los 8 mejores terceros. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con los últimos resultados registrados">↻ Restablecer datos</button></p>
+    <p class="leyenda">Tablas oficiales calculadas con los resultados registrados (60 partidos: grupos A–F ya cerrados; los grupos G–L cierran el 26–27). <span style="color:var(--green)">PROY</span> = puntos finales proyectados. <b>Verde</b>: 1.º y 2.º clasifican · <i>Ámbar</i>: 3.º puede avanzar entre los 8 mejores terceros. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con los últimos resultados registrados">↻ Restablecer datos</button></p>
     <div class="grid" id="gridGrupos"></div>
   </section>
 
   <section id="jornada" class="view">
-    <p class="leyenda">Los próximos partidos (25–27 de junio): cierre del grupo D esta noche y jornada 3 de los grupos G–L el 26–27. Probabilidades Victoria local / Empate / Victoria visitante, marcador probable y factores: hora, clima, altitud y árbitro. Horas en ET. Debajo del marcador probable de cada ficha verás las <b>📊 barras de probabilidad</b> de cada mercado: reparto de faltas y primera falta, amarillas y primera tarjeta (con prob. de roja), córners por equipo y primer córner, mitad con más goles, tiros libres, rematadores con remates a puerta y goleadores probables. Verde = equipo izquierdo, rojo = derecho. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con las probabilidades más recientes">↻ Restablecer datos</button></p>
+    <p class="leyenda">Los próximos partidos (26–27 de junio): jornada 3 de los grupos G, H e I hoy y de los grupos J, K y L mañana. Probabilidades Victoria local / Empate / Victoria visitante, marcador probable y factores: hora, clima, altitud y árbitro. Horas en ET. Debajo del marcador probable de cada ficha verás las <b>📊 barras de probabilidad</b> de cada mercado: reparto de faltas y primera falta, amarillas y primera tarjeta (con prob. de roja), córners por equipo y primer córner, mitad con más goles, tiros libres, rematadores con remates a puerta y goleadores probables. Verde = equipo izquierdo, rojo = derecho. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con las probabilidades más recientes">↻ Restablecer datos</button></p>
     <div id="listaPartidos"></div>
   </section>
 
@@ -277,7 +277,7 @@ const T = {
  MEX:{n:"México",f:"🇲🇽",g:"A",r:80,proy:9}, KOR:{n:"Corea del Sur",f:"🇰🇷",g:"A",r:73,proy:3}, CZE:{n:"Chequia",f:"🇨🇿",g:"A",r:67,proy:1}, RSA:{n:"Sudáfrica",f:"🇿🇦",g:"A",r:63,proy:4},
  SUI:{n:"Suiza",f:"🇨🇭",g:"B",r:78,proy:7}, CAN:{n:"Canadá",f:"🇨🇦",g:"B",r:76,proy:4}, BIH:{n:"Bosnia y Herz.",f:"🇧🇦",g:"B",r:65,proy:4}, QAT:{n:"Qatar",f:"🇶🇦",g:"B",r:56,proy:1},
  BRA:{n:"Brasil",f:"🇧🇷",g:"C",r:86,proy:7}, MAR:{n:"Marruecos",f:"🇲🇦",g:"C",r:86,proy:7}, SCO:{n:"Escocia",f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",g:"C",r:72,proy:3}, HAI:{n:"Haití",f:"🇭🇹",g:"C",r:58,proy:0},
- USA:{n:"Estados Unidos",f:"🇺🇸",g:"D",r:76,proy:9}, TUR:{n:"Turquía",f:"🇹🇷",g:"D",r:70,proy:0}, PAR:{n:"Paraguay",f:"🇵🇾",g:"D",r:72,proy:4}, AUS:{n:"Australia",f:"🇦🇺",g:"D",r:72,proy:4},
+ USA:{n:"Estados Unidos",f:"🇺🇸",g:"D",r:75,proy:6}, TUR:{n:"Turquía",f:"🇹🇷",g:"D",r:71,proy:3}, PAR:{n:"Paraguay",f:"🇵🇾",g:"D",r:72,proy:4}, AUS:{n:"Australia",f:"🇦🇺",g:"D",r:72,proy:4},
  GER:{n:"Alemania",f:"🇩🇪",g:"E",r:88,proy:9}, ECU:{n:"Ecuador",f:"🇪🇨",g:"E",r:73,proy:2}, CIV:{n:"Costa de Marfil",f:"🇨🇮",g:"E",r:75,proy:4}, CUW:{n:"Curazao",f:"🇨🇼",g:"E",r:54,proy:1},
  NED:{n:"Países Bajos",f:"🇳🇱",g:"F",r:81,proy:7}, JPN:{n:"Japón",f:"🇯🇵",g:"F",r:78,proy:7}, SWE:{n:"Suecia",f:"🇸🇪",g:"F",r:71,proy:3}, TUN:{n:"Túnez",f:"🇹🇳",g:"F",r:59,proy:0},
  BEL:{n:"Bélgica",f:"🇧🇪",g:"G",r:78,proy:5}, IRN:{n:"Irán",f:"🇮🇷",g:"G",r:72,proy:3}, EGY:{n:"Egipto",f:"🇪🇬",g:"G",r:73,proy:5}, NZL:{n:"Nueva Zelanda",f:"🇳🇿",g:"G",r:58,proy:1},
@@ -373,7 +373,9 @@ const RESULTADOS = [
  {f:"25 jun", g:"E", h:"ECU", a:"GER", hg:2, ag:1},
  {f:"25 jun", g:"E", h:"CIV", a:"CUW", hg:2, ag:0},
  {f:"25 jun", g:"F", h:"NED", a:"TUN", hg:3, ag:1},
- {f:"25 jun", g:"F", h:"JPN", a:"SWE", hg:1, ag:1}
+ {f:"25 jun", g:"F", h:"JPN", a:"SWE", hg:1, ag:1},
+ {f:"25 jun", g:"D", h:"PAR", a:"AUS", hg:0, ag:0},
+ {f:"25 jun", g:"D", h:"USA", a:"TUR", hg:2, ag:3}
 ];
 
 // ============================================================
@@ -531,23 +533,7 @@ const J1 = [
   f1:"D. 1-2 Argelia tras el 3-1... eliminada, sin puntos",
   f2:"V. 2-0 Austria tras el 3-0 a Argelia — 6 pts, líder con paso perfecto y ya clasificada",
   news:["Argentina, ya clasificada y líder, podría dosificar a varios titulares.","Jordania, eliminada, busca cerrar con su primer punto del torneo.","Messi (5 goles) lidera la Bota de Oro; Scaloni valorará darle descanso."],
-  an:"Argentina domina el grupo y puede rotar pensando en la Ronda de 32; Jordania llega sin opciones. La jerarquía albiceleste parte como amplia favorita aun con suplentes."},
- {g:"D",f:"Jue 25 jun",h:"22:00 ET (19:00 PT)",e1:"🇵🇾 Paraguay",e2:"🇦🇺 Australia",sede:"Levi's Stadium, Santa Clara",
-  p:[38,30,32],m:"1-1",alt:"25 m — sin efecto",
-  clima:"~17 °C nocturno, fresco y seco en la bahía",
-  arb:"Por confirmar (FIFA designa ~48 h antes)",
-  f1:"V. 1-0 Turquía (con 10) tras caer 1-4 con EE. UU. — 3 pts; resistió con un hombre menos",
-  f2:"D. 0-2 EE. UU. tras vencer 2-0 a Turquía — 3 pts; ambos pelean el 2.º puesto",
-  news:["Duelo directo por el segundo puesto del grupo D: ambos llegan con 3 pts.","Baja en Paraguay: Miguel Almirón, suspendido tras su expulsión ante Turquía.","Australia confía en su orden y en sus contras para avanzar."],
-  an:"Partido de seis puntos. Paraguay mostró carácter resistiendo con diez; Australia defiende bien y golpea de contra. Paridad real: el empate deja todo abierto para la última jornada."},
- {g:"D",f:"Jue 25 jun",h:"22:00 ET (19:00 PT)",e1:"🇹🇷 Turquía",e2:"🇺🇸 Estados Unidos",sede:"SoFi Stadium, Inglewood",
-  p:[22,26,52],m:"1-2",alt:"30 m — sin efecto; estadio techado",
-  clima:"Estadio techado, clima controlado (~22 °C)",
-  arb:"Por confirmar (FIFA designa ~48 h antes)",
-  f1:"D. 0-1 Paraguay tras caer 0-2 con Australia — ya eliminada, sin puntos",
-  f2:"V. 2-0 Australia tras golear 4-1 a Paraguay — 6 pts, líder ya clasificado",
-  news:["EE. UU., ya clasificado, va por el liderato y por seguir invicto.","Turquía, eliminada, busca cerrar con orgullo ante el anfitrión.","Pulisic y Balogun lideran a un EE. UU. lanzado."],
-  an:"EE. UU. domina el grupo y puede rotar con garantías; Turquía, fuera de carrera, jugará liberada. La pegada y la localía estadounidenses parten con ventaja."}
+  an:"Argentina domina el grupo y puede rotar pensando en la Ronda de 32; Jordania llega sin opciones. La jerarquía albiceleste parte como amplia favorita aun con suplentes."}
 ];
 // ============================================================
 // PROPS — Probabilidades detalladas por partido (mismo orden que J1).
@@ -571,9 +557,7 @@ const PROPS = [
  {fa:{t:26,a:13,b:13,p1:[50,50]},am:{t:4.0,a:2.0,b:2.0,p1:[50,50],roja:9},co:{t:9.5,a:4.7,b:4.8,p1:[49,51]},li:{a:13,b:13},mi:{g1:49,g2:71,m2:57,m1t:"0-0 (27%)"},re:[["L. Díaz (COL)","3.4","1.6"],["J. Durán (COL)","2.8","1.2"],["C. Ronaldo (POR)","3.4","1.6"],["R. Leão (POR)","3.0","1.4"]],go:[["Luis Díaz (COL)",30],["Cristiano Ronaldo (POR)",30],["Rafael Leão (POR)",24]]},
  {fa:{t:25,a:13,b:12,p1:[51,49]},am:{t:4.0,a:2.0,b:2.0,p1:[50,50],roja:8},co:{t:9.0,a:5.0,b:4.0,p1:[55,45]},li:{a:13,b:12},mi:{g1:47,g2:69,m2:57,m1t:"0-0 (31%)"},re:[["C. Bakambu (COD)","2.8","1.2"],["S. Katompa (COD)","2.4","1.0"],["E. Shomurodov (UZB)","2.4","1.0"]],go:[["Cédric Bakambu (COD)",26],["Eldor Shomurodov (UZB)",20],["Silas Katompa (COD)",18]]},
  {fa:{t:26,a:13,b:13,p1:[50,50]},am:{t:4.5,a:2.2,b:2.3,p1:[49,51],roja:9},co:{t:9.5,a:4.8,b:4.7,p1:[51,49]},li:{a:13,b:13},mi:{g1:48,g2:70,m2:57,m1t:"0-0 (28%)"},re:[["A. Mahrez (ALG)","3.2","1.5"],["M. Amoura (ALG)","2.8","1.3"],["M. Sabitzer (AUT)","3.0","1.4"],["M. Gregoritsch (AUT)","2.6","1.1"]],go:[["Riyad Mahrez (ALG)",28],["Marcel Sabitzer (AUT)",24],["Mohamed Amoura (ALG)",22]]},
- {fa:{t:25,a:13,b:12,p1:[52,48]},am:{t:4.0,a:2.2,b:1.8,p1:[55,45],roja:8},co:{t:10.0,a:3.0,b:7.0,p1:[30,70]},li:{a:12,b:13},mi:{g1:50,g2:72,m2:57,m1t:"0-1 (27%)"},re:[["L. Messi (ARG)","3.6","1.7"],["J. Álvarez (ARG)","3.2","1.5"],["L. Martínez (ARG)","2.8","1.3"],["M. Al-Tamari (JOR)","2.0","0.8"]],go:[["Julián Álvarez (ARG)",36],["Lautaro Martínez (ARG)",30],["Lionel Messi (ARG)",28]]},
- {fa:{t:26,a:13,b:13,p1:[50,50]},am:{t:4.0,a:2.0,b:2.0,p1:[50,50],roja:9},co:{t:9.0,a:4.5,b:4.5,p1:[50,50]},li:{a:13,b:13},mi:{g1:47,g2:69,m2:57,m1t:"0-0 (32%)"},re:[["A. Sanabria (PAR)","2.8","1.2"],["J. Enciso (PAR)","2.6","1.1"],["N. Irankunda (AUS)","2.6","1.1"],["M. Yengi (AUS)","2.0","0.8"]],go:[["Antonio Sanabria (PAR)",24],["Nestory Irankunda (AUS)",20],["Julio Enciso (PAR)",16]]},
- {fa:{t:25,a:13,b:12,p1:[52,48]},am:{t:3.5,a:1.9,b:1.6,p1:[53,47],roja:7},co:{t:9.5,a:3.7,b:5.8,p1:[39,61]},li:{a:12,b:13},mi:{g1:50,g2:72,m2:57,m1t:"0-1 (27%)"},re:[["K. Yildiz (TUR)","2.8","1.2"],["A. Güler (TUR)","2.6","1.1"],["F. Balogun (USA)","3.2","1.5"],["C. Pulisic (USA)","3.0","1.4"]],go:[["Folarin Balogun (USA)",30],["Christian Pulisic (USA)",26],["Arda Güler (TUR)",18]]}
+ {fa:{t:25,a:13,b:12,p1:[52,48]},am:{t:4.0,a:2.2,b:1.8,p1:[55,45],roja:8},co:{t:10.0,a:3.0,b:7.0,p1:[30,70]},li:{a:12,b:13},mi:{g1:50,g2:72,m2:57,m1t:"0-1 (27%)"},re:[["L. Messi (ARG)","3.6","1.7"],["J. Álvarez (ARG)","3.2","1.5"],["L. Martínez (ARG)","2.8","1.3"],["M. Al-Tamari (JOR)","2.0","0.8"]],go:[["Julián Álvarez (ARG)",36],["Lautaro Martínez (ARG)",30],["Lionel Messi (ARG)",28]]}
 ];
 // Genera las barras de probabilidades detalladas (verde = equipo local listado, rojo = visitante)
 const propsHTML=(x,P)=>{
@@ -1044,8 +1028,8 @@ const JOVEN = [
  {j:"Lamine Yamal",c:"ESP",g:1,a:0,pj:2,fav:1,nota:"18 años, la cara del torneo: volvió de su lesión y marcó en el 4-0 a Arabia; hoy, el joven más determinante"},
  {j:"Nestory Irankunda",c:"AUS",g:1,a:0,pj:2,nota:"Golazo individual de 20 años en el 2-0 a Turquía; Australia pelea el 2.º puesto del grupo D"},
  {j:"Endrick",c:"BRA",g:0,a:0,pj:1,nota:"Revulsivo de lujo de Ancelotti; le anularon un gol ante Haití"},
- {j:"Kenan Yildiz",c:"TUR",g:0,a:0,pj:2,nota:"Turquía quedó eliminada; su zurda no encontró premio"},
- {j:"Arda Güler",c:"TUR",g:0,a:0,pj:2,nota:"Calidad sin recompensa en una Turquía fuera del torneo"},
+ {j:"Arda Güler",c:"TUR",g:1,a:0,pj:3,nota:"Empató al 10' en el 3-2 con que Turquía sorprendió a EE. UU.; calidad y gol pese a la eliminación turca"},
+ {j:"Kenan Yildiz",c:"TUR",g:0,a:0,pj:3,nota:"Turquía cerró con un triunfazo ante el anfitrión, pero quedó fuera; su zurda no encontró premio"},
  {j:"Franco Mastantuono",c:"ARG",g:0,a:0,pj:0,nota:"La joya argentina que pide minutos en una Albiceleste ya clasificada"},
  {j:"Pau Cubarsí",c:"ESP",g:0,a:0,pj:2,nota:"Titular precoz en la zaga de la Roja; seguridad impropia de su edad"},
  {j:"Kendry Páez",c:"ECU",g:0,a:0,pj:2,nota:"El '07 ecuatoriano busca su primer gol con Ecuador obligado ante Alemania"},
