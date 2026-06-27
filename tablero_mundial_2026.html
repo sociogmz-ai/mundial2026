@@ -174,7 +174,7 @@
 <body>
 <header>
   <h1>⚽ TABLERO <span>MUNDIAL 2026</span></h1>
-  <p id="stamp">Última actualización: 26 de junio de 2026 · Fase de grupos, jornada 3 · 60 partidos registrados · Grupos A–F cerrados; anoche se definió el D: EE. UU. cayó 2-3 con Turquía pero terminó 1.º, Australia (2.º) y Paraguay (3.º) avanzan y Turquía queda fuera · Hoy se juega la jornada 3 de los grupos G, H e I (Uruguay–España y Noruega–Francia, los duelos estelares) y mañana cierran J, K y L · Messi lidera la Bota (5) y Tala Rangel el Guante (3 vallas) · Se actualiza automáticamente cada mañana (7:00)</p>
+  <p id="stamp">Última actualización: 26 de junio de 2026 · Fase de grupos, jornada 3 · 62 partidos registrados · Grupos A–F cerrados y grupo I definido: Francia 1.ª (pleno, 1-4 a Noruega con hat-trick de Dembélé en 32'), Noruega 2.ª (irá ante Costa de Marfil), Senegal 3.º vivo como mejor tercero (5-0 a Irak) e Irak eliminado · Esta noche cierran G y H (Uruguay–España, decisivo) y mañana J, K y L · Messi lidera la Bota (5) con Mbappé, Dembélé, Haaland y Vinícius a uno (4); Tala Rangel manda en el Guante (3 vallas) · Se actualiza automáticamente cada mañana (7:00)</p>
   <p style="margin-top:8px;color:var(--mut);font-size:.75rem">📤 Comparte el tablero:
     <button class="btnimg" style="border-color:#3ecf8e;color:#3ecf8e" onclick="compartirSitio('wa')">WhatsApp</button>
     <button class="btnimg" onclick="compartirSitio('x')">X</button>
@@ -282,7 +282,7 @@ const T = {
  NED:{n:"Países Bajos",f:"🇳🇱",g:"F",r:81,proy:7}, JPN:{n:"Japón",f:"🇯🇵",g:"F",r:78,proy:7}, SWE:{n:"Suecia",f:"🇸🇪",g:"F",r:71,proy:3}, TUN:{n:"Túnez",f:"🇹🇳",g:"F",r:59,proy:0},
  BEL:{n:"Bélgica",f:"🇧🇪",g:"G",r:78,proy:5}, IRN:{n:"Irán",f:"🇮🇷",g:"G",r:72,proy:3}, EGY:{n:"Egipto",f:"🇪🇬",g:"G",r:73,proy:5}, NZL:{n:"Nueva Zelanda",f:"🇳🇿",g:"G",r:58,proy:1},
  ESP:{n:"España",f:"🇪🇸",g:"H",r:91,proy:7}, URU:{n:"Uruguay",f:"🇺🇾",g:"H",r:76,proy:3}, CPV:{n:"Cabo Verde",f:"🇨🇻",g:"H",r:69,proy:3}, KSA:{n:"Arabia Saudita",f:"🇸🇦",g:"H",r:64,proy:1},
- FRA:{n:"Francia",f:"🇫🇷",g:"I",r:90,proy:7}, NOR:{n:"Noruega",f:"🇳🇴",g:"I",r:79,proy:7}, SEN:{n:"Senegal",f:"🇸🇳",g:"I",r:72,proy:0}, IRQ:{n:"Irak",f:"🇮🇶",g:"I",r:59,proy:0},
+ FRA:{n:"Francia",f:"🇫🇷",g:"I",r:91,proy:8}, NOR:{n:"Noruega",f:"🇳🇴",g:"I",r:78,proy:6}, SEN:{n:"Senegal",f:"🇸🇳",g:"I",r:74,proy:1}, IRQ:{n:"Irak",f:"🇮🇶",g:"I",r:58,proy:0},
  ARG:{n:"Argentina",f:"🇦🇷",g:"J",r:93,proy:9}, AUT:{n:"Austria",f:"🇦🇹",g:"J",r:73,proy:3}, ALG:{n:"Argelia",f:"🇩🇿",g:"J",r:74,proy:6}, JOR:{n:"Jordania",f:"🇯🇴",g:"J",r:56,proy:0},
  POR:{n:"Portugal",f:"🇵🇹",g:"K",r:85,proy:4}, COL:{n:"Colombia",f:"🇨🇴",g:"K",r:79,proy:6}, UZB:{n:"Uzbekistán",f:"🇺🇿",g:"K",r:63,proy:1}, COD:{n:"RD Congo",f:"🇨🇩",g:"K",r:64,proy:4},
  ENG:{n:"Inglaterra",f:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",g:"L",r:87,proy:6}, CRO:{n:"Croacia",f:"🇭🇷",g:"L",r:76,proy:3}, GHA:{n:"Ghana",f:"🇬🇭",g:"L",r:69,proy:4}, PAN:{n:"Panamá",f:"🇵🇦",g:"L",r:66,proy:1}
@@ -375,7 +375,9 @@ const RESULTADOS = [
  {f:"25 jun", g:"F", h:"NED", a:"TUN", hg:3, ag:1},
  {f:"25 jun", g:"F", h:"JPN", a:"SWE", hg:1, ag:1},
  {f:"25 jun", g:"D", h:"PAR", a:"AUS", hg:0, ag:0},
- {f:"25 jun", g:"D", h:"USA", a:"TUR", hg:2, ag:3}
+ {f:"25 jun", g:"D", h:"USA", a:"TUR", hg:2, ag:3},
+ {f:"26 jun", g:"I", h:"NOR", a:"FRA", hg:1, ag:4},
+ {f:"26 jun", g:"I", h:"SEN", a:"IRQ", hg:5, ag:0}
 ];
 
 // ============================================================
@@ -384,7 +386,7 @@ const RESULTADOS = [
 const FAVORITOS = [
  {c:"ARG",p:19,pro:"Clasificada a 16avos con paso perfecto (3-0 Argelia, 2-0 Austria); Messi en estado de gracia (5 goles y ya máximo goleador histórico de los Mundiales con 18) y Dibu con la valla invicta intacta.",con:"Argelia y Austria le exigieron tramos; la edad de varios referentes y un cruce de octavos aún por definir."},
  {c:"ESP",p:15,pro:"Reaccionó con un contundente 4-0 a Arabia: Lamine Yamal volvió de su molestia y marcó, Oyarzabal firmó doblete y Unai Simón ya suma 2 vallas invictas.",con:"El 0-0 inicial ante Cabo Verde dejó dudas; cierra el grupo H ante un Uruguay obligado."},
- {c:"FRA",p:12,pro:"Paso perfecto y ya clasificada (3-1 Senegal, 3-0 Irak); Mbappé, con 4 goles, lidera el ataque más temido junto a Argentina.",con:"La zaga sigue concediendo ocasiones; el liderato del grupo I se juega ante Noruega."},
+ {c:"FRA",p:13,pro:"Cerró 1.ª del grupo I con paso perfecto (9 pts): 1-4 a Noruega con hat-trick de Dembélé (el 2.º más rápido en la historia de los Mundiales, asistido dos veces por Mbappé) y Doué cerrando. Cinco goleadores distintos ya y el ataque más temido junto a Argentina.",con:"Norway era un equipo rotado; los cruces de élite aún medirán a su zaga."},
  {c:"ENG",p:10,pro:"Arrancó goleando 4-2 a Croacia (doblete de Kane); líder del grupo L con la mejor pegada y plantel profundo.",con:"Su zaga concedió dos ante Croacia; historial de quedarse corta en los cruces grandes."},
  {c:"GER",p:8,pro:"Terminó 1.ª del grupo E por diferencia de goles (7-1 a Curazao, 2-1 a Costa de Marfil); fondo de plantel de sobra para los cruces.",con:"Cayó 2-1 ante Ecuador en el cierre y mostró fragilidad: dudas serias de regularidad ante rivales de peso."},
  {c:"BRA",p:9,pro:"Cerró líder del grupo C con un 3-0 a Escocia (doblete de Vinícius, que ya suma 4); Ancelotti halló la tecla y el ataque está encendido.",con:"El 1-1 inicial ante Marruecos dejó dudas defensivas; ahora llegan los cruces de eliminación directa."},
@@ -392,7 +394,7 @@ const FAVORITOS = [
  {c:"MAR",p:5,pro:"Clasificó 2.º del grupo C (7 pts); Saibari, con 3 goles, destapado como figura y Hakimi enchufado (gol y asistencia a Haití).",con:"Encajó dos ante Haití (4-2) y cedió el liderato a Brasil por diferencia de goles."},
  {c:"MEX",p:4,pro:"Firmó la primera fase de grupos PERFECTA de su historia (9 pts, 3-0 a Chequia) con el arco intacto; Tala Rangel lidera el Guante de Oro con 3 vallas invictas.",con:"Techo histórico de octavos; su valla aún no se mide a un rival de élite."},
  {c:"NED",p:3,pro:"4 pts y goleada 5-1 a Suecia (dobletes de Brobbey y Gakpo); pólvora de sobra arriba.",con:"Su zaga concede en cada partido; el 2-2 ante Japón dejó el grupo F muy apretado."},
- {c:"NOR",p:3,pro:"Irrupción con paso perfecto (4-1 Irak, 3-2 Senegal) y ya clasificada; Haaland, con 4 goles, en plenitud absoluta.",con:"Poca experiencia mundialista y una zaga que concedió dos ante Senegal."},
+ {c:"NOR",p:3,pro:"Clasificada 2.ª del grupo I; rotó a fondo (descansó a Haaland y Ødegaard) y cayó 1-4 con Francia sin forzar. Haaland sigue con 4 goles en la pelea por la Bota.",con:"El 1-4 dejó dudas y en 16avos le espera Costa de Marfil; poca experiencia mundialista."},
  {c:"URU",p:2,pro:"El Uruguay de Bielsa compite contra cualquiera; Valverde y Núñez sostienen al equipo.",con:"Dos empates flojos (Arabia y Cabo Verde) lo dejaron contra las cuerdas: debe ganar a España para avanzar."}
 ];
 
@@ -438,22 +440,6 @@ document.getElementById('gridGrupos').innerHTML = GL.map(g=>{
 // JORNADA 1 — fichas con pronóstico (la tarea diaria reemplaza por la jornada vigente)
 // ============================================================
 const J1 = [
- {g:"I",f:"Vie 26 jun",h:"16:00 ET",e1:"🇳🇴 Noruega",e2:"🇫🇷 Francia",sede:"Gillette Stadium, Boston",
-  p:[33,27,40],m:"1-2",alt:"45 m — sin efecto",
-  clima:"~24 °C, tarde despejada en Boston",
-  arb:"Por confirmar (FIFA designa ~48 h antes)",
-  f1:"V. 3-2 Senegal tras el 4-1 a Irak — 6 pts y ya clasificada; Haaland intratable",
-  f2:"V. 3-0 Irak tras el 3-1 a Senegal — 6 pts y ya clasificada; Mbappé al frente",
-  news:["Duelo por el liderato del grupo I: ambas con 6 pts y paso perfecto.","Haaland y Mbappé llegan con 4 goles cada uno: pulso por la Bota de Oro.","El ganador evita un posible cruce temprano con un cabeza de serie."],
-  an:"Choque de pesos pesados por la cima. Francia tiene más fondo de plantel y experiencia; Noruega responde con la pólvora de Haaland. Partido abierto que puede definir cruces clave en la Ronda de 32."},
- {g:"I",f:"Vie 26 jun",h:"16:00 ET",e1:"🇸🇳 Senegal",e2:"🇮🇶 Irak",sede:"BMO Field, Toronto",
-  p:[58,25,17],m:"2-0",alt:"80 m — sin efecto",
-  clima:"~23 °C, templado en Toronto",
-  arb:"Por confirmar (FIFA designa ~48 h antes)",
-  f1:"D. 2-3 Noruega tras caer 1-3 con Francia — eliminada, sin puntos",
-  f2:"D. 0-3 Francia tras el 1-4 con Noruega — eliminado, sin puntos",
-  news:["Duelo entre dos selecciones ya eliminadas que solo juegan por el honor.","Senegal quiere cerrar con una victoria que lave la decepción.","Irak no ha sumado y busca su primer resultado del torneo."],
-  an:"Partido sin nada en juego más que el orgullo. Senegal tiene mejor plantel y debería imponerse, aunque la motivación marcará la diferencia entre dos equipos golpeados."},
  {g:"H",f:"Vie 26 jun",h:"21:00 ET (20:00 CT)",e1:"🇺🇾 Uruguay",e2:"🇪🇸 España",sede:"Estadio Akron, Guadalajara",
   p:[30,30,40],m:"1-2",alt:"1 566 m — moderada; afecta el ritmo",
   clima:"~21 °C, posible lluvia ligera en Guadalajara",
@@ -546,8 +532,6 @@ const J1 = [
 // La tarea diaria actualiza este arreglo junto con J1.
 // ============================================================
 const PROPS = [
- {fa:{t:24,a:12,b:12,p1:[50,50]},am:{t:4.0,a:2.0,b:2.0,p1:[50,50],roja:8},co:{t:10.0,a:4.8,b:5.2,p1:[47,53]},li:{a:12,b:13},mi:{g1:52,g2:73,m2:57,m1t:"0-1 (24%)"},re:[["E. Haaland (NOR)","3.8","1.8"],["A. Sørloth (NOR)","2.8","1.2"],["K. Mbappé (FRA)","3.9","1.9"],["O. Dembélé (FRA)","3.0","1.4"]],go:[["Kylian Mbappé (FRA)",42],["Erling Haaland (NOR)",40],["Ousmane Dembélé (FRA)",24]]},
- {fa:{t:25,a:12,b:13,p1:[48,52]},am:{t:4.0,a:1.9,b:2.1,p1:[47,53],roja:8},co:{t:9.5,a:6.0,b:3.5,p1:[62,38]},li:{a:13,b:12},mi:{g1:48,g2:70,m2:58,m1t:"1-0 (27%)"},re:[["N. Jackson (SEN)","3.2","1.5"],["I. Sarr (SEN)","2.8","1.3"],["A. Hussein (IRQ)","1.9","0.7"]],go:[["Nicolas Jackson (SEN)",34],["Ismaïla Sarr (SEN)",26],["Aymen Hussein (IRQ)",12]]},
  {fa:{t:27,a:14,b:13,p1:[52,48]},am:{t:4.5,a:2.4,b:2.1,p1:[54,46],roja:10},co:{t:9.5,a:4.0,b:5.5,p1:[42,58]},li:{a:14,b:12},mi:{g1:49,g2:71,m2:58,m1t:"0-0 (28%)"},re:[["D. Núñez (URU)","3.0","1.4"],["F. Valverde (URU)","2.8","1.2"],["L. Yamal (ESP)","3.4","1.6"],["M. Oyarzabal (ESP)","3.0","1.4"]],go:[["Lamine Yamal (ESP)",30],["Mikel Oyarzabal (ESP)",28],["Darwin Núñez (URU)",24]]},
  {fa:{t:25,a:12,b:13,p1:[49,51]},am:{t:4.0,a:1.9,b:2.1,p1:[48,52],roja:8},co:{t:9.0,a:5.0,b:4.0,p1:[55,45]},li:{a:13,b:12},mi:{g1:48,g2:70,m2:57,m1t:"0-0 (30%)"},re:[["G. Rodrigues (CPV)","2.8","1.2"],["R. Mendes (CPV)","2.6","1.1"],["F. Al-Buraikan (KSA)","2.4","1.0"]],go:[["Garry Rodrigues (CPV)",24],["Ryan Mendes (CPV)",20],["Firas Al-Buraikan (KSA)",16]]},
  {fa:{t:26,a:13,b:13,p1:[50,50]},am:{t:4.5,a:2.2,b:2.3,p1:[49,51],roja:9},co:{t:8.5,a:4.5,b:4.0,p1:[53,47]},li:{a:13,b:13},mi:{g1:47,g2:69,m2:57,m1t:"0-0 (31%)"},re:[["M. Salah (EGY)","3.6","1.7"],["O. Marmoush (EGY)","2.8","1.3"],["M. Taremi (IRN)","3.0","1.4"]],go:[["Mohamed Salah (EGY)",36],["Omar Marmoush (EGY)",24],["Mehdi Taremi (IRN)",22]]},
@@ -984,8 +968,14 @@ renderSim();
 // ============================================================
 const BOTA = [
  {j:"Lionel Messi",c:"ARG",g:5,a:0,pj:2,fav:1,nota:"Hat-trick ante Argelia (igualó a Klose) y doblete ante Austria: ya es el máximo goleador histórico de los Mundiales con 18 y líder en solitario de la Bota"},
- {j:"Kylian Mbappé",c:"FRA",g:4,a:0,pj:2,nota:"Doblete ante Senegal (3-1) y doblete ante Irak (3-0); cierra ante Noruega un duelo directo por la Bota"},
- {j:"Erling Haaland",c:"NOR",g:4,a:0,pj:2,nota:"Doblete ante Irak (4-1) y doblete ante Senegal (3-2); cuatro goles en su primer Mundial y Noruega clasificada"},
+ {j:"Kylian Mbappé",c:"FRA",g:4,a:2,pj:3,nota:"Cuatro goles (dobletes a Senegal e Irak); ante Noruega no marcó pero asistió dos de los goles de Dembélé en el 4-1"},
+ {j:"Ousmane Dembélé",c:"FRA",g:4,a:0,pj:3,nota:"Hat-trick ante Noruega en solo 32 minutos —el 2.º más rápido en la historia de los Mundiales— para colocarse a un gol de Messi en la Bota"},
+ {j:"Erling Haaland",c:"NOR",g:4,a:0,pj:3,nota:"Cuatro goles (dobletes a Irak y Senegal); descansó ante Francia con Noruega ya clasificada, así que sigue con cuatro"},
+ {j:"Désiré Doué",c:"FRA",g:1,a:0,pj:2,nota:"Cerró el 4-1 a Noruega en el descuento; recambio de lujo en una Francia con cinco goleadores distintos"},
+ {j:"Pape Gueye",c:"SEN",g:2,a:0,pj:2,nota:"Doblete entrando desde el banco en el 5-0 a Irak (el 1.º a los 89 s de saltar) que mantuvo viva a Senegal"},
+ {j:"Ismaïla Sarr",c:"SEN",g:1,a:0,pj:3,nota:"Abrió la goleada 5-0 a Irak; Senegal sigue con vida como mejor tercero"},
+ {j:"Habib Diarra",c:"SEN",g:1,a:0,pj:3,nota:"Adelantó a Senegal al 4' en el 5-0 a Irak"},
+ {j:"Iliman Ndiaye",c:"SEN",g:1,a:0,pj:3,nota:"Sentenció el 5-0 a Irak con un zurdazo tras 20 metros de carrera"},
  {j:"Vinícius Jr.",c:"BRA",g:4,a:0,pj:3,nota:"Doblete ante Escocia (7' y 45+3') sumado a sus goles ante Marruecos y Haití: cuatro tantos y desequilibrio total"},
  {j:"Matheus Cunha",c:"BRA",g:3,a:0,pj:3,nota:"Doblete ante Haití y gol ante Escocia; tres tantos en la Brasil que recuperó la pegada"},
  {j:"Jonathan David",c:"CAN",g:3,a:0,pj:3,nota:"Hat-trick en el histórico 6-0 a Qatar; Canadá cayó 1-2 con Suiza pero clasificó 2.ª"},
@@ -1004,7 +994,8 @@ const BOTA = [
 ];
 const BALON = [
  {j:"Lionel Messi",c:"ARG",g:5,a:0,pj:2,fav:1,nota:"Cinco goles, máximo goleador histórico de los Mundiales (18) y Argentina clasificada con paso perfecto: hoy, la cara del torneo"},
- {j:"Kylian Mbappé",c:"FRA",g:4,a:0,pj:2,nota:"Cuatro goles en dos partidos; el motor de una Francia ya clasificada"},
+ {j:"Kylian Mbappé",c:"FRA",g:4,a:2,pj:3,nota:"Cuatro goles y dos asistencias para Dembélé en el 4-1 a Noruega; el motor de la Francia líder del grupo I"},
+ {j:"Ousmane Dembélé",c:"FRA",g:4,a:0,pj:3,nota:"Hat-trick relámpago (32') ante Noruega; desequilibrio y gol en la Francia con pleno de puntos"},
  {j:"Lamine Yamal",c:"ESP",g:1,a:0,pj:2,nota:"Volvió de su lesión marcando en el 4-0 a Arabia; la joya de la candidata europea"},
  {j:"Vinícius Jr.",c:"BRA",g:4,a:0,pj:3,nota:"Cuatro goles —doblete ante Escocia incluido— y desequilibrio constante en la Brasil líder del grupo C"},
  {j:"Erling Haaland",c:"NOR",g:4,a:0,pj:2,nota:"Cuatro goles y Noruega clasificada: la irrupción del torneo, cierra ante Francia"},
@@ -1026,6 +1017,7 @@ const GUANTE = [
 ];
 const JOVEN = [
  {j:"Lamine Yamal",c:"ESP",g:1,a:0,pj:2,fav:1,nota:"18 años, la cara del torneo: volvió de su lesión y marcó en el 4-0 a Arabia; hoy, el joven más determinante"},
+ {j:"Désiré Doué",c:"FRA",g:1,a:0,pj:2,nota:"20 años: cerró el 4-1 a Noruega en el descuento; recambio de garantías en la Francia líder del grupo I"},
  {j:"Nestory Irankunda",c:"AUS",g:1,a:0,pj:2,nota:"Golazo individual de 20 años en el 2-0 a Turquía; Australia pelea el 2.º puesto del grupo D"},
  {j:"Endrick",c:"BRA",g:0,a:0,pj:1,nota:"Revulsivo de lujo de Ancelotti; le anularon un gol ante Haití"},
  {j:"Arda Güler",c:"TUR",g:1,a:0,pj:3,nota:"Empató al 10' en el 3-2 con que Turquía sorprendió a EE. UU.; calidad y gol pese a la eliminación turca"},
