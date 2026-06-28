@@ -96,6 +96,13 @@
   .pline .hora{color:var(--gold);font-weight:700;min-width:84px}
   .pline .sede{color:var(--mut);font-size:.74rem}
   .pline .g{color:var(--mut);font-size:.72rem;border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+  .pline.clk{cursor:pointer;transition:.15s} .pline.clk:hover{border-color:var(--gold);background:#16304f}
+  .vdisc{background:#2a1c10;border:1px solid var(--amber);border-radius:10px;padding:13px 16px;font-size:.84rem;color:#f0d9b8;margin-bottom:16px} .vdisc b{color:var(--amber)}
+  .vcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:13px} .vcard h4{font-size:1rem;margin-bottom:3px} .vcard .vmeta{color:var(--mut);font-size:.76rem;margin-bottom:10px}
+  .pick{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-bottom:7px;flex-wrap:wrap} .pick .mk{font-weight:600;flex:1;min-width:150px} .pick .pr{color:var(--gold);font-weight:800}
+  .cf{font-size:.66rem;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap} .cf.alta{background:rgba(62,207,142,.2);color:var(--green)} .cf.media{background:rgba(240,179,90,.2);color:var(--amber)} .cf.baja{background:rgba(138,160,184,.2);color:var(--mut)}
+  .vnota{font-size:.8rem;color:#cdd9e7;margin-top:6px}
+  .parlay{background:linear-gradient(135deg,#14283f,#1a3457);border:1px solid var(--gold);border-radius:12px;padding:15px 17px;margin-bottom:12px} .parlay .ph{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px} .parlay .pt{font-weight:800;color:var(--gold)} .parlay .pp{font-size:1.3rem;font-weight:800} .parlay ul{margin:6px 0 0 18px;font-size:.86rem} .parlay li{margin:3px 0} .parlay .risk{font-size:.74rem;color:var(--mut);margin-top:8px}
   .favrow{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px;display:grid;grid-template-columns:64px 1.1fr 2fr 2fr;gap:14px;align-items:center}
   .favrow .pct{color:var(--gold);font-weight:800;font-size:1.3rem;text-align:center}
   .favrow .tm{font-weight:700;font-size:1rem}
@@ -196,10 +203,11 @@
   </div>
   <button class="tab active" data-v="favoritos">🏆 Favoritos</button>
   <button class="tab" data-v="grupos">📊 Fase de Grupos</button>
-  <button class="tab" data-v="jornada">🔮 Pronósticos J1</button>
+  <button class="tab" data-v="jornada">🔮 Pronósticos</button>
   <button class="tab" data-v="simulador">🗺 Simulador</button>
   <button class="tab" data-v="premios">⭐ Premios individuales</button>
   <button class="tab" data-v="calendario">📅 Calendario</button>
+  <button class="tab" data-v="valor">💰 Valor &amp; Parlays</button>
   <button class="tab" data-v="metodo">📖 Metodología</button>
 </nav>
 <main>
@@ -232,8 +240,13 @@
   </section>
 
   <section id="calendario" class="view">
-    <p class="leyenda">Los 72 partidos de la fase de grupos (11–27 de junio), hora ET. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con el calendario y horarios vigentes">↻ Restablecer datos</button></p>
+    <p class="leyenda">Fase de grupos (72 partidos, 11–27 jun) y <b>Ronda de 32</b> (dieciseisavos, 28 jun–3 jul), hora ET. Los partidos de eliminatoria marcados son <b>clicables</b> y te llevan a su pronóstico. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con el calendario y horarios vigentes">↻ Restablecer datos</button></p>
     <div id="cal"></div>
+  </section>
+
+  <section id="valor" class="view">
+    <p class="leyenda">Mercados con valor según el modelo recalibrado v2 para la Ronda de 32. El % es la <b>probabilidad estimada</b> de que ocurra, no una certeza. <button class="btnref" onclick="location.reload()">↻ Restablecer datos</button></p>
+    <div id="valorBox"></div>
   </section>
 
   <section id="equipo" class="view">
@@ -561,7 +574,7 @@ const claveCrono=i=>{
   return mes*1000000+(+dia)*10000+min;
 };
 const ordenJ1=J1.map((_,i)=>i).sort((a,b)=>claveCrono(a)-claveCrono(b));
-document.getElementById('listaPartidos').innerHTML = ordenJ1.map(i=>{const x=J1[i],P=PROPS[i];return `<div class="mcard">
+document.getElementById('listaPartidos').innerHTML = ordenJ1.map(i=>{const x=J1[i],P=PROPS[i];return `<div class="mcard" id="pm-${codeDe(x.e1.split(' ').slice(1).join(' '))}-${codeDe(x.e2.split(' ').slice(1).join(' '))}">
     <div class="mtop"><span class="grp">${x.g}</span><span>${x.f} · ${x.h}</span><span>🏟 ${x.sede}</span><span style="display:flex;gap:6px"><button class="btnimg" onclick="descargarPNG(${i})">📷 Imagen</button><button class="btnimg" style="border-color:#3ecf8e;color:#3ecf8e" onclick="compartir(${i},'wa')">📤 WhatsApp</button><button class="btnimg" onclick="compartir(${i},'x')">📤 X</button></span></div>
     <div class="mmain"><span>${equipo(x.e1)}</span><span class="score">Marcador probable: ${x.m}</span><span>${equipo(x.e2)}</span></div>
     <div class="probbar">
@@ -1064,10 +1077,13 @@ const CAL = [
  ["Miércoles 24 de junio",[["15:00","B","🇨🇭 Suiza","🇨🇦 Canadá","BC Place, Vancouver"],["15:00","B","🇧🇦 Bosnia y Herz.","🇶🇦 Qatar","Lumen Field, Seattle"],["18:00","C","🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia","🇧🇷 Brasil","Hard Rock Stadium, Miami"],["18:00","C","🇲🇦 Marruecos","🇭🇹 Haití","Mercedes-Benz Stadium, Atlanta"],["21:00","A","🇨🇿 Chequia","🇲🇽 México","Estadio Azteca, CDMX"],["21:00","A","🇿🇦 Sudáfrica","🇰🇷 Corea del Sur","Estadio BBVA, Monterrey"]]],
  ["Jueves 25 de junio",[["16:00","E","🇨🇼 Curazao","🇨🇮 Costa de Marfil","Lincoln Financial Field, Filadelfia"],["16:00","E","🇪🇨 Ecuador","🇩🇪 Alemania","MetLife Stadium, East Rutherford"],["19:00","F","🇯🇵 Japón","🇸🇪 Suecia","AT&T Stadium, Arlington"],["19:00","F","🇹🇳 Túnez","🇳🇱 Países Bajos","Arrowhead Stadium, Kansas City"],["22:00","D","🇹🇷 Turquía","🇺🇸 Estados Unidos","SoFi Stadium, Inglewood"],["22:00","D","🇵🇾 Paraguay","🇦🇺 Australia","Levi's Stadium, Santa Clara"]]],
  ["Viernes 26 de junio",[["15:00","I","🇳🇴 Noruega","🇫🇷 Francia","Gillette Stadium, Foxborough"],["15:00","I","🇸🇳 Senegal","🇮🇶 Irak","BMO Field, Toronto"],["20:00","H","🇨🇻 Cabo Verde","🇸🇦 Arabia Saudita","NRG Stadium, Houston"],["20:00","H","🇺🇾 Uruguay","🇪🇸 España","Estadio Akron, Guadalajara"],["23:00","G","🇪🇬 Egipto","🇮🇷 Irán","Lumen Field, Seattle"],["23:00","G","🇳🇿 Nueva Zelanda","🇧🇪 Bélgica","BC Place, Vancouver"]]],
- ["Sábado 27 de junio",[["17:00","L","🇵🇦 Panamá","🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra","MetLife Stadium, East Rutherford"],["17:00","L","🇭🇷 Croacia","🇬🇭 Ghana","Lincoln Financial Field, Filadelfia"],["19:30","K","🇨🇴 Colombia","🇵🇹 Portugal","Hard Rock Stadium, Miami"],["19:30","K","🇨🇩 RD Congo","🇺🇿 Uzbekistán","Mercedes-Benz Stadium, Atlanta"],["22:00","J","🇩🇿 Argelia","🇦🇹 Austria","Arrowhead Stadium, Kansas City"],["22:00","J","🇯🇴 Jordania","🇦🇷 Argentina","AT&T Stadium, Arlington"]]]
+ ["Sábado 27 de junio",[["17:00","L","🇵🇦 Panamá","🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra","MetLife Stadium, East Rutherford"],["17:00","L","🇭🇷 Croacia","🇬🇭 Ghana","Lincoln Financial Field, Filadelfia"],["19:30","K","🇨🇴 Colombia","🇵🇹 Portugal","Hard Rock Stadium, Miami"],["19:30","K","🇨🇩 RD Congo","🇺🇿 Uzbekistán","Mercedes-Benz Stadium, Atlanta"],["22:00","J","🇩🇿 Argelia","🇦🇹 Austria","Arrowhead Stadium, Kansas City"],["22:00","J","🇯🇴 Jordania","🇦🇷 Argentina","AT&T Stadium, Arlington"]]],
+ ["Domingo 28 de junio · Ronda de 32 (dieciseisavos)",[["15:00","16avos","🇿🇦 Sudáfrica","🇨🇦 Canadá","SoFi Stadium, Inglewood"]]],
+ ["Lunes 29 de junio · Ronda de 32",[["13:00","16avos","🇧🇷 Brasil","🇯🇵 Japón","NRG Stadium, Houston"],["16:30","16avos","🇩🇪 Alemania","🇵🇾 Paraguay","Gillette Stadium, Foxborough"],["21:00","16avos","🇳🇱 Países Bajos","🇲🇦 Marruecos","Estadio BBVA, Monterrey"]]],
+ ["Martes 30 de junio · Ronda de 32",[["13:00","16avos","🇨🇮 Costa de Marfil","🇳🇴 Noruega","AT&T Stadium, Arlington"],["17:00","16avos","🇫🇷 Francia","🇸🇪 Suecia","MetLife Stadium, East Rutherford"],["21:00","16avos","🇲🇽 México","🇪🇨 Ecuador","Estadio Azteca, Ciudad de México"]]]
 ];
 document.getElementById('cal').innerHTML = CAL.map(([dia,ps])=>`<div class="dia"><h3>${dia}</h3>${
-  ps.map(p=>`<div class="pline"><span class="hora">${p[0]} ET</span><span class="g">Grupo ${p[1]}</span><span style="flex:1;text-align:center">${equipo(p[2])} <b style="color:var(--mut)">vs</b> ${equipo(p[3])}</span><span class="sede">${p[4]}</span></div>`).join('')
+  ps.map(p=>{const c1=codeDe(p[2].split(' ').slice(1).join(' ')),c2=codeDe(p[3].split(' ').slice(1).join(' '));const enJ1=J1.some(x=>x.e1===p[2]&&x.e2===p[3]);const et=/^[A-L]$/.test(p[1])?('Grupo '+p[1]):p[1];const attrs=enJ1?(' onclick="verPronostico(\''+c1+'\',\''+c2+'\')" title="Ver pronóstico del partido"'):'';return `<div class="pline${enJ1?' clk':''}"${attrs}><span class="hora">${p[0]} ET</span><span class="g">${et}</span><span style="flex:1;text-align:center">${equipo(p[2])} <b style="color:var(--mut)">vs</b> ${equipo(p[3])}</span><span class="sede">${p[4]}</span></div>`;}).join('')
 }</div>`).join('');
 
 // ===== TABS =====
@@ -1077,6 +1093,16 @@ document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   t.classList.add('active');
   document.getElementById(t.dataset.v).classList.add('active');
 }));
+
+function verPronostico(c1,c2){
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  const tb=document.querySelector('[data-v=jornada]'); if(tb) tb.classList.add('active');
+  document.getElementById('jornada').classList.add('active');
+  const el=document.getElementById('pm-'+c1+'-'+c2);
+  if(el){el.scrollIntoView({behavior:'smooth',block:'center'});const o=el.style.boxShadow;el.style.boxShadow='0 0 0 2px var(--gold)';setTimeout(()=>{el.style.boxShadow=o;},2200);}
+  else{window.scrollTo({top:0,behavior:'smooth'});}
+}
 
 // ============================================================
 // BUSCADOR DE SELECCIONES + FICHA GENERAL DEL EQUIPO
@@ -1168,6 +1194,12 @@ function verEquipo(c){
   `;
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+// ====== VALOR & PARLAYS (Ronda de 32) ======
+const VALOR=[{"t1": "Sudáfrica", "t2": "Canadá", "fecha": "Dom 28 jun · 15:00 ET", "picks": [{"m": "Avanza a octavos: Canadá", "pr": 62, "cl": "Media", "cc": "media"}, {"m": "Menos de 2.5 goles", "pr": 57, "cl": "Media", "cc": "media"}, {"m": "Ambos equipos marcan: Sí", "pr": 54, "cl": "Baja", "cc": "baja"}], "nota": "Marcador probable del modelo: 1-1. Aprendizaje v2: el empate es más probable de lo que parece."}, {"t1": "Brasil", "t2": "Japón", "fecha": "Lun 29 jun · 13:00 ET", "picks": [{"m": "Avanza a octavos: Brasil", "pr": 67, "cl": "Media", "cc": "media"}, {"m": "Más de 2.5 goles", "pr": 58, "cl": "Media", "cc": "media"}, {"m": "Ambos equipos marcan: Sí", "pr": 54, "cl": "Baja", "cc": "baja"}], "nota": "Marcador probable del modelo: 2-1. Aprendizaje v2: el empate es más probable de lo que parece."}, {"t1": "Alemania", "t2": "Paraguay", "fecha": "Lun 29 jun · 16:30 ET", "picks": [{"m": "Avanza a octavos: Alemania", "pr": 75, "cl": "Alta", "cc": "alta"}, {"m": "Menos de 2.5 goles", "pr": 57, "cl": "Media", "cc": "media"}], "nota": "Marcador probable del modelo: 2-0. Favorito con margen para resolverlo."}, {"t1": "Países Bajos", "t2": "Marruecos", "fecha": "Lun 29 jun · 21:00 ET", "picks": [{"m": "Partido parejo — doble oportunidad: Países Bajos o penales", "pr": 50, "cl": "Baja", "cc": "baja"}, {"m": "Menos de 2.5 goles", "pr": 57, "cl": "Media", "cc": "media"}], "nota": "Marcador probable del modelo: 1-0. Aprendizaje v2: el empate es más probable de lo que parece."}, {"t1": "Costa de Marfil", "t2": "Noruega", "fecha": "Mar 30 jun · 13:00 ET", "picks": [{"m": "Partido parejo — doble oportunidad: Noruega o penales", "pr": 52, "cl": "Baja", "cc": "baja"}, {"m": "Menos de 2.5 goles", "pr": 57, "cl": "Media", "cc": "media"}, {"m": "Ambos equipos marcan: Sí", "pr": 54, "cl": "Baja", "cc": "baja"}], "nota": "Marcador probable del modelo: 1-1. Aprendizaje v2: el empate es más probable de lo que parece."}, {"t1": "Francia", "t2": "Suecia", "fecha": "Mar 30 jun · 17:00 ET", "picks": [{"m": "Avanza a octavos: Francia", "pr": 78, "cl": "Alta", "cc": "alta"}, {"m": "Más de 2.5 goles", "pr": 58, "cl": "Media", "cc": "media"}, {"m": "Ambos equipos marcan: Sí", "pr": 54, "cl": "Baja", "cc": "baja"}], "nota": "Marcador probable del modelo: 3-1. Favorito con margen para resolverlo."}, {"t1": "México", "t2": "Ecuador", "fecha": "Mar 30 jun · 21:00 ET", "picks": [{"m": "Avanza a octavos: México", "pr": 64, "cl": "Media", "cc": "media"}, {"m": "Menos de 2.5 goles", "pr": 57, "cl": "Media", "cc": "media"}], "nota": "Marcador probable del modelo: 1-0. Aprendizaje v2: el empate es más probable de lo que parece."}];
+const PARLAYS=[{"t": "Combinada conservadora (2 selecciones)", "legs": ["Francia avanza (78%)", "Alemania avanza (75%)"], "p": 58}, {"t": "Combinada de 3 selecciones", "legs": ["Francia avanza (78%)", "Alemania avanza (75%)", "Brasil avanza (67%)"], "p": 39}, {"t": "Combinada de valor (4) — mayor riesgo", "legs": ["Francia avanza (78%)", "Alemania avanza (75%)", "Brasil avanza (67%)", "México avanza (64%)"], "p": 25}];
+
+if(document.getElementById("valorBox")){document.getElementById("valorBox").innerHTML = "<div class=\"vdisc\"><b>⚠️ Lee esto primero.</b> Análisis informativo con probabilidades del modelo. <b>Ninguna apuesta es segura:</b> el porcentaje es la probabilidad estimada de acierto, no una garantía. Esto <b>no es asesoría financiera</b> ni una invitación a apostar. Las combinadas multiplican el riesgo: a más selecciones, menos probable acertarlas todas. Apuesta solo lo que puedas permitirte perder y juega de forma responsable.</div>" + VALOR.map(v=>`<div class="vcard"><h4>${equipo("_ "+v.t1)} <span style="color:var(--mut);font-weight:400">vs</span> ${equipo("_ "+v.t2)}</h4><div class="vmeta">${v.fecha}</div>${v.picks.map(p=>`<div class="pick"><span class="mk">${p.m}</span><span class="pr">${p.pr}%</span><span class="cf ${p.cc}">${p.cl}</span></div>`).join("")}<div class="vnota"><b>Lectura:</b> ${v.nota}</div></div>`).join("") + `<h2 style="color:var(--gold);font-size:1.15rem;margin:24px 0 12px;border-bottom:1px solid var(--line);padding-bottom:8px">🎲 Parlays sugeridos — Ronda de 32</h2>` + PARLAYS.map(p=>`<div class="parlay"><div class="ph"><span class="pt">${p.t}</span><span class="pp">${p.p}%</span></div><ul>${p.legs.map(l=>`<li>${l}</li>`).join("")}</ul><div class="risk">Probabilidad estimada de acertar TODAS las selecciones: ${p.p}%. Cuantas más patas, menor la probabilidad.</div></div>`).join("");}
 </script>
 </body>
 </html>
