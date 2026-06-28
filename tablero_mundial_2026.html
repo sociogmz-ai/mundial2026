@@ -174,7 +174,7 @@
 <body>
 <header>
   <h1>⚽ TABLERO <span>MUNDIAL 2026</span></h1>
-  <p id="stamp">Última actualización: 28 de junio de 2026 · Fin de la fase de grupos · 72 partidos registrados · Ronda de 32 (16avos) en marcha (28 jun – 3 jul) · Cierre del grupo J: Argentina 1.ª con paso perfecto (3-1 a Jordania, golazo de tiro libre de Messi) y Austria 2.ª tras un 3-3 agónico con Argelia (mejor tercero); grupo K: Colombia 1.ª (0-0 con Portugal), Portugal 2.º y RD Congo a 16avos (3-1 a Uzbekistán); grupo L: Inglaterra 1.ª (2-0 a Panamá), Croacia 2.ª (2-1 a Ghana) y Ghana mejor tercero · Irán y Uruguay, eliminados · Cruces de hoy/mañana: Sudáfrica–Canadá (28 jun), Brasil–Japón, Alemania–Paraguay y Países Bajos–Marruecos (29 jun) · Messi lidera la Bota (6); Tala Rangel y Unai Simón comparten el Guante (3 vallas, 0 GC) · Se actualiza automáticamente cada mañana (7:00)</p>
+  <p id="stamp">Última actualización: 28 de junio de 2026 · Fin de la fase de grupos · 72 partidos registrados · Ronda de 32 (16avos) en marcha (28 jun – 3 jul) · Cierre del grupo J: Argentina 1.ª con paso perfecto (3-1 a Jordania, golazo de tiro libre de Messi) y Austria 2.ª tras un 3-3 agónico con Argelia (mejor tercero); grupo K: Colombia 1.ª (0-0 con Portugal), Portugal 2.º y RD Congo a 16avos (3-1 a Uzbekistán); grupo L: Inglaterra 1.ª (2-0 a Panamá), Croacia 2.ª (2-1 a Ghana) y Ghana mejor tercero · Irán y Uruguay, eliminados · Cruces de hoy/mañana: Sudáfrica–Canadá (28 jun), Brasil–Japón, Alemania–Paraguay y Países Bajos–Marruecos (29 jun) · Messi lidera la Bota (6); Tala Rangel y Unai Simón comparten el Guante (3 vallas, 0 GC) · Se actualiza automáticamente cada mañana (7:00) · 🎯 Pronósticos con calibración v2 (más empates, marcador por desnivel, probabilidad de avanzar)</p>
   <p style="margin-top:8px;color:var(--mut);font-size:.75rem">📤 Comparte el tablero:
     <button class="btnimg" style="border-color:#3ecf8e;color:#3ecf8e" onclick="compartirSitio('wa')">WhatsApp</button>
     <button class="btnimg" onclick="compartirSitio('x')">X</button>
@@ -250,6 +250,8 @@
       <p>Cerrada la fase de grupos el 27 de junio, estos son los 16 cruces confirmados (28 jun – 3 jul): <b>Sudáfrica–Canadá</b> (SoFi, 28 jun) · <b>Brasil–Japón</b> (NRG, 29 jun) · <b>Alemania–Paraguay</b> (Gillette, 29 jun) · <b>Países Bajos–Marruecos</b> (BBVA Monterrey, 29 jun) · <b>Costa de Marfil–Noruega</b> (AT&amp;T, 30 jun) · <b>Francia–Suecia</b> (MetLife, 30 jun) · <b>México–Ecuador</b> (Azteca, 30 jun) · <b>Inglaterra–RD Congo</b> (Mercedes-Benz, 1 jul) · <b>Bélgica–Senegal</b> (Lumen, 1 jul) · <b>EE.&nbsp;UU.–Bosnia</b> (Levi's, 1 jul) · <b>España–Austria</b> (SoFi, 2 jul) · <b>Portugal–Croacia</b> (BMO Toronto, 2 jul) · <b>Suiza–Argelia</b> (BC Place, 2 jul) · <b>Australia–Egipto</b> (AT&amp;T, 3 jul) · <b>Argentina–Cabo Verde</b> (Hard Rock, 3 jul) · <b>Colombia–Ghana</b> (Arrowhead, 3 jul). Los 8 mejores terceros clasificados fueron <b>Paraguay (D), Ecuador (E), Suecia (F), Senegal (I), Argelia (J), RD Congo (K), Bosnia (B) y Ghana (L)</b>; quedaron fuera Irán (3.º del G, 3 pts) y Uruguay (3.º del H, 2 pts). El simulador resuelve estos cruces desde los resultados; la ubicación de cada tercero en su llave sigue la tabla reglamentaria de la FIFA.</p>
       <h3>🔄 Actualización diaria automática</h3>
       <p>Cada mañana a las 7:00 se registran los marcadores del día anterior (las tablas se recalculan solas), se recalibran probabilidades de los próximos partidos y de los favoritos al título, se actualizan goleadores/asistencias/vallas invictas y se agregan noticias: bajas, sanciones, tarjetas acumuladas y designaciones arbitrales.</p>
+      <h3>🎯 Calibración v2 — aprendizaje de la fase de grupos</h3>
+      <p>Tras los 72 partidos de grupos comparamos cada pronóstico con el resultado real (acierto 1‑X‑2 del 63%). Corregimos tres sesgos: <b>(1) más empates</b> —los favoritos de 50‑60% solo ganaron 53% y empataron 41%, así que en esa franja se sube la probabilidad de empate—; <b>(2) separar quién gana de por cuánto</b> —el marcador depende del desnivel de rating; solo desniveles grandes habilitan goleadas—; <b>(3) goles con más varianza</b> (se subestimaban: 2.28 previstos vs 2.94 reales). En eliminatoria se muestra la <b>probabilidad de avanzar</b> (90′ + penales). Esta capa se aplica a cada pronóstico desde la Ronda de 32.</p>
       <h3>⚠️ Aviso</h3>
       <p>Estimaciones informativas, no consejo de apuestas. Las listas de 26 son modificables hasta 24 h antes del debut de cada selección (reglamento FIFA).</p>
       <h3>🔗 Fuentes</h3>
@@ -453,61 +455,61 @@ document.getElementById('gridGrupos').innerHTML = GL.map(g=>{
 // ============================================================
 const J1 = [
  {g:"RONDA DE 32",f:"Dom 28 jun",h:"15:00 ET",e1:"🇿🇦 Sudáfrica",e2:"🇨🇦 Canadá",sede:"SoFi Stadium, Inglewood",
-  p:[24,26,50],m:"0-1",alt:"Cubierto — sin efecto",
+  p:[19,42,39],m:"1-1",alt:"Cubierto — sin efecto",
   clima:"Estadio techado, clima controlado (~23 °C) en Los Ángeles",
   arb:"Por confirmar (FIFA designa ~48 h antes)",
   f1:"V. 1-0 Corea del Sur — 2.º del grupo A; sorpresa que dejó fuera a los asiáticos",
   f2:"D. 1-2 Suiza — 2.º del grupo B pese al tropiezo final (goleó 6-0 a Qatar antes)",
   news:["Primer cruce de eliminación directa del torneo y única final anticipada del 28 jun.","Ninguna de las dos ha ganado nunca un partido de eliminación en un Mundial.","Canadá (Pochettino fuera; dirige Jesse Marsch) llega con más pólvora; Jonathan David, con 3 goles, es su gran amenaza."],
-  an:"Choque parejo entre dos selecciones sin pedigrí en eliminatorias. Canadá tiene más gol y mejor plantel; Sudáfrica fía su opción a la solidez que mostró ante Corea. Ligero favoritismo canadiense, con el empate y la prórroga como escenario real."},
+  an:"Choque parejo entre dos selecciones sin pedigrí en eliminatorias. Canadá tiene más gol y mejor plantel; Sudáfrica fía su opción a la solidez que mostró ante Corea. Ligero favoritismo canadiense, con el empate y la prórroga como escenario real. 🎯 Recalibrado v2: avanza Sudáfrica 38% / Canadá 62% (incluye penales); ajustado por el aprendizaje de la fase de grupos."},
  {g:"RONDA DE 32",f:"Lun 29 jun",h:"13:00 ET",e1:"🇧🇷 Brasil",e2:"🇯🇵 Japón",sede:"NRG Stadium, Houston",
-  p:[56,25,19],m:"2-0",alt:"Techo retráctil — sin efecto",
+  p:[45,40,15],m:"2-1",alt:"Techo retráctil — sin efecto",
   clima:"Techo cerrado, clima controlado (~22 °C) en Houston",
   arb:"Por confirmar (FIFA designa ~48 h antes)",
   f1:"V. 3-0 Escocia — 1.º del grupo C; Vinícius (doblete) reactivó el ataque",
   f2:"E. 1-1 Suecia — 2.º del grupo F; Japón clasificó con orden y verticalidad",
   news:["Japón ganó el único antecedente reciente (3-2 amistoso en octubre de 2025).","Vinícius Jr., con 4 goles, llega encendido; Ancelotti ya encontró la tecla.","Japón apuesta por presión alta y transiciones para incomodar a la Canarinha."],
-  an:"Brasil parte como claro favorito tras cerrar líder y recuperar pegada, pero Japón es el rival incómodo por excelencia. Si la Canarinha entra concentrada debería resolver; un arranque dubitativo metería a Japón en el partido."},
+  an:"Brasil parte como claro favorito tras cerrar líder y recuperar pegada, pero Japón es el rival incómodo por excelencia. Si la Canarinha entra concentrada debería resolver; un arranque dubitativo metería a Japón en el partido. 🎯 Recalibrado v2: avanza Brasil 67% / Japón 33% (incluye penales); ajustado por el aprendizaje de la fase de grupos."},
  {g:"RONDA DE 32",f:"Lun 29 jun",h:"16:30 ET",e1:"🇩🇪 Alemania",e2:"🇵🇾 Paraguay",sede:"Gillette Stadium, Foxborough",
-  p:[64,23,13],m:"2-0",alt:"Al aire — sin efecto",
+  p:[59,29,12],m:"2-0",alt:"Al aire — sin efecto",
   clima:"~25 °C, tarde despejada en Massachusetts",
   arb:"Por confirmar (FIFA designa ~48 h antes)",
   f1:"D. 1-2 Ecuador — 1.º del grupo E por diferencia pese a la derrota final",
   f2:"E. 0-0 Australia — 3.º del grupo D, clasificada como mejor tercero",
   news:["Alemania fue irregular en grupos (7-1, 2-1 y 1-2) y busca regularidad ante un rival cerrado.","Paraguay de Gustavo Alfaro hace del orden y la pelota parada su arma.","Nagelsmann recupera fondo de plantel con Wirtz y Sané para los cruces."],
-  an:"Alemania tiene mucho más talento y debería imponerse, pero su fragilidad reciente invita a Paraguay a esperar atrás y golpear. La paciencia germana será clave ante un muro guaraní."},
+  an:"Alemania tiene mucho más talento y debería imponerse, pero su fragilidad reciente invita a Paraguay a esperar atrás y golpear. La paciencia germana será clave ante un muro guaraní. 🎯 Recalibrado v2: avanza Alemania 75% / Paraguay 25% (incluye penales); ajustado por el aprendizaje de la fase de grupos."},
  {g:"RONDA DE 32",f:"Lun 29 jun",h:"21:00 ET",e1:"🇳🇱 Países Bajos",e2:"🇲🇦 Marruecos",sede:"Estadio BBVA, Monterrey",
-  p:[38,28,34],m:"1-1",alt:"~540 m — efecto leve",
+  p:[35,34,31],m:"1-0",alt:"~540 m — efecto leve",
   clima:"~31 °C y seco en Monterrey; cancha al aire",
   arb:"Por confirmar (FIFA designa ~48 h antes)",
   f1:"V. 3-1 Túnez — 1.º del grupo F con pólvora (dobletes de Brobbey y Gakpo)",
   f2:"V. 4-2 Haití — 2.º del grupo C; Saibari (3 goles) y Hakimi, en racha",
   news:["Revancha del recuerdo de Qatar 2022, donde Marruecos brilló hasta semifinales.","Amrabat, Salah-Eddine y Mazraoui, marroquíes nacidos en Países Bajos, dan morbo al cruce.","Ambos atacan bien pero conceden: se prevé un partido abierto."],
-  an:"El cruce más igualado de la jornada. Marruecos llega más sólido como bloque y con confianza; Países Bajos tiene más gol pero su zaga hace agua. Moneda al aire con prórroga muy probable."},
+  an:"El cruce más igualado de la jornada. Marruecos llega más sólido como bloque y con confianza; Países Bajos tiene más gol pero su zaga hace agua. Moneda al aire con prórroga muy probable. 🎯 Recalibrado v2: avanza Países Bajos 50% / Marruecos 50% (incluye penales); ajustado por el aprendizaje de la fase de grupos."},
  {g:"RONDA DE 32",f:"Mar 30 jun",h:"13:00 ET",e1:"🇨🇮 Costa de Marfil",e2:"🇳🇴 Noruega",sede:"AT&T Stadium, Arlington",
-  p:[36,28,36],m:"1-1",alt:"Techo retráctil — sin efecto",
+  p:[33,34,33],m:"1-1",alt:"Techo retráctil — sin efecto",
   clima:"Techo cerrado, clima controlado (~22 °C) en Dallas",
   arb:"Por confirmar (FIFA designa ~48 h antes)",
   f1:"V. 2-0 Curazao — 2.º del grupo E; campeona de África 2023 con buen pie",
   f2:"D. 1-4 Francia — 2.º del grupo I; rotó a fondo (descansó a Haaland y Ødegaard)",
   news:["Noruega recupera a Haaland y Ødegaard tras reservarlos ante Francia.","Costa de Marfil, con Amad Diallo y Yan Diomande, promete un duelo de ida y vuelta.","Primera eliminatoria mundialista para Noruega desde 1998."],
-  an:"Partido parejo entre dos selecciones con gran poder ofensivo. Noruega recupera a sus figuras y parte ligerísimo favorito por jerarquía individual; los marfileños tienen el plantel para dar la sorpresa."},
+  an:"Partido parejo entre dos selecciones con gran poder ofensivo. Noruega recupera a sus figuras y parte ligerísimo favorito por jerarquía individual; los marfileños tienen el plantel para dar la sorpresa. 🎯 Recalibrado v2: avanza Costa de Marfil 48% / Noruega 52% (incluye penales); ajustado por el aprendizaje de la fase de grupos."},
  {g:"RONDA DE 32",f:"Mar 30 jun",h:"17:00 ET",e1:"🇫🇷 Francia",e2:"🇸🇪 Suecia",sede:"MetLife Stadium, East Rutherford",
-  p:[68,20,12],m:"2-0",alt:"Al aire — sin efecto",
+  p:[65,24,11],m:"3-1",alt:"Al aire — sin efecto",
   clima:"~27 °C, tarde de verano en Nueva Jersey",
   arb:"Por confirmar (FIFA designa ~48 h antes)",
   f1:"V. 4-1 Noruega — 1.º del grupo I con paso perfecto (9 pts) y el mejor ataque",
   f2:"E. 1-1 Japón — 3.º del grupo F, clasificada como mejor tercero",
   news:["Mbappé (4 goles, 2 asist.) y Dembélé (4 goles) lideran el ataque más temido.","Suecia goleó 5-1 a Túnez en el debut pero fue de más a menos en el grupo.","Francia es la gran favorita del cuadro junto a Argentina y España."],
-  an:"Duelo desigual sobre el papel. Francia llega con pleno de puntos y un ataque demoledor; Suecia, tercera de grupo, deberá replegarse y aguantar. Salvo sorpresa mayúscula, los Bleus deben avanzar con comodidad."},
+  an:"Duelo desigual sobre el papel. Francia llega con pleno de puntos y un ataque demoledor; Suecia, tercera de grupo, deberá replegarse y aguantar. Salvo sorpresa mayúscula, los Bleus deben avanzar con comodidad. 🎯 Recalibrado v2: avanza Francia 78% / Suecia 22% (incluye penales); ajustado por el aprendizaje de la fase de grupos."},
  {g:"RONDA DE 32",f:"Mar 30 jun",h:"21:00 ET",e1:"🇲🇽 México",e2:"🇪🇨 Ecuador",sede:"Estadio Azteca, Ciudad de México",
-  p:[48,30,22],m:"1-0",alt:"2.240 m — factor altitud a favor de México",
+  p:[44,36,20],m:"1-0",alt:"2.240 m — factor altitud a favor de México",
   clima:"~22 °C al caer la tarde en CDMX; gran altitud",
   arb:"Por confirmar (FIFA designa ~48 h antes)",
   f1:"V. 3-0 Chequia — 1.º del grupo A con la primera fase perfecta de su historia (9 pts, sin goles en contra)",
   f2:"V. 2-1 Alemania — 3.º del grupo E, clasificado como mejor tercero tras dar la campanada",
   news:["Choque de dos defensas de hierro: México aún no recibe goles y Ecuador hizo del orden su bandera.","La altitud del Azteca y el aliento local son un plus enorme para el Tri.","Tala Rangel (3 vallas invictas) comanda el Guante de Oro; Ecuador llega crecido tras vencer a Alemania."],
-  an:"Partidazo entre dos equipos sólidos atrás. México suma la altitud, la localía y el arco intacto; Ecuador llega con la moral por las nubes tras tumbar a Alemania. El Tri es favorito, pero un solo gol puede decidirlo y la prórroga asoma."}
+  an:"Partidazo entre dos equipos sólidos atrás. México suma la altitud, la localía y el arco intacto; Ecuador llega con la moral por las nubes tras tumbar a Alemania. El Tri es favorito, pero un solo gol puede decidirlo y la prórroga asoma. 🎯 Recalibrado v2: avanza México 64% / Ecuador 36% (incluye penales); ajustado por el aprendizaje de la fase de grupos."}
 ];
 // ============================================================
 // PROPS — Probabilidades detalladas por partido (mismo orden que J1).
