@@ -181,7 +181,7 @@
 <body>
 <header>
   <h1>⚽ TABLERO <span>MUNDIAL 2026</span></h1>
-  <p id="stamp">Última actualización: 29 de junio de 2026 · Ronda de 32 (16avos) en curso (28 jun – 3 jul) · 72 partidos de grupos registrados · Resultados de eliminatorias: Canadá 1-0 Sudáfrica (gol de Eustáquio al 90+2; Canadá avanza a octavos por primera vez en su historia) y Brasil 2-1 Japón (Sano 29' para Japón; remontada de Casemiro al 60' y Martinelli al 90+5') · Sudáfrica y Japón, eliminados · Pendientes hoy 29 jun: Alemania–Paraguay (árbitro Jalal Jayed) y Países Bajos–Marruecos (árbitro Wilton Sampaio) · Mañana 30 jun: Costa de Marfil–Noruega, Francia–Suecia y México–Ecuador (Azteca); el 1 jul: Inglaterra–RD Congo, Bélgica–Senegal y EE. UU.–Bosnia · Messi lidera la Bota (6) y el Balón; Tala Rangel y Unai Simón comparten el Guante (3 vallas, 0 GC) · Se actualiza automáticamente cada mañana (7:00) · 🎯 Pronósticos con calibración v2 (más empates, marcador por desnivel, probabilidad de avanzar)</p>
+  <p id="stamp">Última actualización: 30 de junio de 2026 · Ronda de 32 (16avos) en curso (28 jun – 3 jul) · 72 partidos de grupos registrados · Sorpresas del 29 jun por penales: Paraguay eliminó a Alemania (1-1, 4-3 pen.; Orlando Gill atajó dos) y Marruecos eliminó a Países Bajos (1-1, 3-2 pen.; empate de Diop al 90+1); el 29 Brasil ya había remontado 2-1 a Japón · ELIMINADOS: Alemania, Países Bajos, Japón y Sudáfrica · A octavos: Canadá, Brasil, Paraguay y Marruecos · HOY 30 jun: Costa de Marfil–Noruega, Francia–Suecia y México–Ecuador (Azteca) · Mañana 1 jul: Inglaterra–RD Congo, Bélgica–Senegal y EE. UU.–Bosnia · Messi lidera la Bota (6) y el Balón; Tala Rangel y Unai Simón comparten el Guante (3 vallas, 0 GC) · Se actualiza automáticamente cada mañana (7:00) · 🎯 Pronósticos con calibración v2 (más empates, marcador por desnivel, probabilidad de avanzar)</p>
   <p style="margin-top:8px;color:var(--mut);font-size:.75rem">📤 Comparte el tablero:
     <button class="btnimg" style="border-color:#3ecf8e;color:#3ecf8e" onclick="compartirSitio('wa')">WhatsApp</button>
     <button class="btnimg" onclick="compartirSitio('x')">X</button>
@@ -294,7 +294,7 @@ const T = {
  MEX:{n:"México",f:"🇲🇽",g:"A",r:80,proy:9}, KOR:{n:"Corea del Sur",f:"🇰🇷",g:"A",r:73,proy:3}, CZE:{n:"Chequia",f:"🇨🇿",g:"A",r:67,proy:1}, RSA:{n:"Sudáfrica",f:"🇿🇦",g:"A",r:63,proy:4},
  SUI:{n:"Suiza",f:"🇨🇭",g:"B",r:78,proy:7}, CAN:{n:"Canadá",f:"🇨🇦",g:"B",r:77,proy:4}, BIH:{n:"Bosnia y Herz.",f:"🇧🇦",g:"B",r:65,proy:4}, QAT:{n:"Qatar",f:"🇶🇦",g:"B",r:56,proy:1},
  BRA:{n:"Brasil",f:"🇧🇷",g:"C",r:87,proy:7}, MAR:{n:"Marruecos",f:"🇲🇦",g:"C",r:87,proy:7}, SCO:{n:"Escocia",f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",g:"C",r:72,proy:3}, HAI:{n:"Haití",f:"🇭🇹",g:"C",r:58,proy:0},
- USA:{n:"Estados Unidos",f:"🇺🇸",g:"D",r:75,proy:6}, TUR:{n:"Turquía",f:"🇹🇷",g:"D",r:71,proy:3}, PAR:{n:"Paraguay",f:"🇵🇾",g:"D",r:72,proy:4}, AUS:{n:"Australia",f:"🇦🇺",g:"D",r:72,proy:4},
+ USA:{n:"Estados Unidos",f:"🇺🇸",g:"D",r:75,proy:6}, TUR:{n:"Turquía",f:"🇹🇷",g:"D",r:71,proy:3}, PAR:{n:"Paraguay",f:"🇵🇾",g:"D",r:74,proy:4}, AUS:{n:"Australia",f:"🇦🇺",g:"D",r:72,proy:4},
  GER:{n:"Alemania",f:"🇩🇪",g:"E",r:86,proy:9}, ECU:{n:"Ecuador",f:"🇪🇨",g:"E",r:75,proy:2}, CIV:{n:"Costa de Marfil",f:"🇨🇮",g:"E",r:76,proy:4}, CUW:{n:"Curazao",f:"🇨🇼",g:"E",r:54,proy:1},
  NED:{n:"Países Bajos",f:"🇳🇱",g:"F",r:81,proy:7}, JPN:{n:"Japón",f:"🇯🇵",g:"F",r:78,proy:7}, SWE:{n:"Suecia",f:"🇸🇪",g:"F",r:71,proy:3}, TUN:{n:"Túnez",f:"🇹🇳",g:"F",r:59,proy:0},
  BEL:{n:"Bélgica",f:"🇧🇪",g:"G",r:79,proy:5}, IRN:{n:"Irán",f:"🇮🇷",g:"G",r:72,proy:3}, EGY:{n:"Egipto",f:"🇪🇬",g:"G",r:73,proy:5}, NZL:{n:"Nueva Zelanda",f:"🇳🇿",g:"G",r:58,proy:1},
@@ -411,18 +411,17 @@ const RESULTADOS = [
 // FAVORITOS AL TÍTULO (recalculados a diario)
 // ============================================================
 const FAVORITOS = [
- {c:"ARG",p:19,pro:"Fase de grupos perfecta (3-0 Argelia, 2-0 Austria, 3-1 Jordania) y líder del grupo J. Messi, intratable, llegó a 6 goles, lidera la Bota y ya es máximo goleador histórico de los Mundiales (19). En 16avos espera a Cabo Verde, debutante.",con:"Su cruce de 16avos es accesible, pero el lado del cuadro se complica pronto; la edad de varios referentes pesa en partido único."},
- {c:"ESP",p:17,pro:"Cerró 1.ª del grupo H sin recibir goles (1-0 a Uruguay con gol de Baena); Unai Simón suma 3 vallas invictas y comparte la cima del Guante. En 16avos mide a Austria.",con:"Le costó generar salvo el 4-0 a Arabia; Austria presiona alto y puede incomodar a una Roja aún sin su mejor versión."},
- {c:"FRA",p:15,pro:"Pleno de 9 puntos y el ataque más temido: Mbappé (4 g, 2 asist.) y Dembélé (4 g) en estado de gracia. En 16avos enfrenta a Suecia, 3.ª de grupo, un cruce muy favorable.",con:"Aún no se ha medido a una potencia; los duelos de élite llegarán a partir de octavos."},
- {c:"ENG",p:11,pro:"Cerró 1.ª del grupo L (2-0 a Panamá, Bellingham y Kane); Kane suma 3 goles. En 16avos enfrenta a RD Congo, rival cerrado pero asequible.",con:"Empató sin goles con Ghana y concedió dos ante Croacia; historial de quedarse corta en los cruces grandes."},
- {c:"BRA",p:10,pro:"A OCTAVOS: remontó 2-1 a Japón en 16avos (Casemiro al 60' y Martinelli al 90+5'). Sufrió, pero Ancelotti sostiene el bloque y Vinícius (4 g) sigue de referencia. En octavos espera al ganador de Países Bajos–Marruecos.",con:"Volvió a verse espesa ante un rival ordenado; necesita más fluidez de cara a los cruces de élite."},
- {c:"GER",p:6,pro:"Terminó 1.ª del grupo E por diferencia; fondo de plantel de sobra (Wirtz, Sané) para los cruces. En 16avos, rival accesible: Paraguay.",con:"Cayó 2-1 ante Ecuador y fue irregular todo el grupo: dudas serias de regularidad ante rivales de peso."},
+ {c:"ARG",p:20,pro:"Fase de grupos perfecta (3-0 Argelia, 2-0 Austria, 3-1 Jordania) y líder del grupo J. Messi, intratable, llegó a 6 goles, lidera la Bota y ya es máximo goleador histórico de los Mundiales (19). En 16avos espera a Cabo Verde, debutante.",con:"Su cruce de 16avos es accesible, pero el lado del cuadro se complica pronto; la edad de varios referentes pesa en partido único."},
+ {c:"ESP",p:18,pro:"Cerró 1.ª del grupo H sin recibir goles (1-0 a Uruguay con gol de Baena); Unai Simón suma 3 vallas invictas y comparte la cima del Guante. En 16avos mide a Austria.",con:"Le costó generar salvo el 4-0 a Arabia; Austria presiona alto y puede incomodar a una Roja aún sin su mejor versión."},
+ {c:"FRA",p:16,pro:"Pleno de 9 puntos y el ataque más temido: Mbappé (4 g, 2 asist.) y Dembélé (4 g) en estado de gracia. En 16avos enfrenta a Suecia, 3.ª de grupo, un cruce muy favorable.",con:"Aún no se ha medido a una potencia; los duelos de élite llegarán a partir de octavos."},
+ {c:"ENG",p:12,pro:"Cerró 1.ª del grupo L (2-0 a Panamá, Bellingham y Kane); Kane suma 3 goles. En 16avos enfrenta a RD Congo, rival cerrado pero asequible.",con:"Empató sin goles con Ghana y concedió dos ante Croacia; historial de quedarse corta en los cruces grandes."},
+ {c:"BRA",p:11,pro:"A OCTAVOS: remontó 2-1 a Japón en 16avos (Casemiro al 60' y Martinelli al 90+5'). Sufrió, pero Ancelotti sostiene el bloque y Vinícius (4 g) sigue de referencia. En octavos espera al ganador de Costa de Marfil–Noruega.",con:"Volvió a verse espesa ante un rival ordenado; necesita más fluidez de cara a los cruces de élite."},
+ {c:"MAR",p:6,pro:"A OCTAVOS: eliminó a Países Bajos en 16avos (1-1, 3-2 en penales; empate de Issa Diop al 90+1 y Bono figura en la tanda). Bloque sólido con Hakimi y Saibari de referencia. En octavos espera a Canadá.",con:"Le costó cerrar el partido y sufrió hasta los penales; necesita más pegada para los cruces de élite."},
+ {c:"MEX",p:5,pro:"Primera fase de grupos PERFECTA de su historia (9 pts, arco intacto); Tala Rangel comanda el Guante (3 vallas). En 16avos juega en el Azteca, con altitud y localía, ante Ecuador.",con:"Techo histórico de cuartos; un rival ordenado como Ecuador puede llevarlo a la prórroga, su asignatura pendiente."},
  {c:"POR",p:4,pro:"2.ª del grupo K tras el 0-0 con Colombia; generación dorada + CR7 a su sexto Mundial. Pegada recuperada con el 5-0 a Uzbekistán.",con:"En 16avos le toca una Croacia con oficio (Modrić); cruce de alto riesgo para quedar fuera pronto."},
- {c:"MEX",p:4,pro:"Primera fase de grupos PERFECTA de su historia (9 pts, arco intacto); Tala Rangel comanda el Guante (3 vallas). En 16avos juega en el Azteca, con altitud y localía, ante Ecuador.",con:"Techo histórico de cuartos; un rival ordenado como Ecuador puede llevarlo a la prórroga, su asignatura pendiente."},
- {c:"MAR",p:4,pro:"2.º del grupo C (7 pts, a un gol de Brasil); Saibari (3 goles) y Hakimi en racha. En 16avos, cruce parejo y atractivo ante Países Bajos.",con:"Concede en bloque (4-2 a Haití); el duelo ante una Naranja con pólvora puede ser una moneda al aire."},
- {c:"NED",p:3,pro:"1.ª del grupo F (5-1 a Suecia); pólvora de sobra (Gakpo, Brobbey, Depay). En 16avos, duelo abierto ante Marruecos.",con:"Su zaga concede en cada partido; Marruecos llega más sólido como bloque."},
  {c:"NOR",p:3,pro:"2.ª del grupo I; recupera a Haaland (4 goles) y Ødegaard tras reservarlos ante Francia. En 16avos, choque ofensivo ante Costa de Marfil.",con:"Poca experiencia mundialista (volvió tras 28 años) y un rival de garra como los marfileños."},
- {c:"BEL",p:2,pro:"Despertó a tiempo: 5-1 a Nueva Zelanda (De Bruyne, Lukaku, doblete de Trossard) y líder del grupo G. En 16avos, duelo de talento ante Senegal.",con:"Dos empates grises antes; generación veterana que debe sostener el nivel mostrado el último día."}
+ {c:"BEL",p:2,pro:"Despertó a tiempo: 5-1 a Nueva Zelanda (De Bruyne, Lukaku, doblete de Trossard) y líder del grupo G. En 16avos, duelo de talento ante Senegal.",con:"Dos empates grises antes; generación veterana que debe sostener el nivel mostrado el último día."},
+ {c:"PAR",p:1,pro:"BOMBAZO: eliminó a Alemania en 16avos (1-1, 4-3 en penales; Orlando Gill atajó a Havertz y Woltemade) y está en octavos. Orden, pelota parada y un Enciso inspirado.",con:"Cenicienta del cuadro: rating bajo y poca pólvora; su techo realista llega pronto ante una potencia."}
 ];
 
 // hero chips (top 6)
@@ -491,22 +490,7 @@ const J1 = [
   f2:"V. 3-1 Qatar — 3.ª del grupo B, clasificada como mejor tercero",
   news:["EE. UU. juega de local y parte favorito ante una Bosnia que vuelve a un Mundial tras 12 años.","Pulisic y Balogun (2 goles en grupos) lideran al anfitrión; el factor cancha pesa.","Bosnia se apoya en la veteranía de Edin Džeko y un bloque ordenado."],
   an:"EE. UU. tiene localía, ritmo y algo más de plantel, pero Bosnia es un rival incómodo y con gol. La franja de favoritismo medio del anfitrión eleva el riesgo de empate y prórroga. 🎯 Recalibrado v2: avanza EE. UU. 65% / Bosnia 35% (incluye penales); empate al alza por la franja 50-60% del favorito."},
- {g:"RONDA DE 32",f:"Lun 29 jun",h:"16:30 ET",e1:"🇩🇪 Alemania",e2:"🇵🇾 Paraguay",sede:"Gillette Stadium, Foxborough",
-  p:[59,29,12],m:"2-0",alt:"Al aire — sin efecto",
-  clima:"~25 °C, tarde despejada en Massachusetts",
-  arb:"Jalal Jayed (Marruecos) · VAR Tatiana Guzmán (Nicaragua)",
-  f1:"D. 1-2 Ecuador — 1.º del grupo E por diferencia pese a la derrota final",
-  f2:"E. 0-0 Australia — 3.º del grupo D, clasificada como mejor tercero",
-  news:["Alemania fue irregular en grupos (7-1, 2-1 y 1-2) y busca regularidad ante un rival cerrado.","Paraguay de Gustavo Alfaro hace del orden y la pelota parada su arma.","Nagelsmann recupera fondo de plantel con Wirtz y Sané para los cruces."],
-  an:"Alemania tiene mucho más talento y debería imponerse, pero su fragilidad reciente invita a Paraguay a esperar atrás y golpear. La paciencia germana será clave ante un muro guaraní. 🎯 Recalibrado v2: avanza Alemania 75% / Paraguay 25% (incluye penales); ajustado por el aprendizaje de la fase de grupos."},
- {g:"RONDA DE 32",f:"Lun 29 jun",h:"21:00 ET",e1:"🇳🇱 Países Bajos",e2:"🇲🇦 Marruecos",sede:"Estadio BBVA, Monterrey",
-  p:[35,34,31],m:"1-0",alt:"~540 m — efecto leve",
-  clima:"~31 °C y seco en Monterrey; cancha al aire",
-  arb:"Wilton Sampaio (Brasil)",
-  f1:"V. 3-1 Túnez — 1.º del grupo F con pólvora (dobletes de Brobbey y Gakpo)",
-  f2:"V. 4-2 Haití — 2.º del grupo C; Saibari (3 goles) y Hakimi, en racha",
-  news:["Revancha del recuerdo de Qatar 2022, donde Marruecos brilló hasta semifinales.","Amrabat, Salah-Eddine y Mazraoui, marroquíes nacidos en Países Bajos, dan morbo al cruce.","Ambos atacan bien pero conceden: se prevé un partido abierto."],
-  an:"El cruce más igualado de la jornada. Marruecos llega más sólido como bloque y con confianza; Países Bajos tiene más gol pero su zaga hace agua. Moneda al aire con prórroga muy probable. 🎯 Recalibrado v2: avanza Países Bajos 50% / Marruecos 50% (incluye penales); ajustado por el aprendizaje de la fase de grupos."},
+
  {g:"RONDA DE 32",f:"Mar 30 jun",h:"13:00 ET",e1:"🇨🇮 Costa de Marfil",e2:"🇳🇴 Noruega",sede:"AT&T Stadium, Arlington",
   p:[33,34,33],m:"1-1",alt:"Techo retráctil — sin efecto",
   clima:"Techo cerrado, clima controlado (~22 °C) en Dallas",
@@ -546,8 +530,7 @@ const PROPS = [
  {fa:{t:24,a:11,b:13,p1:[46,54]},am:{t:4.5,a:1.9,b:2.6,p1:[42,58],roja:11},co:{t:9.5,a:6.5,b:3.0,p1:[68,32]},li:{a:13,b:12},mi:{g1:47,g2:70,m2:57,m1t:"1-0 (25%)"},re:[["H. Kane (ENG)","3.4","1.7"],["J. Bellingham (ENG)","2.8","1.3"],["B. Saka (ENG)","2.6","1.2"],["Y. Wissa (COD)","2.2","0.9"]],go:[["Harry Kane (ENG)",38],["Jude Bellingham (ENG)",26],["Yoane Wissa (COD)",16]]},
  {fa:{t:26,a:13,b:13,p1:[50,50]},am:{t:5.0,a:2.5,b:2.5,p1:[50,50],roja:12},co:{t:9.0,a:4.8,b:4.2,p1:[53,47]},li:{a:13,b:13},mi:{g1:48,g2:70,m2:56,m1t:"1-1 (22%)"},re:[["R. Lukaku (BEL)","3.0","1.4"],["K. De Bruyne (BEL)","2.6","1.2"],["I. Sarr (SEN)","2.8","1.3"],["I. Ndiaye (SEN)","2.6","1.1"]],go:[["Romelu Lukaku (BEL)",30],["Iliman Ndiaye (SEN)",26],["Kevin De Bruyne (BEL)",22]]},
  {fa:{t:25,a:12,b:13,p1:[49,51]},am:{t:4.5,a:2.1,b:2.4,p1:[47,53],roja:10},co:{t:9.5,a:5.6,b:3.9,p1:[59,41]},li:{a:13,b:13},mi:{g1:48,g2:70,m2:57,m1t:"1-0 (24%)"},re:[["C. Pulisic (USA)","3.2","1.5"],["F. Balogun (USA)","2.8","1.3"],["E. Džeko (BIH)","2.6","1.1"],["E. Dedić (BIH)","2.0","0.8"]],go:[["Christian Pulisic (USA)",32],["Folarin Balogun (USA)",26],["Edin Džeko (BIH)",20]]},
- {fa:{t:25,a:11,b:14,p1:[44,56]},am:{t:4.5,a:1.9,b:2.6,p1:[42,58],roja:10},co:{t:9.5,a:6.2,b:3.3,p1:[65,35]},li:{a:14,b:11},mi:{g1:48,g2:70,m2:57,m1t:"1-0 (24%)"},re:[["K. Havertz (GER)","3.4","1.6"],["D. Undav (GER)","3.0","1.4"],["F. Wirtz (GER)","2.8","1.3"],["A. Sanabria (PAR)","2.0","0.8"]],go:[["Kai Havertz (GER)",34],["Deniz Undav (GER)",30],["Florian Wirtz (GER)",24]]},
- {fa:{t:27,a:13,b:14,p1:[49,51]},am:{t:5.0,a:2.4,b:2.6,p1:[48,52],roja:12},co:{t:9.5,a:5.0,b:4.5,p1:[53,47]},li:{a:13,b:14},mi:{g1:50,g2:71,m2:55,m1t:"1-1 (22%)"},re:[["C. Gakpo (NED)","3.2","1.5"],["B. Brobbey (NED)","2.8","1.3"],["I. Saibari (MAR)","3.0","1.4"],["A. Hakimi (MAR)","2.6","1.1"]],go:[["Cody Gakpo (NED)",30],["Ismael Saibari (MAR)",28],["Brian Brobbey (NED)",24]]},
+
  {fa:{t:26,a:13,b:13,p1:[50,50]},am:{t:4.5,a:2.3,b:2.2,p1:[51,49],roja:10},co:{t:9.0,a:4.4,b:4.6,p1:[48,52]},li:{a:13,b:13},mi:{g1:49,g2:71,m2:57,m1t:"0-0 (26%)"},re:[["A. Diallo (CIV)","3.2","1.5"],["Y. Diomande (CIV)","2.8","1.2"],["E. Haaland (NOR)","3.6","1.8"],["A. Sørloth (NOR)","2.6","1.1"]],go:[["Erling Haaland (NOR)",36],["Amad Diallo (CIV)",26],["Alexander Sørloth (NOR)",22]]},
  {fa:{t:24,a:11,b:13,p1:[45,55]},am:{t:4.0,a:1.8,b:2.2,p1:[44,56],roja:9},co:{t:10.0,a:6.6,b:3.4,p1:[66,34]},li:{a:14,b:11},mi:{g1:50,g2:72,m2:56,m1t:"1-0 (25%)"},re:[["K. Mbappé (FRA)","4.0","2.0"],["O. Dembélé (FRA)","3.4","1.6"],["M. Olise (FRA)","2.8","1.3"],["A. Isak (SWE)","2.4","1.0"]],go:[["Kylian Mbappé (FRA)",44],["Ousmane Dembélé (FRA)",32],["Alexander Isak (SWE)",16]]},
  {fa:{t:26,a:13,b:13,p1:[51,49]},am:{t:4.5,a:2.2,b:2.3,p1:[50,50],roja:10},co:{t:9.0,a:5.0,b:4.0,p1:[55,45]},li:{a:13,b:13},mi:{g1:47,g2:69,m2:58,m1t:"0-0 (30%)"},re:[["R. Jiménez (MEX)","3.0","1.4"],["S. Giménez (MEX)","2.8","1.2"],["E. Valencia (ECU)","2.6","1.1"],["K. Páez (ECU)","2.2","0.9"]],go:[["Raúl Jiménez (MEX)",28],["Santiago Giménez (MEX)",24],["Enner Valencia (ECU)",20]]}
@@ -992,9 +975,9 @@ const BOTA = [
  {j:"Pape Gueye",c:"SEN",g:2,a:0,pj:2,nota:"Doblete desde el banco en el 5-0 a Irak que clasificó a Senegal como mejor tercero"},
  {j:"Mikel Oyarzabal",c:"ESP",g:2,a:0,pj:3,nota:"Doblete (21' y 24') en el 4-0 a Arabia Saudita"},
  {j:"Deniz Undav",c:"GER",g:2,a:0,pj:3,nota:"Doblete (68' y 94') para el 2-1 agónico a Costa de Marfil"},
- {j:"Kai Havertz",c:"GER",g:2,a:0,pj:3,nota:"Doblete en el 7-1 a Curazao; entre los goleadores top"},
+ {j:"Kai Havertz",c:"GER",g:3,a:0,pj:4,nota:"Doblete a Curazao (7-1) y empate (2T) ante Paraguay; Alemania cayó en penales y quedó eliminada"},
  {j:"Ayase Ueda",c:"JPN",g:2,a:0,pj:3,nota:"Doblete (31' y 83') en el 4-0 a Túnez; Japón clasificó 2.º del grupo F"},
- {j:"Cody Gakpo",c:"NED",g:2,a:0,pj:3,nota:"Doblete (47' y 54') en el 5-1 a Suecia"},
+ {j:"Cody Gakpo",c:"NED",g:3,a:0,pj:4,nota:"Doblete a Suecia (5-1) y gol (72') ante Marruecos; Países Bajos cayó en penales y quedó eliminado"},
  {j:"Brian Brobbey",c:"NED",g:2,a:0,pj:3,nota:"Doblete tempranero (5' y 17') en el 5-1 a Suecia"},
  {j:"Folarin Balogun",c:"USA",g:2,a:0,pj:3,nota:"Doblete en el 4-1 a Paraguay; EE. UU. 1.º del grupo D"},
  {j:"Leandro Trossard",c:"BEL",g:2,a:0,pj:3,nota:"Doblete (28' y 50') en el 5-1 a Nueva Zelanda que dio a Bélgica el grupo G"},
@@ -1020,7 +1003,9 @@ const BOTA = [
  {j:"Stephen Eustáquio",c:"CAN",g:1,a:0,pj:4,nota:"16avos: gol agónico (90+2') en el 1-0 a Sudáfrica que metió a Canadá en octavos por primera vez en su historia"},
  {j:"Casemiro",c:"BRA",g:1,a:0,pj:4,nota:"16avos: igualó (60') la remontada 2-1 de Brasil ante Japón"},
  {j:"Gabriel Martinelli",c:"BRA",g:1,a:0,pj:4,nota:"16avos: gol del triunfo (90+5') en el 2-1 a Japón que metió a Brasil en octavos"},
- {j:"Kaishu Sano",c:"JPN",g:1,a:0,pj:4,nota:"16avos: adelantó a Japón (29') ante Brasil, pero los nipones cayeron 2-1 y quedaron eliminados"}
+ {j:"Kaishu Sano",c:"JPN",g:1,a:0,pj:4,nota:"16avos: adelantó a Japón (29') ante Brasil, pero los nipones cayeron 2-1 y quedaron eliminados"},
+ {j:"Julio Enciso",c:"PAR",g:1,a:0,pj:4,nota:"16avos: adelantó a Paraguay ante Alemania (1-1); los guaraníes ganaron 4-3 en penales y eliminaron a la Mannschaft"},
+ {j:"Issa Diop",c:"MAR",g:1,a:0,pj:4,nota:"16avos: cabezazo agónico (90+1') ante Países Bajos; Marruecos avanzó 3-2 en penales"}
 ];
 const BALON = [
  {j:"Lionel Messi",c:"ARG",g:6,a:0,pj:3,fav:1,nota:"Seis goles, máximo goleador histórico de los Mundiales (19) y Argentina a 16avos con fase perfecta: la cara del torneo"},
