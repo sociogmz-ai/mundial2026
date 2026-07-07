@@ -181,7 +181,7 @@
 <body>
 <header>
   <h1>⚽ TABLERO <span>MUNDIAL 2026</span></h1>
-  <p id="stamp">Última actualización: 4 de julio de 2026 · Arrancan los OCTAVOS DE FINAL (4–7 jul) · Cierre de 16avos (3 jul): Egipto eliminó a Australia (1-1, 4-2 pen.), Argentina 3-2 Cabo Verde (Messi llegó a 7 goles y a 20 tantos mundialistas históricos; también marcó Lisandro Martínez) y Colombia 1-0 Ghana (Jhon Arias 14') · ELIMINADOS 3 jul: Australia, Cabo Verde y Ghana · A octavos: Egipto, Argentina y Colombia · HOY 4 jul, octavos: Canadá–Marruecos (13:00 ET, árb. Michael Oliver, ENG) y Paraguay–Francia (17:00 ET, árb. Ilgiz Tantashev, UZB) · Próximos octavos: Brasil–Noruega y México–Inglaterra (5 jul), Portugal–España y EE. UU.–Bélgica (6 jul), Argentina–Egipto y Suiza–Colombia (7 jul) · BAJA: Ismaël Koné (CAN) fuera el resto del torneo por fractura de tibia y peroné · Messi lidera en solitario la Bota (7 g); Tala Rangel y Unai Simón comparten el Guante (4 vallas, 0 GC) · Se actualiza automáticamente cada mañana (7:00) · 🎯 Pronósticos con calibración v2 (más empates, marcador por desnivel, probabilidad de avanzar en eliminatorias)</p>
+  <p id="stamp">Última actualización: 6 de julio de 2026 (noche) · CUARTOS DE FINAL definiéndose (9–11 jul) · Cierre de octavos: Marruecos 3-0 Canadá y Francia 1-0 Paraguay (4 jul); Noruega 2-1 Brasil —doblete de Haaland, BATACAZO— e Inglaterra 3-2 México (5 jul); España 1-0 Portugal (Mikel Merino, agónico) y Bélgica 3-1 EE. UU. (6 jul) · ELIMINADOS: Canadá, Paraguay, Brasil, México, Portugal y EE. UU. · A cuartos: Marruecos, Francia, Noruega, Inglaterra, España y Bélgica · HOY faltan los últimos octavos (mar 7 jul): Argentina–Egipto (12:00 ET, Atlanta) y Suiza–Colombia (16:00 ET, Vancouver) · Cuartos confirmados: Francia–Marruecos (9 jul, Boston), España–Bélgica (10 jul, Los Ángeles) y Noruega–Inglaterra (11 jul, Miami) · Bota de Oro: triple empate a 7 goles —Mbappé (1.º por 2 asistencias), Messi y Haaland—; Kane, 6 · Unai Simón lidera el Guante (5 vallas, 0 GC) · Se actualiza automáticamente cada mañana (7:00) · 🎯 Pronósticos con calibración v2 (más empates, marcador por desnivel, probabilidad de avanzar en eliminatorias)</p>
   <p style="margin-top:8px;color:var(--mut);font-size:.75rem">📤 Comparte el tablero:
     <button class="btnimg" style="border-color:#3ecf8e;color:#3ecf8e" onclick="compartirSitio('wa')">WhatsApp</button>
     <button class="btnimg" onclick="compartirSitio('x')">X</button>
@@ -240,12 +240,12 @@
   </section>
 
   <section id="calendario" class="view">
-    <p class="leyenda">Fase de grupos (72 partidos, 11–27 jun), <b>Ronda de 32</b> (dieciseisavos, 28 jun–3 jul) y <b>octavos de final</b> (4–7 jul), hora ET. Los partidos de eliminatoria marcados son <b>clicables</b> y te llevan a su pronóstico. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con el calendario y horarios vigentes">↻ Restablecer datos</button></p>
+    <p class="leyenda">Fase de grupos (72 partidos, 11–27 jun), <b>Ronda de 32</b> (dieciseisavos, 28 jun–3 jul), <b>octavos de final</b> (4–7 jul) y <b>cuartos de final</b> (9–11 jul), hora ET. Los partidos de eliminatoria marcados son <b>clicables</b> y te llevan a su pronóstico. <button class="btnref" onclick="location.reload()" title="Recarga el tablero con el calendario y horarios vigentes">↻ Restablecer datos</button></p>
     <div id="cal"></div>
   </section>
 
   <section id="valor" class="view">
-    <p class="leyenda">Mercados con valor según el modelo recalibrado v2 para los octavos de final. El % es la <b>probabilidad estimada</b> de que ocurra, no una certeza. <button class="btnref" onclick="location.reload()">↻ Restablecer datos</button></p>
+    <p class="leyenda">Mercados con valor según el modelo recalibrado v2 para los cuartos de final y los octavos que restan. El % es la <b>probabilidad estimada</b> de que ocurra, no una certeza. <button class="btnref" onclick="location.reload()">↻ Restablecer datos</button></p>
     <div id="valorBox"></div>
   </section>
 
@@ -293,13 +293,13 @@
 const T = {
  MEX:{n:"México",f:"🇲🇽",g:"A",r:81,proy:9}, KOR:{n:"Corea del Sur",f:"🇰🇷",g:"A",r:73,proy:3}, CZE:{n:"Chequia",f:"🇨🇿",g:"A",r:67,proy:1}, RSA:{n:"Sudáfrica",f:"🇿🇦",g:"A",r:63,proy:4},
  SUI:{n:"Suiza",f:"🇨🇭",g:"B",r:79,proy:7}, CAN:{n:"Canadá",f:"🇨🇦",g:"B",r:77,proy:4}, BIH:{n:"Bosnia y Herz.",f:"🇧🇦",g:"B",r:65,proy:4}, QAT:{n:"Qatar",f:"🇶🇦",g:"B",r:56,proy:1},
- BRA:{n:"Brasil",f:"🇧🇷",g:"C",r:87,proy:7}, MAR:{n:"Marruecos",f:"🇲🇦",g:"C",r:87,proy:7}, SCO:{n:"Escocia",f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",g:"C",r:72,proy:3}, HAI:{n:"Haití",f:"🇭🇹",g:"C",r:58,proy:0},
+ BRA:{n:"Brasil",f:"🇧🇷",g:"C",r:87,proy:7}, MAR:{n:"Marruecos",f:"🇲🇦",g:"C",r:88,proy:7}, SCO:{n:"Escocia",f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",g:"C",r:72,proy:3}, HAI:{n:"Haití",f:"🇭🇹",g:"C",r:58,proy:0},
  USA:{n:"Estados Unidos",f:"🇺🇸",g:"D",r:75,proy:6}, TUR:{n:"Turquía",f:"🇹🇷",g:"D",r:71,proy:3}, PAR:{n:"Paraguay",f:"🇵🇾",g:"D",r:74,proy:4}, AUS:{n:"Australia",f:"🇦🇺",g:"D",r:72,proy:4},
  GER:{n:"Alemania",f:"🇩🇪",g:"E",r:86,proy:9}, ECU:{n:"Ecuador",f:"🇪🇨",g:"E",r:75,proy:2}, CIV:{n:"Costa de Marfil",f:"🇨🇮",g:"E",r:76,proy:4}, CUW:{n:"Curazao",f:"🇨🇼",g:"E",r:54,proy:1},
  NED:{n:"Países Bajos",f:"🇳🇱",g:"F",r:81,proy:7}, JPN:{n:"Japón",f:"🇯🇵",g:"F",r:78,proy:7}, SWE:{n:"Suecia",f:"🇸🇪",g:"F",r:71,proy:3}, TUN:{n:"Túnez",f:"🇹🇳",g:"F",r:59,proy:0},
- BEL:{n:"Bélgica",f:"🇧🇪",g:"G",r:79,proy:5}, IRN:{n:"Irán",f:"🇮🇷",g:"G",r:72,proy:3}, EGY:{n:"Egipto",f:"🇪🇬",g:"G",r:73,proy:5}, NZL:{n:"Nueva Zelanda",f:"🇳🇿",g:"G",r:58,proy:1},
+ BEL:{n:"Bélgica",f:"🇧🇪",g:"G",r:80,proy:5}, IRN:{n:"Irán",f:"🇮🇷",g:"G",r:72,proy:3}, EGY:{n:"Egipto",f:"🇪🇬",g:"G",r:73,proy:5}, NZL:{n:"Nueva Zelanda",f:"🇳🇿",g:"G",r:58,proy:1},
  ESP:{n:"España",f:"🇪🇸",g:"H",r:92,proy:7}, URU:{n:"Uruguay",f:"🇺🇾",g:"H",r:71,proy:3}, CPV:{n:"Cabo Verde",f:"🇨🇻",g:"H",r:69,proy:3}, KSA:{n:"Arabia Saudita",f:"🇸🇦",g:"H",r:64,proy:1},
- FRA:{n:"Francia",f:"🇫🇷",g:"I",r:92,proy:8}, NOR:{n:"Noruega",f:"🇳🇴",g:"I",r:79,proy:6}, SEN:{n:"Senegal",f:"🇸🇳",g:"I",r:74,proy:1}, IRQ:{n:"Irak",f:"🇮🇶",g:"I",r:58,proy:0},
+ FRA:{n:"Francia",f:"🇫🇷",g:"I",r:92,proy:8}, NOR:{n:"Noruega",f:"🇳🇴",g:"I",r:81,proy:6}, SEN:{n:"Senegal",f:"🇸🇳",g:"I",r:74,proy:1}, IRQ:{n:"Irak",f:"🇮🇶",g:"I",r:58,proy:0},
  ARG:{n:"Argentina",f:"🇦🇷",g:"J",r:94,proy:9}, AUT:{n:"Austria",f:"🇦🇹",g:"J",r:73,proy:3}, ALG:{n:"Argelia",f:"🇩🇿",g:"J",r:75,proy:6}, JOR:{n:"Jordania",f:"🇯🇴",g:"J",r:56,proy:0},
  POR:{n:"Portugal",f:"🇵🇹",g:"K",r:84,proy:4}, COL:{n:"Colombia",f:"🇨🇴",g:"K",r:80,proy:6}, UZB:{n:"Uzbekistán",f:"🇺🇿",g:"K",r:63,proy:1}, COD:{n:"RD Congo",f:"🇨🇩",g:"K",r:66,proy:4},
  ENG:{n:"Inglaterra",f:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",g:"L",r:87,proy:6}, CRO:{n:"Croacia",f:"🇭🇷",g:"L",r:77,proy:3}, GHA:{n:"Ghana",f:"🇬🇭",g:"L",r:69,proy:4}, PAN:{n:"Panamá",f:"🇵🇦",g:"L",r:66,proy:1}
@@ -411,17 +411,16 @@ const RESULTADOS = [
 // FAVORITOS AL TÍTULO (recalculados a diario)
 // ============================================================
 const FAVORITOS = [
- {c:"ARG",p:21,pro:"A OCTAVOS: sufrió pero ganó 3-2 a Cabo Verde. Messi, con 7 goles, es líder en solitario de la Bota y máximo goleador histórico de los Mundiales (20). En octavos (7 jul), ante Egipto en Atlanta.",con:"Ganó con lo justo ante un debutante; el lado del cuadro se complica pronto y la edad de varios referentes pesa en partido único."},
- {c:"ESP",p:18,pro:"A OCTAVOS: goleó 3-0 a Austria (doblete de Oyarzabal y gol de Pedro Porro); Unai Simón sumó su 4.ª valla y sigue sin recibir goles. En octavos (6 jul), un duelo europeo de campanillas ante Portugal.",con:"Le cuesta generar en fases planas, pero su solidez la mantiene entre las máximas candidatas."},
- {c:"FRA",p:17,pro:"A OCTAVOS: goleó 3-0 a Suecia (doblete de Mbappé, ya con 6 y líder de la Bota por asistencias). En octavos (4 jul), cruce favorable ante Paraguay.",con:"Aún no se ha medido a una potencia; el salto de nivel llegará más adelante en el cuadro."},
- {c:"ENG",p:11,pro:"A OCTAVOS: remontó 2-1 a RD Congo con doblete de Kane (ya con 5). En octavos (5 jul), derbi ante México en el Azteca.",con:"Volvió a sufrir ante un bloque cerrado; el Azteca, la altitud y la localía complican el cruce."},
- {c:"BRA",p:11,pro:"A OCTAVOS: remontó 2-1 a Japón (Casemiro y Martinelli al 90+5'). Vinícius (4 g) de referencia. En octavos (5 jul), ante Noruega.",con:"Volvió a verse espesa ante un rival ordenado; necesita más fluidez para los cruces de élite."},
- {c:"MAR",p:5,pro:"A OCTAVOS: eliminó a Países Bajos (1-1, 3-2 en penales; Diop al 90+1 y Bono figura). Bloque sólido con Hakimi y Saibari. En octavos (4 jul), ante Canadá.",con:"Le costó cerrar el partido y sufrió hasta los penales; necesita más pegada."},
- {c:"MEX",p:5,pro:"A OCTAVOS: 2-0 a Ecuador en el Azteca (Quiñones y Raúl Jiménez); avanza en eliminatorias por primera vez desde 1986. Tala Rangel, 4 vallas, comparte el Guante. En octavos (5 jul), ante Inglaterra en el Azteca.",con:"Reto mayúsculo ante una Inglaterra con más fondo; su techo histórico son los cuartos."},
- {c:"POR",p:4,pro:"A OCTAVOS: remontó 2-1 a Croacia (CR7 de penal al 67' y Gonçalo Ramos al 90+4'). En octavos (6 jul), un cruce de altura ante España.",con:"Enfrente tendrá a la mejor defensa del torneo; examen mayúsculo para la generación de CR7."},
- {c:"NOR",p:3,pro:"A OCTAVOS: 2-1 a Costa de Marfil (Nusa y Haaland, ya con 5). En octavos (5 jul), duelo de prestigio ante Brasil.",con:"Le espera Brasil: salto de nivel enorme para una Noruega sin rodaje mundialista."},
- {c:"BEL",p:3,pro:"A OCTAVOS: remontó 3-2 a Senegal en la prórroga (doblete de Tielemans, el 2.º de penal al 120'). En octavos (6 jul), ante el anfitrión EE. UU.",con:"Sufrió de más ante Senegal; su generación veterana debe elevar el nivel."},
- {c:"PAR",p:1,pro:"BOMBAZO: eliminó a Alemania en los penales (1-1, 4-3; Orlando Gill atajó a Havertz y Woltemade). En octavos (4 jul), nada menos que ante Francia.",con:"Cenicienta del cuadro: rating bajo y poca pólvora; su techo realista llega ante los Bleus."}
+ {c:"ARG",p:24,pro:"EN OCTAVOS (hoy 7 jul): sufrió pero avanzó 3-2 a Cabo Verde en 16avos; hoy, ante Egipto en Atlanta. Messi, con 7 goles, colidera la Bota y es máximo goleador histórico de los Mundiales (20).",con:"Sigue en carrera, pero el lado del cuadro se complica pronto y en partido único la edad de varios referentes pesa."},
+ {c:"ESP",p:20,pro:"A CUARTOS: venció 1-0 a Portugal con gol agónico de Mikel Merino en Dallas; Unai Simón sumó su 5.ª valla y sigue sin recibir goles. Cuartos (10 jul) ante Bélgica en Los Ángeles.",con:"Le cuesta generar en fases planas, pero su solidez defensiva la mantiene entre las máximas candidatas."},
+ {c:"FRA",p:18,pro:"A CUARTOS: 1-0 a Paraguay; mantiene el pleno de triunfos. Cuartos (9 jul) ante Marruecos en Boston, reedición del duelo de 2022.",con:"Marcadores ajustados ante rivales cerrados; Marruecos ya la dejó fuera del podio hace cuatro años."},
+ {c:"ENG",p:12,pro:"A CUARTOS: 3-2 a México en el Azteca (doblete de Bellingham; Kane de penal). Cuartos (11 jul) ante Noruega en Miami.",con:"Volvió a sufrir ante un bloque cerrado; enfrente tendrá a la Noruega de Haaland, en racha."},
+ {c:"NOR",p:6,pro:"A CUARTOS: BATACAZO, 2-1 a Brasil (doblete de Haaland, ya con 7 y colíder de la Bota; Nyland atajó un penal). Cuartos (11 jul) ante Inglaterra.",con:"Sin rodaje mundialista en esta ronda; depende mucho del acierto de Haaland."},
+ {c:"MAR",p:5,pro:"A CUARTOS: goleó 3-0 a Canadá; bloque sólido con Hakimi, Saibari, En-Nesyri y Bono. Cuartos (9 jul) ante Francia en Boston.",con:"Salto de nivel enorme ante Francia; necesita mantener el cero para soñar."},
+ {c:"BEL",p:4,pro:"A CUARTOS: 3-1 a EE. UU. en Seattle (De Ketelaere); despertó a tiempo. Cuartos (10 jul) ante España en Los Ángeles.",con:"Enfrente tendrá la mejor defensa del torneo; su generación veterana debe elevar el nivel."},
+ {c:"COL",p:3,pro:"EN OCTAVOS (hoy 7 jul): viene de 1-0 a Ghana en 16avos con Camilo Vargas intratable; hoy, ante Suiza en Vancouver.",con:"Cruce parejísimo; le falta contundencia para dar el salto a cuartos."},
+ {c:"SUI",p:2,pro:"EN OCTAVOS (hoy 7 jul): 2-0 a Argelia en 16avos con un bloque sólido; hoy, ante Colombia en Vancouver.",con:"Poca pólvora arriba; su techo depende de mantener el orden defensivo."},
+ {c:"EGY",p:1,pro:"EN OCTAVOS (hoy 7 jul): eliminó a Australia en los penales; hoy, el duelo David vs Goliat ante Argentina en Atlanta.",con:"Enorme desventaja de plantel ante la campeona; depende de Salah y de una noche perfecta."}
 ];
 
 // hero chips (top 6)
@@ -437,7 +436,7 @@ document.getElementById('favList').innerHTML = FAVORITOS.map((x,i)=>
    <div class="pro"><b>✔ A favor</b>${x.pro}</div>
    <div class="con"><b>✖ En contra</b>${x.con}</div>
  </div>`).join('') +
- `<p class="leyenda">El ${100-FAVORITOS.reduce((s,x)=>s+x.p,0)}% restante se reparte entre las otras 36 selecciones (ninguna supera el 1 % individual hoy).</p>`;
+ `<p class="leyenda">El ${100-FAVORITOS.reduce((s,x)=>s+x.p,0)}% restante se reparte entre las selecciones restantes (ninguna supera el 1 % individual hoy).</p>`;
 
 // ============================================================
 // TABLAS DE GRUPO calculadas desde RESULTADOS
@@ -466,58 +465,34 @@ document.getElementById('gridGrupos').innerHTML = GL.map(g=>{
 // JORNADA 1 — fichas con pronóstico (la tarea diaria reemplaza por la jornada vigente)
 // ============================================================
 const J1 = [
- {g:"OCTAVOS DE FINAL",f:"Sáb 4 jul",h:"13:00 ET",e1:"🇨🇦 Canadá",e2:"🇲🇦 Marruecos",sede:"NRG Stadium, Houston",
-  p:[28,30,42],m:"2-1",alt:"Techo retráctil — sin efecto",
-  clima:"Techo cerrado, clima controlado (~24 °C) en Houston",
-  arb:"Michael Oliver (Inglaterra); asist. Burt y Mainwaring; 4º Danny Makkelie (Países Bajos)",
-  f1:"16avos: 1-0 a Sudáfrica (Eustáquio al 90+2'); Canadá a octavos por 1.ª vez en su historia",
-  f2:"16avos: eliminó a Países Bajos (1-1, 3-2 pen.; Diop al 90+1 y Bono figura)",
-  news:["Marruecos, semifinalista en 2022, parte favorito ante una Canadá histórica.","Hakimi, Saibari y En-Nesyri encabezan a los Leones del Atlas.","BAJA CAN: Ismaël Koné, fractura de tibia y peroné en 16avos; ya operado, fuera el resto del torneo."],
-  an:"Marruecos tiene más plantel y jerarquía; Canadá compensa con energía y localía continental. Duelo más abierto de lo que dice el papel. 🎯 Recalibrado v2: avanza Marruecos 57% / Canadá 43% (incluye penales); marcador por desnivel de rating (Δ10)."},
- {g:"OCTAVOS DE FINAL",f:"Sáb 4 jul",h:"17:00 ET",e1:"🇵🇾 Paraguay",e2:"🇫🇷 Francia",sede:"Lincoln Financial Field, Filadelfia",
-  p:[13,22,65],m:"3-0",alt:"Al aire — sin efecto",
-  clima:"~30 °C, tarde de verano en Filadelfia; cancha al aire",
-  arb:"Ilgiz Tantashev (Uzbekistán); asist. Tsapenko y Gaynullin; VAR Juan Lara (Chile)",
-  f1:"16avos: eliminó a Alemania (1-1, 4-3 pen.; Orlando Gill atajó dos)",
-  f2:"16avos: 3-0 a Suecia (doblete de Mbappé, ya con 6); ataque demoledor",
-  news:["Francia, gran favorita del cuadro, ante una Paraguay que hizo del orden y los penales su bandera.","Mbappé (6 goles) y Dembélé lideran el ataque más temido del torneo.","Paraguay confía en su bloque bajo, Orlando Gill y algún golpe de Enciso."],
-  an:"Francia es muy superior en talento y debería avanzar con claridad, pero Paraguay es un rival incomodísimo que ya tumbó a Alemania y llevará el partido al desgaste. 🎯 Recalibrado v2: avanza Francia 76% / Paraguay 24% (incluye penales); marcador por desnivel de rating (Δ18)."},
- {g:"OCTAVOS DE FINAL",f:"Dom 5 jul",h:"15:00 ET",e1:"🇧🇷 Brasil",e2:"🇳🇴 Noruega",sede:"MetLife Stadium, Nueva York",
-  p:[58,25,17],m:"2-1",alt:"Al aire — sin efecto",
-  clima:"~28 °C, húmedo y soleado en Nueva York/Nueva Jersey; cancha al aire",
+ {g:"CUARTOS DE FINAL",f:"Jue 9 jul",h:"16:00 ET",e1:"🇫🇷 Francia",e2:"🇲🇦 Marruecos",sede:"Boston Stadium (Gillette), Foxborough",
+  p:[46,29,25],m:"1-0",alt:"Al aire — sin efecto",
+  clima:"~26 °C, tarde de verano en Boston; cancha al aire",
   arb:"Designación arbitral por confirmar (FIFA la anuncia ~48 h antes)",
-  f1:"16avos: remontó 2-1 a Japón (Casemiro y Martinelli al 90+5'); Vinícius, 4 goles",
-  f2:"16avos: 2-1 a Costa de Marfil (Nusa y Haaland, ya con 5)",
-  news:["Duelo de prestigio entre el pentacampeón y una Noruega con Haaland como bandera.","Brasil se apoya en Vinícius, Rodrygo y Raphinha; sigue algo espeso en ataque.","Noruega sueña con la sorpresa si Haaland y Ødegaard se conectan."],
-  an:"Brasil tiene más fondo de plantel y debería imponerse, aunque Noruega con Haaland siempre amenaza a la contra. 🎯 Recalibrado v2: avanza Brasil 72% / Noruega 28% (incluye penales); marcador por desnivel de rating (Δ8)."},
- {g:"OCTAVOS DE FINAL",f:"Dom 5 jul",h:"19:00 ET",e1:"🇲🇽 México",e2:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",sede:"Estadio Azteca, Ciudad de México",
-  p:[33,31,36],m:"1-1",alt:"Altitud 2240 m — afecta a Inglaterra",
-  clima:"~20 °C, cielo variable con riesgo de lluvia vespertina en CDMX; altitud 2240 m",
+  f1:"Octavos: 1-0 a Paraguay; Francia mantiene el pleno de triunfos",
+  f2:"Octavos: 3-0 a Canadá; Marruecos, contundente",
+  news:["Reedición del duelo caliente de las semis de 2022: Francia parte favorita, pero Marruecos ya la dejó fuera del podio hace cuatro años.","Mbappé (7 g, colíder de la Bota) y Dembélé encabezan el ataque francés.","Marruecos se apoya en Hakimi, Saibari, En-Nesyri y la solidez de Bono."],
+  an:"Francia tiene más pegada, pero Marruecos es un rival hecho para los partidos únicos: bloque sólido y sin miedo. Cruce de rating muy ajustado (Δ4): puede irse a los penales. 🎯 Recalibrado v2: avanza Francia 62% / Marruecos 38% (incluye penales); marcador cerrado por bajo desnivel (Δ4)."},
+ {g:"CUARTOS DE FINAL",f:"Vie 10 jul",h:"17:00 ET",e1:"🇪🇸 España",e2:"🇧🇪 Bélgica",sede:"SoFi Stadium, Los Ángeles",
+  p:[57,25,18],m:"2-0",alt:"Al aire — sin efecto",
+  clima:"~28 °C, tarde soleada en Los Ángeles; cancha al aire",
   arb:"Designación arbitral por confirmar (FIFA la anuncia ~48 h antes)",
-  f1:"16avos: 2-0 a Ecuador en el Azteca (Quiñones y Raúl Jiménez); avanza por 1.ª vez desde 1986",
-  f2:"16avos: remontó 2-1 a RD Congo con doblete de Kane (ya con 5)",
-  news:["Derbi con máxima carga: el Azteca, la altitud y la localía son el gran activo de México.","Inglaterra parte favorita por fondo de plantel, con Kane y Bellingham.","México se aferra a Raúl Jiménez, Edson Álvarez y el aliento de su gente."],
-  an:"Inglaterra tiene más nivel individual, pero la altitud del Azteca y la localía achican la diferencia y disparan el riesgo de empate. Franja de favoritismo medio: el empate manda. 🎯 Recalibrado v2: avanza Inglaterra 53% / México 47% (incluye penales); empate al alza por la franja 50-60% (Δ6)."},
- {g:"OCTAVOS DE FINAL",f:"Lun 6 jul",h:"14:00 ET",e1:"🇵🇹 Portugal",e2:"🇪🇸 España",sede:"AT&T Stadium, Arlington (Dallas)",
-  p:[25,29,46],m:"2-0",alt:"Techo retráctil — sin efecto",
-  clima:"Techo cerrado, clima controlado (~22 °C) en Dallas",
+  f1:"Octavos: 1-0 a Portugal (Mikel Merino, agónico) en Dallas; Unai Simón, 5.ª valla",
+  f2:"Octavos: 3-1 a EE. UU. en Seattle (De Ketelaere); despertó a tiempo",
+  news:["España, la mejor defensa del torneo (Unai Simón aún no ha recibido goles), ante una Bélgica de jerarquía veterana.","Oyarzabal, Nico Williams, Pedri y Lamine Yamal guían a la Roja.","Bélgica se aferra a De Bruyne, Doku, Tielemans y De Ketelaere."],
+  an:"España llega más entera y con la defensa más fiable del torneo; Bélgica tiene talento para incomodarla, pero le falta regularidad. Desnivel claro (Δ12) a favor de la Roja. 🎯 Recalibrado v2: avanza España 71% / Bélgica 29% (incluye penales); marcador por desnivel de rating (Δ12)."},
+ {g:"CUARTOS DE FINAL",f:"Sáb 11 jul",h:"17:00 ET",e1:"🇳🇴 Noruega",e2:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",sede:"Hard Rock Stadium, Miami",
+  p:[30,28,42],m:"1-0",alt:"Al aire — sin efecto",
+  clima:"~31 °C y húmedo en Miami, con posibilidad de tormenta vespertina; cancha al aire",
   arb:"Designación arbitral por confirmar (FIFA la anuncia ~48 h antes)",
-  f1:"16avos: remontó 2-1 a Croacia (CR7 de penal al 67' y Gonçalo Ramos al 90+4')",
-  f2:"16avos: 3-0 a Austria (doblete de Oyarzabal y gol de Pedro Porro); Unai Simón, 4.ª valla",
-  news:["Cruce europeo de campanillas entre dos candidatas al título.","España llega con la mejor defensa del torneo: Unai Simón no ha recibido goles.","Portugal se aferra a CR7, Bruno Fernandes y una generación de talento."],
-  an:"España es la mejor defensa del torneo y llega algo más entera; Portugal tiene el talento para incomodarla en un derbi ibérico impredecible. 🎯 Recalibrado v2: avanza España 62% / Portugal 38% (incluye penales); marcador por desnivel de rating (Δ8)."},
- {g:"OCTAVOS DE FINAL",f:"Lun 6 jul",h:"19:00 ET",e1:"🇺🇸 Estados Unidos",e2:"🇧🇪 Bélgica",sede:"Lumen Field, Seattle",
-  p:[32,30,38],m:"1-1",alt:"Al aire — sin efecto",
-  clima:"~24 °C, tarde templada y despejada en Seattle; cancha al aire",
-  arb:"Designación arbitral por confirmar (FIFA la anuncia ~48 h antes)",
-  f1:"16avos: 2-1 a Turquía; el anfitrión avanza con el aliento de su gente",
-  f2:"16avos: remontó 3-2 a Senegal en la prórroga (doblete de Tielemans, el 2.º de penal al 120')",
-  news:["El anfitrión EE. UU. busca seguir soñando ante una Bélgica veterana.","Pulisic y Weah encabezan a un Estados Unidos crecido con la localía.","Bélgica se apoya en De Bruyne, Doku y Tielemans."],
-  an:"Partido parejo: Bélgica tiene algo más de jerarquía, pero EE. UU. corre con la localía y un ambiente a favor. 🎯 Recalibrado v2: avanza Bélgica 55% / Estados Unidos 45% (incluye penales); marcador ajustado por paridad (Δ4)."},
+  f1:"Octavos: BATACAZO, 2-1 a Brasil (doblete de Haaland; Nyland atajó un penal)",
+  f2:"Octavos: 3-2 a México en el Azteca (doblete de Bellingham; Kane de penal)",
+  news:["Noruega llega entonada tras dejar fuera a Brasil; Haaland (7 g) es colíder de la Bota.","Inglaterra parte favorita por fondo de plantel, con Kane, Bellingham y Foden.","Duelo de goleadores: Haaland vs Kane, con la Bota de Oro también en juego."],
+  an:"Inglaterra tiene más plantel y equilibrio, pero Noruega viene de tumbar a Brasil y con Haaland siempre está a un contragolpe del batacazo. Desnivel medio-bajo (Δ6): partido de pocos goles. 🎯 Recalibrado v2: avanza Inglaterra 57% / Noruega 43% (incluye penales); marcador cerrado (Δ6, 1-0 Inglaterra)."},
  {g:"OCTAVOS DE FINAL",f:"Mar 7 jul",h:"12:00 ET",e1:"🇦🇷 Argentina",e2:"🇪🇬 Egipto",sede:"Mercedes-Benz Stadium, Atlanta",
   p:[74,17,9],m:"3-1",alt:"Techo retráctil — sin efecto",
   clima:"Techo cerrado, clima controlado (~23 °C) en Atlanta",
-  arb:"Designación arbitral por confirmar (FIFA la anuncia ~48 h antes)",
+  arb:"Terna principal por confirmar; asist. Cyril Mugnier y Mehdi Rahmouni (Francia), 4.º Espen Eskas (Noruega)",
   f1:"16avos: 3-2 a Cabo Verde (Messi llegó a 7 goles y a 20 tantos mundialistas históricos)",
   f2:"16avos: eliminó a Australia (1-1, 4-2 pen.); Salah, la referencia",
   news:["Argentina, campeona vigente y líder del modelo, parte como gran favorita ante Egipto.","Messi (7 goles) lidera la Bota de Oro y estira su sueño mundialista.","Egipto confía en Salah y Marmoush para dar el golpe."],
@@ -542,12 +517,9 @@ const J1 = [
 // La tarea diaria actualiza este arreglo junto con J1.
 // ============================================================
 const PROPS = [
- {fa:{t:26,a:13,b:13,p1:[50,50]},am:{t:5.0,a:2.6,b:2.4,p1:[52,48],roja:12},co:{t:9.0,a:4.2,b:4.8,p1:[46,54]},li:{a:13,b:13},mi:{g1:47,g2:69,m2:57,m1t:"0-0 (26%)"},re:[["J. David (CAN)","3.0","1.4"],["J. Larin (CAN)","2.6","1.1"],["I. Saibari (MAR)","3.0","1.4"],["Y. En-Nesyri (MAR)","2.8","1.3"]],go:[["Ismael Saibari (MAR)",26],["Jonathan David (CAN)",24],["Youssef En-Nesyri (MAR)",22]]},
- {fa:{t:25,a:14,b:11,p1:[55,45]},am:{t:5.0,a:2.9,b:2.1,p1:[56,44],roja:12},co:{t:9.5,a:3.0,b:6.5,p1:[31,69]},li:{a:11,b:14},mi:{g1:48,g2:70,m2:56,m1t:"0-0 (26%)"},re:[["K. Mbappé (FRA)","4.0","2.0"],["O. Dembélé (FRA)","3.4","1.6"],["A. Sanabria (PAR)","2.4","1.0"],["J. Enciso (PAR)","2.2","0.9"]],go:[["Kylian Mbappé (FRA)",44],["Ousmane Dembélé (FRA)",30],["Antonio Sanabria (PAR)",15]]},
- {fa:{t:24,a:11,b:13,p1:[45,55]},am:{t:4.5,a:2.0,b:2.5,p1:[44,56],roja:10},co:{t:9.5,a:6.2,b:3.3,p1:[65,35]},li:{a:11,b:13},mi:{g1:49,g2:71,m2:56,m1t:"1-0 (24%)"},re:[["Vinícius Jr. (BRA)","3.6","1.7"],["Raphinha (BRA)","3.0","1.4"],["E. Haaland (NOR)","3.4","1.7"],["A. Sørloth (NOR)","2.4","1.0"]],go:[["Vinícius Júnior (BRA)",34],["Erling Haaland (NOR)",30],["Raphinha (BRA)",24]]},
- {fa:{t:26,a:14,b:12,p1:[53,47]},am:{t:5.5,a:2.9,b:2.6,p1:[52,48],roja:14},co:{t:9.0,a:3.8,b:5.2,p1:[42,58]},li:{a:14,b:12},mi:{g1:46,g2:68,m2:57,m1t:"0-0 (27%)"},re:[["H. Kane (ENG)","3.4","1.7"],["J. Bellingham (ENG)","2.8","1.2"],["R. Jiménez (MEX)","2.6","1.1"],["A. Vega (MEX)","2.2","0.9"]],go:[["Harry Kane (ENG)",32],["Raúl Jiménez (MEX)",22],["Jude Bellingham (ENG)",20]]},
- {fa:{t:25,a:13,b:12,p1:[52,48]},am:{t:5.0,a:2.7,b:2.3,p1:[54,46],roja:12},co:{t:9.5,a:3.6,b:5.9,p1:[38,62]},li:{a:12,b:13},mi:{g1:45,g2:67,m2:56,m1t:"0-0 (28%)"},re:[["C. Ronaldo (POR)","3.2","1.5"],["B. Fernandes (POR)","2.8","1.2"],["M. Oyarzabal (ESP)","3.0","1.4"],["N. Williams (ESP)","2.8","1.3"]],go:[["Mikel Oyarzabal (ESP)",26],["Cristiano Ronaldo (POR)",24],["Nico Williams (ESP)",22]]},
- {fa:{t:25,a:13,b:12,p1:[51,49]},am:{t:5.0,a:2.6,b:2.4,p1:[50,50],roja:11},co:{t:9.0,a:4.3,b:4.7,p1:[48,52]},li:{a:12,b:13},mi:{g1:47,g2:69,m2:57,m1t:"0-0 (26%)"},re:[["C. Pulisic (USA)","3.0","1.4"],["F. Balogun (USA)","2.6","1.1"],["K. De Bruyne (BEL)","3.2","1.5"],["J. Doku (BEL)","2.8","1.3"]],go:[["Christian Pulisic (USA)",26],["Kevin De Bruyne (BEL)",24],["Jérémy Doku (BEL)",22]]},
+ {fa:{t:25,a:12,b:13,p1:[48,52]},am:{t:5.5,a:2.6,b:2.9,p1:[47,53],roja:14},co:{t:9.0,a:5.4,b:3.6,p1:[58,42]},li:{a:12,b:13},mi:{g1:45,g2:67,m2:57,m1t:"0-0 (28%)"},re:[["K. Mbappé (FRA)","3.8","1.9"],["O. Dembélé (FRA)","3.2","1.5"],["Y. En-Nesyri (MAR)","2.6","1.1"],["I. Saibari (MAR)","2.4","1.0"]],go:[["Kylian Mbappé (FRA)",40],["Ousmane Dembélé (FRA)",26],["Youssef En-Nesyri (MAR)",22]]},
+ {fa:{t:24,a:11,b:13,p1:[46,54]},am:{t:5.0,a:2.3,b:2.7,p1:[45,55],roja:12},co:{t:9.5,a:5.6,b:3.9,p1:[59,41]},li:{a:13,b:12},mi:{g1:44,g2:66,m2:56,m1t:"0-0 (29%)"},re:[["M. Oyarzabal (ESP)","3.0","1.4"],["N. Williams (ESP)","2.8","1.3"],["K. De Bruyne (BEL)","3.0","1.4"],["J. Doku (BEL)","2.6","1.1"]],go:[["Mikel Oyarzabal (ESP)",28],["Nico Williams (ESP)",24],["Kevin De Bruyne (BEL)",20]]},
+ {fa:{t:25,a:12,b:13,p1:[48,52]},am:{t:5.5,a:2.7,b:2.8,p1:[49,51],roja:13},co:{t:9.0,a:3.8,b:5.2,p1:[42,58]},li:{a:12,b:13},mi:{g1:47,g2:69,m2:57,m1t:"0-0 (27%)"},re:[["E. Haaland (NOR)","3.4","1.7"],["A. Nusa (NOR)","2.4","1.0"],["H. Kane (ENG)","3.4","1.7"],["J. Bellingham (ENG)","2.8","1.3"]],go:[["Erling Haaland (NOR)",34],["Harry Kane (ENG)",32],["Jude Bellingham (ENG)",22]]},
  {fa:{t:23,a:11,b:12,p1:[46,54]},am:{t:4.5,a:1.9,b:2.6,p1:[42,58],roja:10},co:{t:9.5,a:6.6,b:2.9,p1:[70,30]},li:{a:13,b:10},mi:{g1:51,g2:72,m2:56,m1t:"1-0 (26%)"},re:[["L. Messi (ARG)","3.6","1.8"],["J. Álvarez (ARG)","3.0","1.4"],["M. Salah (EGY)","3.0","1.4"],["O. Marmoush (EGY)","2.6","1.1"]],go:[["Lionel Messi (ARG)",44],["Julián Álvarez (ARG)",30],["Mohamed Salah (EGY)",22]]},
  {fa:{t:26,a:13,b:13,p1:[50,50]},am:{t:5.0,a:2.5,b:2.5,p1:[50,50],roja:12},co:{t:9.0,a:4.4,b:4.6,p1:[49,51]},li:{a:13,b:13},mi:{g1:46,g2:68,m2:57,m1t:"0-0 (27%)"},re:[["B. Embolo (SUI)","2.8","1.3"],["D. Ndoye (SUI)","2.6","1.1"],["L. Díaz (COL)","3.0","1.4"],["J. Córdoba (COL)","2.8","1.2"]],go:[["Luis Díaz (COL)",26],["Breel Embolo (SUI)",22],["Jhon Córdoba (COL)",22]]},
 ];
@@ -975,11 +947,13 @@ renderSim();
 // pj (partidos), vi (vallas invictas), gc (goles en contra)
 // ============================================================
 const BOTA = [
- {j:"Lionel Messi",c:"ARG",g:7,a:0,pj:4,fav:1,nota:"16avos: marcó ante Cabo Verde (3-2) para llegar a 7 goles y ser líder en solitario de la Bota; máximo goleador histórico de los Mundiales (20). Argentina, a octavos ante Egipto"},
- {j:"Kylian Mbappé",c:"FRA",g:6,a:2,pj:4,nota:"Seis goles: dobletes a Senegal, Irak y Suecia (16avos); a un gol de Messi en la Bota. Francia, a octavos ante Paraguay"},
+ {j:"Kylian Mbappé",c:"FRA",g:7,a:2,pj:5,fav:1,nota:"Octavos: marcó el 1-0 a Paraguay para llegar a 7 goles; lidera la Bota por asistencias (2) en el triple empate. Francia, a cuartos ante Marruecos"},
+ {j:"Lionel Messi",c:"ARG",g:7,a:0,pj:4,nota:"Siete goles y máximo goleador histórico de los Mundiales (20); empatado en la cima pero 2.º por asistencias. Argentina cierra hoy los octavos ante Egipto"},
+ {j:"Erling Haaland",c:"NOR",g:7,a:0,pj:5,nota:"Octavos: doblete a Brasil (2-1) para llegar a 7 y meterse en el triple empate por la Bota; Noruega, a cuartos ante Inglaterra"},
+ {j:"Harry Kane",c:"ENG",g:6,a:0,pj:5,nota:"Seis goles: penal ante México (3-2) que suma a su doblete a Croacia y a los tantos a Panamá y RD Congo; Inglaterra, a cuartos ante Noruega"},
+ {j:"Jude Bellingham",c:"ENG",g:4,a:0,pj:5,nota:"Octavos: doblete a México (3-2); motor total de Inglaterra, ya con 4 goles"},
  {j:"Ousmane Dembélé",c:"FRA",g:4,a:0,pj:3,nota:"Hat-trick ante Noruega en solo 32 minutos, el 2.º más rápido en la historia de los Mundiales"},
- {j:"Erling Haaland",c:"NOR",g:5,a:0,pj:4,nota:"Cinco goles: dobletes a Irak y Senegal y el 2-1 (86') a Costa de Marfil que metió a Noruega ante Brasil"},
- {j:"Vinícius Jr.",c:"BRA",g:4,a:0,pj:3,nota:"Doblete ante Escocia más goles a Marruecos y Haití: cuatro tantos y desequilibrio total"},
+ {j:"Vinícius Jr.",c:"BRA",g:4,a:0,pj:3,nota:"Cuatro tantos y desequilibrio total, pero Brasil cayó en octavos ante Noruega y quedó eliminado"},
  {j:"Matheus Cunha",c:"BRA",g:3,a:0,pj:3,nota:"Doblete ante Haití y gol ante Escocia; tres tantos en la Brasil que recuperó la pegada"},
  {j:"Ismael Saibari",c:"MAR",g:3,a:0,pj:3,nota:"Goles ante Brasil, Escocia y Haití; el destapado marroquí, 2.º del grupo C"},
  {j:"Jonathan David",c:"CAN",g:3,a:0,pj:3,nota:"Hat-trick en el histórico 6-0 a Qatar; Canadá clasificó 2.ª del grupo B"},
@@ -1041,8 +1015,8 @@ const BOTA = [
  {j:"Jhon Arias",c:"COL",g:1,a:0,pj:4,nota:"16avos: gol tempranero (14') en el 1-0 a Ghana que clasificó a Colombia a octavos"}
 ];
 const BALON = [
- {j:"Lionel Messi",c:"ARG",g:7,a:0,pj:4,fav:1,nota:"Siete goles y máximo goleador histórico de los Mundiales (20); marcó en el 3-2 a Cabo Verde y guía a Argentina a octavos: la cara del torneo"},
- {j:"Kylian Mbappé",c:"FRA",g:6,a:2,pj:4,nota:"Seis goles (doblete a Suecia en 16avos) y dos asistencias; a un gol de Messi en la Bota y guía a Francia a octavos"},
+ {j:"Lionel Messi",c:"ARG",g:7,a:0,pj:4,fav:1,nota:"Siete goles y máximo goleador histórico de los Mundiales (20); la cara del torneo, con Argentina cerrando hoy los octavos ante Egipto"},
+ {j:"Kylian Mbappé",c:"FRA",g:7,a:2,pj:5,nota:"Siete goles y dos asistencias; colíder de la Bota (1.º por asistencias) y guía a Francia a cuartos ante Marruecos"},
  {j:"Ousmane Dembélé",c:"FRA",g:4,a:0,pj:3,nota:"Hat-trick relámpago (32') ante Noruega; desequilibrio y gol en la Francia con pleno de puntos"},
  {j:"Lamine Yamal",c:"ESP",g:1,a:0,pj:3,nota:"Marcó en el 4-0 a Arabia y desniveló ante Uruguay; la joya de la candidata europea"},
  {j:"Vinícius Jr.",c:"BRA",g:4,a:0,pj:3,nota:"Cuatro goles —doblete ante Escocia incluido— y desequilibrio constante en la Brasil líder del grupo C"},
@@ -1054,8 +1028,8 @@ const BALON = [
  {j:"Achraf Hakimi",c:"MAR",g:1,a:0,pj:3,nota:"Gol y asistencia ante Haití; el capitán-motor del Marruecos que pasó 2.º del grupo C"}
 ];
 const GUANTE = [
- {j:"José Raúl 'Tala' Rangel",c:"MEX",vi:4,gc:0,pj:4,fav:1,nota:"Cuatro vallas invictas (2-0 RSA, 1-0 KOR, 3-0 CZE y 2-0 a Ecuador en 16avos); líder único del Guante y México a octavos sin recibir goles"},
- {j:"Unai Simón",c:"ESP",vi:4,gc:0,pj:4,nota:"Cuatro vallas invictas (0-0 Cabo Verde, 4-0 Arabia, 1-0 Uruguay y 3-0 a Austria en 16avos); iguala a Tala Rangel en la cima del Guante, aún sin recibir goles"},
+ {j:"Unai Simón",c:"ESP",vi:5,gc:0,pj:5,fav:1,nota:"Cinco vallas invictas (0-0 Cabo Verde, 4-0 Arabia, 1-0 Uruguay, 3-0 Austria y 1-0 a Portugal en octavos); líder único del Guante y aún sin recibir goles, con España en cuartos"},
+ {j:"José Raúl 'Tala' Rangel",c:"MEX",vi:4,gc:0,pj:4,nota:"Cuatro vallas invictas (2-0 RSA, 1-0 KOR, 3-0 CZE y 2-0 a Ecuador en 16avos); México cayó 3-2 con Inglaterra en octavos y quedó eliminado sin que él fallara"},
  {j:"Emiliano 'Dibu' Martínez",c:"ARG",vi:2,gc:2,pj:3,nota:"Vallas invictas ante Argelia y Austria, pero encajó dos en el sufrido 3-2 a Cabo Verde en 16avos; aun así, Argentina avanzó a octavos"},
  {j:"Diogo Costa",c:"POR",vi:2,gc:1,pj:3,nota:"Ceros en el 5-0 a Uzbekistán y el 0-0 ante Colombia; Portugal pasó 2.º del grupo K"},
  {j:"Camilo Vargas",c:"COL",vi:3,gc:1,pj:4,nota:"Tres vallas invictas (1-0 RD Congo, 0-0 Portugal y 1-0 a Ghana en 16avos); Colombia, líder del grupo K, avanza a octavos sin encajar en eliminatoria"},
@@ -1069,7 +1043,7 @@ const GUANTE = [
  {j:"Matt Freese",c:"USA",vi:1,gc:0,pj:1,nota:"16avos: cero con 3 atajadas en el 2-0 a Bosnia, con EE. UU. jugando con uno menos"}
 ];
 const JOVEN = [
- {j:"Lamine Yamal",c:"ESP",g:1,a:0,pj:4,fav:1,nota:"18 años, la joya del torneo: España goleó 3-0 a Austria y avanza a octavos ante Portugal; sigue siendo el jugador más desequilibrante de su generación"},
+ {j:"Lamine Yamal",c:"ESP",g:1,a:0,pj:5,fav:1,nota:"18 años, la joya del torneo: España venció 1-0 a Portugal y avanza a cuartos ante Bélgica; sigue siendo el jugador más desequilibrante de su generación"},
  {j:"Désiré Doué",c:"FRA",g:1,a:0,pj:2,nota:"20 años: cerró el 4-1 a Noruega en el descuento; recambio de garantías en la Francia líder del grupo I"},
  {j:"Nestory Irankunda",c:"AUS",g:1,a:0,pj:2,nota:"Golazo individual de 20 años en el 2-0 a Turquía; Australia pelea el 2.º puesto del grupo D"},
  {j:"Endrick",c:"BRA",g:0,a:0,pj:1,nota:"Revulsivo de lujo de Ancelotti; le anularon un gol ante Haití"},
@@ -1118,7 +1092,10 @@ const CAL = [
  ["Sábado 4 de julio · Octavos de final",[["13:00","8vos","🇨🇦 Canadá","🇲🇦 Marruecos","NRG Stadium, Houston"],["17:00","8vos","🇵🇾 Paraguay","🇫🇷 Francia","Lincoln Financial Field, Filadelfia"]]],
  ["Domingo 5 de julio · Octavos de final",[["15:00","8vos","🇧🇷 Brasil","🇳🇴 Noruega","MetLife Stadium, Nueva York"],["19:00","8vos","🇲🇽 México","🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra","Estadio Azteca, Ciudad de México"]]],
  ["Lunes 6 de julio · Octavos de final",[["14:00","8vos","🇵🇹 Portugal","🇪🇸 España","AT&T Stadium, Arlington"],["19:00","8vos","🇺🇸 Estados Unidos","🇧🇪 Bélgica","Lumen Field, Seattle"]]],
- ["Martes 7 de julio · Octavos de final",[["12:00","8vos","🇦🇷 Argentina","🇪🇬 Egipto","Mercedes-Benz Stadium, Atlanta"],["16:00","8vos","🇨🇭 Suiza","🇨🇴 Colombia","BC Place, Vancouver"]]]
+ ["Martes 7 de julio · Octavos de final",[["12:00","8vos","🇦🇷 Argentina","🇪🇬 Egipto","Mercedes-Benz Stadium, Atlanta"],["16:00","8vos","🇨🇭 Suiza","🇨🇴 Colombia","BC Place, Vancouver"]]],
+ ["Jueves 9 de julio · Cuartos de final",[["16:00","4tos","🇫🇷 Francia","🇲🇦 Marruecos","Boston Stadium (Gillette), Foxborough"]]],
+ ["Viernes 10 de julio · Cuartos de final",[["17:00","4tos","🇪🇸 España","🇧🇪 Bélgica","SoFi Stadium, Los Ángeles"]]],
+ ["Sábado 11 de julio · Cuartos de final",[["17:00","4tos","🇳🇴 Noruega","🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra","Hard Rock Stadium, Miami"]]]
 ];
 document.getElementById('cal').innerHTML = CAL.map(([dia,ps])=>`<div class="dia"><h3>${dia}</h3>${
   ps.map(p=>{const c1=codeDe(p[2].split(' ').slice(1).join(' ')),c2=codeDe(p[3].split(' ').slice(1).join(' '));const enJ1=J1.some(x=>x.e1===p[2]&&x.e2===p[3]);const et=/^[A-L]$/.test(p[1])?('Grupo '+p[1]):p[1];const attrs=enJ1?(' onclick="verPronostico(\''+c1+'\',\''+c2+'\')" title="Ver pronóstico del partido"'):'';return `<div class="pline${enJ1?' clk':''}"${attrs}><span class="hora">${p[0]} ET</span><span class="g">${et}</span><span style="flex:1;text-align:center">${equipo(p[2])} <b style="color:var(--mut)">vs</b> ${equipo(p[3])}</span><span class="sede">${p[4]}</span></div>`;}).join('')
@@ -1233,11 +1210,11 @@ function verEquipo(c){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ====== VALOR & PARLAYS (Ronda de 32) ======
-const VALOR=[{"t1": "Canadá", "t2": "Marruecos", "fecha": "Sáb 4 jul · 13:00 ET", "picks": [{"m": "Avanza a cuartos: Marruecos", "pr": 57, "cl": "Baja", "cc": "baja"}, {"m": "Más de 2.5 goles", "pr": 51, "cl": "Baja", "cc": "baja"}, {"m": "Ambos equipos marcan: Sí", "pr": 55, "cl": "Baja", "cc": "baja"}], "nota": "Marcador del modelo: 2-1 Marruecos. Cruce más abierto de lo que dice el papel; Canadá corre con la localía continental."}, {"t1": "Paraguay", "t2": "Francia", "fecha": "Sáb 4 jul · 17:00 ET", "picks": [{"m": "Avanza a cuartos: Francia", "pr": 76, "cl": "Alta", "cc": "alta"}, {"m": "Más de 2.5 goles", "pr": 52, "cl": "Baja", "cc": "baja"}], "nota": "Marcador del modelo: 3-0 Francia. Favorito con margen, pero Paraguay ya tumbó a Alemania: ojo al desgaste."}, {"t1": "Brasil", "t2": "Noruega", "fecha": "Dom 5 jul · 15:00 ET", "picks": [{"m": "Avanza a cuartos: Brasil", "pr": 72, "cl": "Alta", "cc": "alta"}, {"m": "Más de 2.5 goles", "pr": 54, "cl": "Media", "cc": "media"}, {"m": "Ambos equipos marcan: Sí", "pr": 56, "cl": "Media", "cc": "media"}], "nota": "Marcador del modelo: 2-1 Brasil. Haaland mantiene viva a Noruega a la contra."}, {"t1": "México", "t2": "Inglaterra", "fecha": "Dom 5 jul · 19:00 ET", "picks": [{"m": "Avanza a cuartos: Inglaterra", "pr": 53, "cl": "Baja", "cc": "baja"}, {"m": "Menos de 2.5 goles", "pr": 57, "cl": "Media", "cc": "media"}, {"m": "Ambos equipos marcan: Sí", "pr": 52, "cl": "Baja", "cc": "baja"}], "nota": "Marcador del modelo: 1-1. La altitud del Azteca y la localía disparan el empate; partido con pinta de penales."}, {"t1": "Portugal", "t2": "España", "fecha": "Lun 6 jul · 14:00 ET", "picks": [{"m": "Avanza a cuartos: España", "pr": 62, "cl": "Media", "cc": "media"}, {"m": "Menos de 2.5 goles", "pr": 58, "cl": "Media", "cc": "media"}], "nota": "Marcador del modelo: 2-0 España. La mejor defensa del torneo (Unai Simón, 4 vallas) ante el talento de CR7."}, {"t1": "Estados Unidos", "t2": "Bélgica", "fecha": "Lun 6 jul · 19:00 ET", "picks": [{"m": "Avanza a cuartos: Bélgica", "pr": 55, "cl": "Baja", "cc": "baja"}, {"m": "Menos de 2.5 goles", "pr": 56, "cl": "Media", "cc": "media"}, {"m": "Ambos equipos marcan: Sí", "pr": 54, "cl": "Baja", "cc": "baja"}], "nota": "Marcador del modelo: 1-1. Bélgica tiene algo más de jerarquía; EE. UU. empuja con su gente."}, {"t1": "Argentina", "t2": "Egipto", "fecha": "Mar 7 jul · 12:00 ET", "picks": [{"m": "Avanza a cuartos: Argentina", "pr": 83, "cl": "Alta", "cc": "alta"}, {"m": "Más de 2.5 goles", "pr": 58, "cl": "Media", "cc": "media"}], "nota": "Marcador del modelo: 3-1 Argentina. Messi lidera la Bota (7 g); Salah puede maquillar."}, {"t1": "Suiza", "t2": "Colombia", "fecha": "Mar 7 jul · 16:00 ET", "picks": [{"m": "Avanza a cuartos: Colombia", "pr": 54, "cl": "Baja", "cc": "baja"}, {"m": "Menos de 2.5 goles", "pr": 57, "cl": "Media", "cc": "media"}, {"m": "Ambos equipos marcan: Sí", "pr": 53, "cl": "Baja", "cc": "baja"}], "nota": "Marcador del modelo: 1-1. Rating casi calcado (Δ1); probable definición por penales."}];
-const PARLAYS=[{"t": "Combinada conservadora (2 selecciones)", "legs": ["Argentina avanza (83%)", "Francia avanza (76%)"], "p": 63}, {"t": "Combinada de 3 selecciones", "legs": ["Argentina avanza (83%)", "Francia avanza (76%)", "Brasil avanza (72%)"], "p": 45}, {"t": "Combinada de valor (4) — mayor riesgo", "legs": ["Argentina avanza (83%)", "Francia avanza (76%)", "Brasil avanza (72%)", "España avanza (62%)"], "p": 28}];
+// ====== VALOR & PARLAYS (Cuartos de final + últimos octavos) ======
+const VALOR=[{"t1": "Argentina", "t2": "Egipto", "fecha": "Mar 7 jul · 12:00 ET (octavos)", "picks": [{"m": "Avanza a cuartos: Argentina", "pr": 83, "cl": "Alta", "cc": "alta"}, {"m": "Más de 2.5 goles", "pr": 58, "cl": "Media", "cc": "media"}], "nota": "Marcador del modelo: 3-1 Argentina. Messi (7 g) colidera la Bota; Salah puede maquillar."}, {"t1": "Suiza", "t2": "Colombia", "fecha": "Mar 7 jul · 16:00 ET (octavos)", "picks": [{"m": "Avanza a cuartos: Colombia", "pr": 54, "cl": "Baja", "cc": "baja"}, {"m": "Menos de 2.5 goles", "pr": 57, "cl": "Media", "cc": "media"}, {"m": "Ambos equipos marcan: Sí", "pr": 53, "cl": "Baja", "cc": "baja"}], "nota": "Marcador del modelo: 1-1. Rating casi calcado (Δ1); probable definición por penales."}, {"t1": "Francia", "t2": "Marruecos", "fecha": "Jue 9 jul · 16:00 ET (cuartos)", "picks": [{"m": "Avanza a semis: Francia", "pr": 62, "cl": "Media", "cc": "media"}, {"m": "Menos de 2.5 goles", "pr": 56, "cl": "Media", "cc": "media"}], "nota": "Marcador del modelo: 1-0 Francia. Reedición de 2022; Marruecos, hueso durísimo a partido único (Δ4)."}, {"t1": "España", "t2": "Bélgica", "fecha": "Vie 10 jul · 17:00 ET (cuartos)", "picks": [{"m": "Avanza a semis: España", "pr": 71, "cl": "Media", "cc": "media"}, {"m": "Menos de 2.5 goles", "pr": 58, "cl": "Media", "cc": "media"}], "nota": "Marcador del modelo: 2-0 España. La mejor defensa del torneo (Unai Simón, 0 goles en contra)."}, {"t1": "Noruega", "t2": "Inglaterra", "fecha": "Sáb 11 jul · 17:00 ET (cuartos)", "picks": [{"m": "Avanza a semis: Inglaterra", "pr": 57, "cl": "Baja", "cc": "baja"}, {"m": "Ambos equipos marcan: Sí", "pr": 55, "cl": "Media", "cc": "media"}], "nota": "Marcador del modelo: 1-0 Inglaterra. Haaland vs Kane, con la Bota de Oro también en juego (Δ6)."}];
+const PARLAYS=[{"t": "Combinada conservadora (2 selecciones)", "legs": ["Argentina avanza (83%)", "España avanza (71%)"], "p": 59}, {"t": "Combinada de 3 selecciones", "legs": ["Argentina avanza (83%)", "España avanza (71%)", "Francia avanza (62%)"], "p": 37}, {"t": "Combinada de valor (4) — mayor riesgo", "legs": ["Argentina avanza (83%)", "España avanza (71%)", "Francia avanza (62%)", "Inglaterra avanza (57%)"], "p": 21}];
 
-if(document.getElementById("valorBox")){document.getElementById("valorBox").innerHTML = "<div class=\"vdisc\"><b>⚠️ Lee esto primero.</b> Análisis informativo con probabilidades del modelo. <b>Ninguna apuesta es segura:</b> el porcentaje es la probabilidad estimada de acierto, no una garantía. Esto <b>no es asesoría financiera</b> ni una invitación a apostar. Las combinadas multiplican el riesgo: a más selecciones, menos probable acertarlas todas. Apuesta solo lo que puedas permitirte perder y juega de forma responsable.</div>" + VALOR.map(v=>`<div class="vcard"><h4>${equipo("_ "+v.t1)} <span style="color:var(--mut);font-weight:400">vs</span> ${equipo("_ "+v.t2)}</h4><div class="vmeta">${v.fecha}</div>${v.picks.map(p=>`<div class="pick"><span class="mk">${p.m}</span><span class="pr">${p.pr}%</span><span class="cf ${p.cc}">${p.cl}</span></div>`).join("")}<div class="vnota"><b>Lectura:</b> ${v.nota}</div></div>`).join("") + `<h2 style="color:var(--gold);font-size:1.15rem;margin:24px 0 12px;border-bottom:1px solid var(--line);padding-bottom:8px">🎲 Parlays sugeridos — Octavos de final</h2>` + PARLAYS.map(p=>`<div class="parlay"><div class="ph"><span class="pt">${p.t}</span><span class="pp">${p.p}%</span></div><ul>${p.legs.map(l=>`<li>${l}</li>`).join("")}</ul><div class="risk">Probabilidad estimada de acertar TODAS las selecciones: ${p.p}%. Cuantas más patas, menor la probabilidad.</div></div>`).join("");}
+if(document.getElementById("valorBox")){document.getElementById("valorBox").innerHTML = "<div class=\"vdisc\"><b>⚠️ Lee esto primero.</b> Análisis informativo con probabilidades del modelo. <b>Ninguna apuesta es segura:</b> el porcentaje es la probabilidad estimada de acierto, no una garantía. Esto <b>no es asesoría financiera</b> ni una invitación a apostar. Las combinadas multiplican el riesgo: a más selecciones, menos probable acertarlas todas. Apuesta solo lo que puedas permitirte perder y juega de forma responsable.</div>" + VALOR.map(v=>`<div class="vcard"><h4>${equipo("_ "+v.t1)} <span style="color:var(--mut);font-weight:400">vs</span> ${equipo("_ "+v.t2)}</h4><div class="vmeta">${v.fecha}</div>${v.picks.map(p=>`<div class="pick"><span class="mk">${p.m}</span><span class="pr">${p.pr}%</span><span class="cf ${p.cc}">${p.cl}</span></div>`).join("")}<div class="vnota"><b>Lectura:</b> ${v.nota}</div></div>`).join("") + `<h2 style="color:var(--gold);font-size:1.15rem;margin:24px 0 12px;border-bottom:1px solid var(--line);padding-bottom:8px">🎲 Parlays sugeridos — Cuartos y últimos octavos</h2>` + PARLAYS.map(p=>`<div class="parlay"><div class="ph"><span class="pt">${p.t}</span><span class="pp">${p.p}%</span></div><ul>${p.legs.map(l=>`<li>${l}</li>`).join("")}</ul><div class="risk">Probabilidad estimada de acertar TODAS las selecciones: ${p.p}%. Cuantas más patas, menor la probabilidad.</div></div>`).join("");}
 </script>
 </body>
 </html>
